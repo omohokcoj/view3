@@ -1,0 +1,140 @@
+.#{$drawer-prefix-cls} {
+  height: 100%;
+  position: fixed;
+  top: 0;
+  width: auto;
+
+  &-inner {
+    position: absolute;
+  }
+
+  &-left {
+    left: 0;
+  }
+
+  &-right {
+    right: 0;
+  }
+
+  &-hidden {
+    display: none !important;
+  }
+
+  &-wrap {
+    bottom: 0;
+    left: 0;
+    outline: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: $zindex-drawer;
+
+    &-inner {
+      overflow: hidden;
+      position: absolute;
+    }
+
+    &-dragging {
+      user-select: none;
+    }
+  }
+
+  &-wrap * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+
+  &-mask {
+    @include mask;
+
+    &-inner {
+      position: absolute;
+    }
+  }
+
+  &-content {
+    background-clip: padding-box;
+    background-color: #fff;
+    border: 0;
+    bottom: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    &-no-mask {
+      pointer-events: auto;
+    }
+  }
+
+  &-header {
+    @include content-header;
+  }
+
+  &-close {
+    @include content-close(1px, 31px);
+    z-index: 1;
+  }
+
+  &-body {
+    font-size: $font-size-base;
+    height: calc(100% - 51px);
+    line-height: 1.5;
+    overflow: auto;
+    padding: 16px;
+    position: absolute;
+    width: 100%;
+    word-wrap: break-word;
+  }
+
+  &-no-header &-body {
+    height: 100%;
+  }
+
+  &-no-mask {
+    pointer-events: none;
+
+    .#{$drawer-prefix-cls}-drag {
+      pointer-events: auto;
+    }
+  }
+
+  &-drag {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 0;
+
+    &-left {
+      right: 0;
+    }
+
+    &-move-trigger {
+      background: rgb(243, 243, 243);
+      border-radius: unquote('4px / 6px');
+      box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+      cursor: col-resize;
+      height: 100px;
+      line-height: 100px;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+
+      &-point {
+        display: inline-block;
+        transform: translateX(50%);
+        width: 50%;
+
+        i {
+          border-bottom: 1px solid rgb(192, 192, 192);
+          display: block;
+          padding-bottom: 2px;
+        }
+      }
+    }
+  }
+}

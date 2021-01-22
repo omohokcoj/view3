@@ -1,0 +1,245 @@
+.#{$input-prefix-cls} {
+  @include input;
+
+  &-wrapper {
+    display: inline-block;
+
+    // #2149 & #2219
+    line-height: normal;
+    position: relative;
+    vertical-align: middle;
+    width: 100%;
+  }
+
+  &-icon {
+    color: $subsidiary-color;
+    font-size: 16px;
+    height: $input-height-base;
+    line-height: $input-height-base;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    width: 32px;
+    z-index: 3;
+  }
+
+  &-hide-icon &-icon {
+    display: none;
+  }
+
+  &-icon-validate {
+    display: none;
+  }
+
+  &-icon-clear {
+    display: none;
+  }
+
+  &-wrapper:hover {
+    .#{$input-prefix-cls}-icon-clear {
+      display: inline-block;
+    }
+  }
+
+  &-icon-normal + & {
+    padding-right: 32px;
+  }
+  // #554
+  &-hide-icon &-icon-normal + & {
+    padding-right: $input-padding-horizontal;
+  }
+
+  &-wrapper-large &-icon {
+    font-size: 18px;
+    height: $input-height-large;
+    line-height: $input-height-large;
+  }
+
+  &-wrapper-small &-icon {
+    font-size: 14px;
+    height: $input-height-small;
+    line-height: $input-height-small;
+    width: 24px;
+
+    //+ .#{$input-prefix-cls} {
+    //    padding-right: 24px;
+    //}
+  }
+
+  // prefix & suffix
+  &-prefix,
+  &-suffix {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 32px;
+    z-index: 1;
+
+    i {
+      color: $subsidiary-color;
+      font-size: 16px;
+      line-height: $input-height-base;
+    }
+  }
+
+  &-suffix {
+    left: auto;
+    right: 0;
+  }
+
+  &-wrapper-small &-prefix,
+  &-wrapper-small &-suffix {
+    i {
+      font-size: 14px;
+      line-height: $input-height-small;
+    }
+  }
+
+  &-wrapper-large &-prefix,
+  &-wrapper-large &-suffix {
+    i {
+      font-size: 18px;
+      line-height: $input-height-large;
+    }
+  }
+
+  &-with-prefix {
+    padding-left: 32px;
+  }
+
+  &-with-suffix {
+    padding-right: 32px;
+  }
+
+  // search
+  &-search {
+    background: $primary-color !important;
+    border-color: $primary-color !important;
+    color: #fff !important;
+    cursor: pointer;
+    padding: 0 16px !important;
+    position: relative;
+    transition: all $transition-time $ease-in-out;
+    z-index: 2;
+
+    i {
+      font-size: 16px;
+    }
+
+    &:hover {
+      background: tint($primary-color, 20%) !important;
+      border-color: tint($primary-color, 20%) !important;
+    }
+
+    &:active {
+      background: shade($primary-color, 5%) !important;
+      border-color: shade($primary-color, 5%) !important;
+    }
+
+    &-icon {
+      cursor: pointer;
+      transition: color $transition-time $ease-in-out;
+
+      &:hover {
+        color: inherit;
+      }
+    }
+
+    &::before {
+      background: inherit;
+      bottom: -1px;
+      content: '';
+      display: block;
+      left: -1px;
+      position: absolute;
+      top: -1px;
+      width: 1px;
+    }
+  }
+
+  &-wrapper-small &-search {
+    padding: 0 12px !important;
+
+    i {
+      font-size: 14px;
+    }
+  }
+
+  &-wrapper-large &-search {
+    padding: 0 20px !important;
+
+    i {
+      font-size: 18px;
+    }
+  }
+
+  &-with-search {
+    &:hover {
+      .#{$input-prefix-cls} {
+        border-color: tint($primary-color, 20%);
+      }
+    }
+  }
+
+  &-word-count {
+    align-items: center;
+    background: #fff;
+    bottom: 2px;
+    color: $subsidiary-color;
+    display: inline-flex;
+    font-size: $font-size-small;
+    padding-left: $input-padding-horizontal;
+    position: absolute;
+    right: $input-padding-horizontal;
+    text-align: center;
+    top: 2px;
+    z-index: 1;
+  }
+
+  &-wrapper-disabled &-word-count {
+    background: $input-disabled-bg;
+  }
+
+  &-type-textarea &-word-count {
+    align-items: flex-end;
+    top: auto;
+  }
+}
+
+.#{$input-prefix-cls}-group {
+  @include input-group(unquote('#{$input-prefix-cls}'));
+}
+
+.#{$form-item-prefix-cls}-error {
+  .#{$input-prefix-cls} {
+    @include input-error;
+
+    &-icon {
+      color: $error-color;
+    }
+  }
+  .#{$input-prefix-cls}-group {
+    @include input-group-error;
+  }
+  .#{$transfer-prefix-cls} {
+    .#{$input-prefix-cls} {
+      @include input;
+
+      &-icon {
+        color: $subsidiary-color;
+      }
+    }
+  }
+}
+.#{$form-item-prefix-cls}-validating {
+  .#{$input-prefix-cls} {
+    &-icon-validate {
+      display: inline-block;
+    }
+    &-icon + .#{$input-prefix-cls} {
+      padding-right: 32px;
+    }
+  }
+}

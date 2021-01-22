@@ -1,0 +1,357 @@
+.#{$date-picker-prefix-cls} {
+  //position: relative;
+  display: inline-block;
+  line-height: normal;
+
+  &-rel {
+    position: relative;
+  }
+  .#{$select-dropdown-prefix-cls} {
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+    width: auto;
+  }
+
+  &-cells {
+    margin: 10px;
+    white-space: normal;
+    width: $date-picker-cells-width;
+
+    span {
+      display: inline-block;
+      height: 24px;
+      width: 24px;
+
+      em {
+        border-radius: $btn-border-radius-small;
+        display: inline-block;
+        font-style: normal;
+        height: 24px;
+        line-height: 24px;
+        margin: 2px;
+        text-align: center;
+        transition: all $transition-time $ease-in-out;
+        width: 24px;
+      }
+    }
+
+    &-header span {
+      color: $btn-disable-color;
+      line-height: 24px;
+      margin: 2px;
+      text-align: center;
+    }
+
+    &-cell:hover {
+      em {
+        background: $date-picker-cell-hover-bg;
+      }
+    }
+
+    &-focused {
+      em {
+        box-shadow: 0 0 0 1px $primary-color inset;
+      }
+    }
+        
+    &-cell {
+      span & {
+        cursor: pointer;
+        height: 28px;
+        width: 28px;
+      }
+
+      &-prev-month,
+      &-next-month {
+        em {
+          color: $btn-disable-color;
+        }
+
+        &:hover {
+          em {
+            background: transparent;
+          }
+        }
+      }
+
+      span &-week-label,
+      span &-week-label:hover,
+      span &-disabled,
+      span &-disabled:hover {
+        color: $btn-disable-color;
+        cursor: $cursor-disabled;
+
+        em {
+          background: inherit;
+          color: inherit;
+        }
+      }
+
+      span &-disabled,
+      span &-disabled:hover {
+        background: $btn-disable-bg;
+      }
+
+      &-today {
+        em {
+          position: relative;
+
+          &::after {
+            background: $primary-color;
+            border-radius: 50%;
+            content: '';
+            display: block;
+            height: 6px;
+            position: absolute;
+            right: 1px;
+            top: 1px;
+            width: 6px;
+          }
+        }
+      }
+
+      &-range {
+        position: relative;
+
+        em {
+          position: relative;
+          z-index: 1;
+        }
+
+        &::before {
+          background: $date-picker-cell-hover-bg;
+          border: 0;
+          border-radius: 0;
+          bottom: 2px;
+          content: '';
+          display: block;
+          left: 0;
+          position: absolute;
+          right: 0;
+          top: 2px;
+        }
+      }
+
+      &-selected,
+      &-selected:hover {
+        em {
+          background: $primary-color;
+          color: #fff;
+        }
+      }
+
+      span &-disabled &-selected {
+        em {
+          background: $btn-disable-color;
+          color: $btn-disable-bg;
+        }
+      }
+
+      &-today &-selected {
+        em {
+          &::after {
+            background: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  &-cells-show-week-numbers {
+    width: $date-picker-cells-width-with-weeknumbers;
+  }
+
+  &-cells-year,
+  &-cells-month {
+    margin-top: 14px;
+
+    span {
+      border-radius: $btn-border-radius-small;
+      height: 28px;
+      line-height: 28px;
+      margin: 10px 12px;
+      width: 40px;
+
+      em {
+        height: 28px;
+        line-height: 28px;
+        margin: 0;
+        width: 40px;
+      }
+    }
+
+    .#{$date-picker-prefix-cls}-cells-cell-focused {
+      background-color: tint($primary-color, 80%);
+    }
+
+  }
+
+  &-header {
+    border-bottom: 1px solid $border-color-split;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+
+    &-label {
+      cursor: pointer;
+      transition: color $transition-time $ease-in-out;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+
+  &-btn-pulse {
+    background-color: tint($primary-color, 80%) !important;
+    border-radius: $border-radius-small;
+    transition: background-color $transition-time $ease-in-out;
+  }
+
+  &-prev-btn {
+    float: left;
+
+    &-arrow-double {
+      margin-left: 10px;
+
+      i::after {
+        content: '\F115';
+        margin-left: -8px;
+      }
+    }
+  }
+
+  &-next-btn {
+    float: right;
+
+    &-arrow-double {
+      margin-right: 10px;
+
+      i::after {
+        content: '\F11F';
+        margin-left: -8px;
+      }
+    }
+  }
+
+  &-with-range {
+    .#{$picker-prefix-cls}-panel {
+      &-body {
+        min-width: ($date-picker-cells-width + 20) * 2;
+      }
+
+      &-content {
+        float: left;
+      }
+    }
+    .#{$picker-prefix-cls}-cells-show-week-numbers {
+      min-width: ($date-picker-cells-width-with-weeknumbers + 20) * 2;
+    }
+
+  }
+
+  &-with-week-numbers {
+    .#{$picker-prefix-cls}-panel {
+      &-body-date {
+        min-width: ($date-picker-cells-width-with-weeknumbers + 20) * 2;
+      }
+    }
+  }
+
+  &-transfer {
+    max-height: none;
+    width: auto;
+    z-index: $zindex-transfer;
+  }
+
+  &-focused input {
+    @include active();
+  }
+}
+
+.#{$picker-prefix-cls} {
+  &-panel {
+    &-icon-btn {
+      color: $btn-disable-color;
+      cursor: pointer;
+      display: inline-block;
+      height: 24px;
+      line-height: 26px;
+      margin-top: 2px;
+      text-align: center;
+      transition: color $transition-time $ease-in-out;
+      width: 20px;
+
+      &:hover {
+        color: $primary-color;
+      }
+
+      i {
+        font-size: 14px;
+      }
+    }
+
+    &-body-wrapper &-with-sidebar {
+      padding-left: 92px;
+    }
+
+    &-sidebar {
+      background: $table-thead-bg;
+      border-radius: $border-radius-small 0 0 $border-radius-small;
+      border-right: 1px solid $border-color-split;
+      bottom: 0;
+      float: left;
+      margin-left: -92px;
+      overflow: auto;
+      position: absolute;
+      top: 0;
+      width: 92px;
+    }
+
+    &-shortcut {
+      cursor: pointer;
+      overflow: hidden;
+      padding: 6px $padding-md;
+      text-overflow: ellipsis;
+      transition: all $transition-time $ease-in-out;
+      white-space: nowrap;
+
+      &:hover {
+        background: $border-color-split;
+      }
+    }
+
+    &-body {
+      float: left;
+    }
+  }
+
+  &-confirm {
+    border-top: 1px solid $border-color-split;
+    clear: both;
+    padding: 8px;
+    text-align: right;
+
+    & > span {
+      color: $link-color;
+      cursor: pointer;
+      float: left;
+      padding: 2px 0;
+      transition: all $transition-time $ease-in-out;
+      user-select: none;
+
+      &:hover {
+        color: $link-hover-color;
+      }
+
+      &:active {
+        color: $link-active-color;
+      }
+    }
+
+    &-time {
+      float: left;
+    }
+  }
+}

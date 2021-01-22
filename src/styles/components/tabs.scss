@@ -1,0 +1,251 @@
+.#{$tabs-prefix-cls} {
+  @include clearfix;
+  box-sizing: border-box;
+  color: $text-color;
+  overflow: hidden;
+  position: relative;
+
+  &-bar {
+    outline: none;
+  }
+
+  &-ink-bar {
+    background-color: $primary-color;
+    bottom: 1px;
+    box-sizing: border-box;
+    height: 2px;
+    left: 0;
+    position: absolute;
+    transform-origin: 0 0;
+    transition: transform 0.3s $ease-in-out;
+    z-index: 1;
+  }
+
+  &-bar {
+    border-bottom: 1px solid $border-color-base;
+    margin-bottom: 16px;
+  }
+
+  &-nav-container {
+    @include clearfix;
+    box-sizing: border-box;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+    margin-bottom: -1px;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  &-nav-container:focus {
+    outline: none;
+    .#{$tabs-prefix-cls}-tab-focused {
+      border-color: $link-hover-color !important;
+    }
+  }
+
+  &-nav-container-scrolling {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  &-nav-wrap {
+    margin-bottom: -1px;
+    overflow: hidden;
+  }
+
+  &-nav-scroll {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &-nav-right {
+    float: right;
+    margin-left: 5px;
+  }
+
+  &-nav-prev,
+  &-nav-next {
+    cursor: pointer;
+    line-height: 32px;
+    position: absolute;
+    text-align: center;
+    width: 32px;
+
+    i {
+      font-size: 16px;
+    }
+  }
+
+  &-nav-prev {
+    left: 0;
+  }
+
+  &-nav-next {
+    right: 0;
+  }
+
+  &-nav-scrollable {
+    padding: 0 32px;
+  }
+
+  &-nav-scroll-disabled {
+    display: none;
+  }
+
+  &-nav {
+    box-sizing: border-box;
+    float: left;
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+    position: relative;
+    transition: transform 0.5s $ease-in-out;
+
+    &::before,
+    &::after {
+      content: ' ';
+      display: table;
+    }
+
+    &::after {
+      clear: both;
+    }
+
+    .#{$tabs-prefix-cls}-tab-disabled {
+      color: #ccc;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .#{$tabs-prefix-cls}-tab {
+      box-sizing: border-box;
+      cursor: pointer;
+      display: inline-block;
+      height: 100%;
+      margin-right: 16px;
+      padding: 8px 16px;
+      position: relative;
+      text-decoration: none;
+      transition: color 0.3s $ease-in-out;
+
+      &:hover {
+        color: $link-hover-color;
+      }
+
+      &:active {
+        color: $link-active-color;
+      }
+      .#{$css-prefix-iconfont} {
+        height: 14px;
+        margin-right: 8px;
+        width: 14px;
+      }
+    }
+
+    .#{$tabs-prefix-cls}-tab-active {
+      color: $primary-color;
+    }
+  }
+
+  &-mini &-nav-container {
+    font-size: $font-size-base;
+  }
+
+  &-mini &-tab {
+    font-size: $font-size-small;
+    margin-right: 0;
+    padding: 8px 16px;
+  }
+
+  & {
+    .#{$tabs-prefix-cls}-content-animated {
+      display: flex;
+      flex-direction: row;
+      transition: transform 0.3s $ease-in-out;
+      will-change: transform;
+    }
+
+    .#{$tabs-prefix-cls}-tabpane {
+      flex-shrink: 0;
+      opacity: 1;
+      outline: none;
+      transition: opacity 0.3s;
+      width: 100%;
+    }
+
+    .#{$tabs-prefix-cls}-tabpane-inactive {
+      height: 0;
+      opacity: 0;
+    }
+  }
+
+  // card style
+  &#{&}-card > &-bar &-nav-container {
+    height: 32px;
+  }
+  &#{&}-card > &-bar &-ink-bar {
+    visibility: hidden;
+  }
+  &#{&}-card > &-bar &-tab {
+    background: $table-thead-bg;
+    border: 1px solid $border-color-base;
+    border-bottom: 0;
+    border-radius: $btn-border-radius $btn-border-radius 0 0;
+    height: 31px;
+    margin: 0;
+    margin-right: 4px;
+    padding: 5px 16px 4px;
+    transition: all 0.3s $ease-in-out;
+  }
+  &#{&}-card > &-bar &-tab-active {
+    background: #fff;
+    border-color: $border-color-base;
+    color: $primary-color;
+    height: 32px;
+    padding-bottom: 5px;
+    transform: translateZ(0);
+  }
+  &#{&}-card > &-bar &-nav-wrap {
+    margin-bottom: 0;
+  }
+  &#{&}-card > &-bar &-tab &-close {
+    color: $legend-color;
+    font-size: 22px;
+    height: 22px;
+    margin-right: 0;
+    overflow: hidden;
+    position: relative;
+    text-align: right;
+    top: -1px;
+    transform-origin: 100% 50%;
+    transition: all 0.3s $ease-in-out;
+    vertical-align: middle;
+    width: 0;
+
+    &:hover {
+      color: #444;
+    }
+  }
+
+  &#{&}-card > &-bar &-tab-active &-close,
+  &#{&}-card > &-bar &-tab:hover &-close {
+    margin-right: -6px;
+    transform: translateZ(0);
+    width: 22px;
+  }
+
+  &-context-menu {
+    position: absolute;
+  }
+}
+
+.#{$tabs-prefix-cls}-no-animation {
+  > .#{$tabs-prefix-cls}-content {
+    transform: none !important;
+
+    > .#{$tabs-prefix-cls}-tabpane-inactive {
+      display: none;
+    }
+  }
+}

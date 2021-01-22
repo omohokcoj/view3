@@ -1,0 +1,20 @@
+.#{$loading-bar-prefix-cls} {
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: $zindex-loading-bar;
+
+  &-inner {
+    transition: width $transition-time linear;
+
+    &-color-primary {
+      background-color: $primary-color;
+    }
+
+    &-failed-color-error {
+      background-color: $error-color;
+    }
+  }
+}

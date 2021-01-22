@@ -1,0 +1,393 @@
+.#{$radio-prefix-cls}-focus {
+  box-shadow: 0 0 0 2px rgba($primary-color, 20%/100%);
+  z-index: 1;
+}
+
+.#{$radio-group-prefix-cls} {
+  display: inline-block;
+  font-size: $font-size-base;
+  vertical-align: middle;
+  //outline: none;
+  &-vertical {
+    .#{$radio-prefix-cls}-wrapper {
+      display: block;
+      height: 30px;
+      line-height: 30px;
+    }
+  }
+}
+
+// 普通状态 - Normal state
+.#{$radio-prefix-cls}-wrapper {
+  cursor: pointer;
+  display: inline-block;
+  font-size: $font-size-base;
+  margin-right: 8px;
+  position: relative;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  &-disabled {
+    cursor: $cursor-disabled;
+  }
+  //outline: none;
+}
+
+.#{$radio-prefix-cls} {
+  cursor: pointer;
+  display: inline-block;
+  line-height: 1;
+  margin-right: 4px;
+  //outline: none;
+  position: relative;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  &:hover {
+    .#{$radio-inner-prefix-cls} {
+      border-color: #bcbcbc;
+    }
+  }
+
+  &-inner {
+    background-color: #fff;
+    border: 1px solid $border-color-base;
+    border-radius: 50%;
+    display: inline-block;
+    height: 16px;
+    left: 0;
+    position: relative;
+    top: 0;
+    transition: all $transition-time $ease-in-out;
+    width: 16px;
+
+    &::after {
+      background-color: $primary-color;
+      border-left: 0;
+      border-radius: $border-radius-base;
+      border-top: 0;
+      content: ' ';
+      display: table;
+      height: 10px;
+      left: 2px;
+      opacity: 0;
+      position: absolute;
+      top: 2px;
+      transform: scale(0);
+      transition: all $transition-time $ease-in-out;
+      width: 10px;
+    }
+  }
+
+  &-large {
+    font-size: $font-size-large;
+    & .#{$radio-inner-prefix-cls} {
+      height: 18px;
+      width: 18px;
+
+      &::after {
+        height: 12px;
+        width: 12px;
+      }
+    }
+    &.#{$radio-prefix-cls}-wrapper, & .#{$radio-prefix-cls}-wrapper {
+      font-size: $font-size-large;
+    }
+  }
+
+  &-small {
+    & .#{$radio-inner-prefix-cls} {
+      height: 14px;
+      width: 14px;
+
+      &::after {
+        height: 8px;
+        width: 8px;
+      }
+    }
+  }
+
+  &-input {
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+  }
+
+  &-border {
+    border: 1px solid $border-color-base;
+    border-radius: $btn-border-radius;
+    height: $btn-height-base;
+    line-height: $btn-height-base - 2px;
+    padding: $btn-padding-base;
+    transition: border $transition-time $ease-in-out;
+  }
+  &-small &-border, .#{$radio-group-prefix-cls}-small &-border {
+    height: $btn-height-small;
+    line-height: $btn-height-small - 2px;
+    padding: $btn-padding-small;
+  }
+  &-large &-border, .#{$radio-group-prefix-cls}-large &-border {
+    height: $btn-height-large;
+    line-height: $btn-height-large - 4px;
+    padding: $btn-padding-large;
+  }
+}
+
+.#{$radio-prefix-cls}-wrapper-checked.#{$radio-prefix-cls}-border {
+  border-color: $primary-color;
+}
+.#{$radio-prefix-cls}-wrapper-disabled.#{$radio-prefix-cls}-border {
+  border-color: $btn-disable-border;
+}
+
+// 选中状态 - Selected state
+.#{$radio-prefix-cls}-checked {
+  .#{$radio-inner-prefix-cls} {
+    border-color: $primary-color;
+
+    &::after {
+      opacity: 1;
+      transform: scale(1);
+      transition: all $transition-time $ease-in-out;
+    }
+  }
+
+  &:hover {
+    .#{$radio-inner-prefix-cls} {
+      border-color: $primary-color;
+    }
+  }
+}
+
+.#{$radio-prefix-cls}-disabled {
+  cursor: $cursor-disabled;
+  .#{$radio-prefix-cls}-input {
+    cursor: $cursor-disabled;
+  }
+
+  &:hover {
+    .#{$radio-inner-prefix-cls} {
+      border-color: $border-color-base;
+    }
+  }
+  .#{$radio-inner-prefix-cls} {
+    background-color: #f3f3f3;
+    border-color: $border-color-base;
+
+    &::after {
+      background-color: #ccc;
+    }
+  }
+
+  .#{$radio-prefix-cls}-disabled + span {
+    color: #ccc;
+  }
+}
+
+span.#{$radio-prefix-cls} + * {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+// 按钮样式 - Button style
+.#{$radio-group-button-prefix-cls} {
+  font-size: 0;
+  -webkit-text-size-adjust: none;
+
+  .#{$radio-prefix-cls} {
+    margin-right: 0;
+    width: 0;
+  }
+
+  .#{$radio-prefix-cls}-wrapper {
+    background: #fff;
+    border: 1px solid $border-color-base;
+    border-left: 0;
+    color: $btn-default-color;
+    cursor: pointer;
+    display: inline-block;
+    font-size: $font-size-base;
+    height: $btn-circle-size;
+    line-height: $btn-circle-size - 2px;
+    margin: 0;
+    padding: 0 16px - 1px;
+    position: relative;
+    transition: all $transition-time ease-in-out;
+
+    > span {
+      margin-left: 0;
+    }
+
+    &::before,
+    &::after {
+      background: $border-color-base;
+      content: '';
+      display: block;
+      height: 100%;
+      left: -1px;
+      position: absolute;
+      top: 0;
+      //visibility: hidden;
+      transition: all $transition-time ease-in-out;
+      width: 1px;
+    }
+
+    &::after {
+      background: rgba($primary-color, 20%/100%);
+      height: $btn-circle-size + 4px;
+      left: -1px;
+      opacity: 0;
+      top: -3px;
+    }
+
+    &:first-child {
+      border-left: 1px solid $border-color-base;
+      border-radius: $btn-border-radius 0 0 $btn-border-radius;
+
+      &::before,
+      &::after {
+        display: none;
+      }
+    }
+
+    &:last-child {
+      border-radius: 0 $btn-border-radius $btn-border-radius 0;
+    }
+
+    &:first-child:last-child {
+      border-radius: $btn-border-radius;
+    }
+
+    &:hover {
+      color: $primary-color;
+      position: relative;
+      & .#{$radio-prefix-cls} {
+        background-color: black;
+      }
+    }
+
+    .#{$radio-prefix-cls}-inner,
+    input {
+      height: 0;
+      opacity: 0;
+      width: 0;
+    }
+
+    &-checked {
+      background: #fff;
+      border-color: $primary-color;
+      box-shadow: -1px 0 0 0 $primary-color;
+      color: $primary-color;
+      z-index: 1;
+
+      &::before {
+        background: $primary-color;
+        opacity: 0.1;
+      }
+
+      &.#{$radio-prefix-cls}-focus {
+        box-shadow: -1px 0 0 0 $primary-color, 0 0 0 2px rgba($primary-color, 20%/100%);
+        transition: all $transition-time ease-in-out;
+
+        &::after {
+          background: rgba($primary-color, 20%/100%);
+          left: -3px;
+          opacity: 1;
+          top: -3px;
+        }
+
+        &:first-child {
+          box-shadow: 0 0 0 2px rgba($primary-color, 20%/100%);
+        }
+      }
+
+      &:first-child {
+        border-color: $primary-color;
+        box-shadow: none;
+      }
+
+      &:hover {
+        border-color: tint($primary-color, 20%);
+        //box-shadow: -1px 0 0 0 tint($primary-color, 20%);
+        color: tint($primary-color, 20%);
+      }
+
+      &:active {
+        border-color: shade($primary-color, 5%);
+        //box-shadow: -1px 0 0 0 shade($primary-color, 5%);
+        color: shade($primary-color, 5%);
+      }
+    }
+
+    &-disabled {
+      background-color: $background-color-base;
+      border-color: $border-color-base;
+      color: #ccc;
+      cursor: $cursor-disabled;
+
+      &:first-child,
+      &:hover {
+        background-color: $background-color-base;
+        border-color: $border-color-base;
+        color: #ccc;
+      }
+
+      &:first-child {
+        border-left-color: $border-color-base;
+      }
+    }
+
+    &-disabled.#{$radio-prefix-cls}-wrapper-checked {
+      background-color: #e6e6e6;
+      border-color: $border-color-base;
+      box-shadow: none !important;
+      color: #fff;
+    }
+  }
+  &-solid .#{$radio-prefix-cls}-wrapper {
+    &-checked:not(.#{$radio-prefix-cls}-wrapper-disabled) {
+      background: $primary-color;
+      color: #fff;
+
+      &:hover {
+        background: tint($primary-color, 20%);
+        color: #fff;
+      }
+    }
+  }
+}
+
+.#{$radio-group-button-prefix-cls}.#{$radio-group-prefix-cls}-large .#{$radio-prefix-cls}-wrapper {
+  font-size: $font-size-large;
+  height: $btn-circle-size-large;
+  line-height: $btn-circle-size-large - 2px;
+
+  &::after {
+    height: $btn-circle-size-large + 4px;
+  }
+}
+
+.#{$radio-group-button-prefix-cls}.#{$radio-group-prefix-cls}-small .#{$radio-prefix-cls}-wrapper {
+  font-size: $font-size-base;
+  height: $btn-circle-size-small;
+  line-height: $btn-circle-size-small - 2px;
+  padding: 0 12px;
+
+  &::after {
+    height: $btn-circle-size-small + 4px;
+  }
+
+  &:first-child {
+    border-radius: $btn-border-radius-small 0 0 $btn-border-radius-small;
+  }
+
+  &:last-child {
+    border-radius: 0 $btn-border-radius-small $btn-border-radius-small 0;
+  }
+}
+

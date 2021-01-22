@@ -1,0 +1,113 @@
+.#{$message-prefix-cls} {
+  font-size: $font-size-base;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 16px;
+  width: 100%;
+  z-index: $zindex-message;
+
+  &-notice {
+    padding: 8px;
+    text-align: center;
+    transition: height $animation-time $ease-in-out, padding $animation-time $ease-in-out;
+
+    &:first-child {
+      margin-top: -8px;
+    }
+
+    &-close {
+      color: #999;
+      outline: none;
+      position: absolute;
+      right: 4px;
+      top: 10px;
+
+      i.#{$icon-prefix-cls} {
+        @include close-base(-3px);
+      }
+    }
+  }
+
+  &-notice-content {
+    background: #fff;
+    //border: 1px solid $border-color-split;
+    border-radius: $border-radius-small;
+    box-shadow: $shadow-base;
+    display: inline-block;
+    padding: 8px 16px;
+    pointer-events: all;
+    position: relative;
+
+    &-text {
+      display: inline-block;
+    }
+  }
+
+  &-notice-closable {
+    .#{$message-prefix-cls}-notice-content-text {
+      padding-right: 32px;
+    }
+  }
+
+  &-success .#{$icon-prefix-cls} {
+    color: $success-color;
+  }
+
+  &-error .#{$icon-prefix-cls} {
+    color: $error-color;
+  }
+
+  &-warning .#{$icon-prefix-cls} {
+    color: $warning-color;
+  }
+
+  &-info .#{$icon-prefix-cls},
+  &-loading .#{$icon-prefix-cls} {
+    color: $primary-color;
+  }
+
+  .#{$icon-prefix-cls} {
+    font-size: $font-size-large;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+
+  &-custom-content {
+    span {
+      vertical-align: middle;
+    }
+  }
+
+  &-notice-with-background {
+    .#{$message-prefix-cls}-notice-content {
+      &-background {
+        box-shadow: none;
+      }
+
+      &-info {
+        // background: ~`colorPalette('#{$primary-color}', 1)`;
+        // border: 1px solid ~`colorPalette('#{$primary-color}', 2)`;
+        // color: ~`colorPalette('#{$primary-color}', 6)`;
+      }
+
+      &-success {
+        // background: ~`colorPalette('#{$success-color}', 1)`;
+        // border: 1px solid ~`colorPalette('#{$success-color}', 2)`;
+        // color: ~`colorPalette('#{$success-color}', 6)`;
+      }
+
+      &-warning {
+        // background: ~`colorPalette('#{$warning-color}', 1)`;
+        // border: 1px solid ~`colorPalette('#{$warning-color}', 2)`;
+        // color: ~`colorPalette('#{$warning-color}', 6)`;
+      }
+
+      &-error {
+        // background: ~`colorPalette('#{$error-color}', 1)`;
+        // border: 1px solid ~`colorPalette('#{$error-color}', 2)`;
+        // color: ~`colorPalette('#{$error-color}', 6)`;
+      }
+    }
+  }
+}

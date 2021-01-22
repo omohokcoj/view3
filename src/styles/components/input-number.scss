@@ -1,0 +1,286 @@
+@mixin handler-disabled() {
+  color: #ccc !important;
+  cursor: $cursor-disabled;
+  opacity: 0.72;
+}
+
+.#{$input-number-prefix-cls} {
+  $radius-wrap: 0 $btn-border-radius $btn-border-radius 0;
+
+  @include input;
+  border: 1px solid $border-color-base;
+  border-radius: $btn-border-radius;
+  cursor: default;
+  height: $input-height-base;
+  line-height: $input-height-base;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  vertical-align: middle;
+  width: 80px;
+
+  &-handler-wrap {
+    background: #fff;
+    border-left: 1px solid $border-color-base;
+    border-radius: $radius-wrap;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: opacity $transition-time $ease-in-out;
+    width: 22px;
+  }
+
+  &:hover &-handler-wrap {
+    opacity: 1;
+  }
+
+  &-handler-up {
+    cursor: pointer;
+
+    &-inner {
+      top: 1px;
+    }
+  }
+
+  &-handler-down {
+    border-top: 1px solid $border-color-base;
+    cursor: pointer;
+    top: -1px;
+  }
+
+  &-handler {
+    color: #999;
+    display: block;
+    height: $input-height-base / 2;
+    line-height: 0;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    width: 100%;
+
+    &:hover &-up-inner,
+    &:hover &-down-inner {
+      color: tint($primary-color, 20%);
+    }
+  }
+
+  &-handler-up-inner,
+  &-handler-down-inner {
+    color: #999;
+    font-size: 14px;
+    height: 12px;
+    line-height: 12px;
+    position: absolute;
+    right: 5px;
+    transition: all $transition-time linear;
+    user-select: none;
+    width: 12px;
+  }
+
+  &:hover {
+    @include hover();
+  }
+
+  &-focused {
+    @include active();
+  }
+
+  &-disabled {
+    @include disabled();
+  }
+
+  &-input-wrap {
+    height: $input-height-base;
+    overflow: hidden;
+  }
+
+  &-input {
+    -moz-appearance: textfield;
+    border: 0;
+    border-radius: $btn-border-radius;
+    color: #666;
+    height: $input-height-base;
+    line-height: $input-height-base;
+    outline: 0;
+    padding: 0 7px;
+    text-align: left;
+    transition: all $transition-time linear;
+    width: 100%;
+
+    &[disabled] {
+      @include disabled();
+    }
+
+    &::placeholder {
+      color: $input-placeholder-color;
+    }
+  }
+
+  &-large {
+    padding: 0;
+    .#{$input-number-prefix-cls}-input-wrap {
+      height: $input-height-large;
+    }
+    .#{$input-number-prefix-cls}-handler {
+      height: $input-height-large / 2;
+    }
+
+    input {
+      height: $input-height-large;
+      line-height: $input-height-large;
+    }
+
+    .#{$input-number-prefix-cls}-handler-up-inner {
+      top: 2px;
+    }
+    .#{$input-number-prefix-cls}-handler-down-inner {
+      bottom: 2px;
+    }
+  }
+
+  &-small {
+    padding: 0;
+    .#{$input-number-prefix-cls}-input-wrap {
+      height: $input-height-small;
+    }
+    .#{$input-number-prefix-cls}-handler {
+      height: $input-height-small / 2;
+    }
+
+    input {
+      height: $input-height-small;
+      line-height: $input-height-small;
+      margin-top: -1px;
+      vertical-align: top;
+    }
+    .#{$input-number-prefix-cls}-handler-up-inner {
+      top: -1px;
+    }
+    .#{$input-number-prefix-cls}-handler-down-inner {
+      bottom: -1px;
+    }
+  }
+
+
+
+  &-handler-down-disabled,
+  &-handler-up-disabled,
+  &-disabled {
+    .#{$input-number-prefix-cls}-handler-down-inner,
+    .#{$input-number-prefix-cls}-handler-up-inner {
+      @include handler-disabled();
+    }
+  }
+
+  &-disabled {
+    .#{$input-number-prefix-cls}-input {
+      background-color: #f3f3f3;
+      cursor: $cursor-disabled;
+      opacity: 0.72;
+    }
+    .#{$input-number-prefix-cls}-handler-wrap {
+      display: none;
+    }
+    .#{$input-number-prefix-cls}-handler {
+      @include handler-disabled();
+    }
+  }
+
+  &-controls-outside {
+    padding: 0 32px;
+    width: 80px + 32px * 2;
+    .#{$input-number-prefix-cls}-input {
+      border-radius: 0;
+    }
+
+    &-btn {
+      background-color: $input-group-bg;
+      color: $input-color;
+      cursor: pointer;
+      display: inline-block;
+      height: 32px;
+      line-height: 30px;
+      position: absolute;
+      text-align: center;
+      top: 0;
+      width: 32px;
+
+      i {
+        font-size: 16px;
+      }
+
+      &:hover i {
+        color: $primary-color;
+      }
+
+      &-disabled,
+      &-disabled:hover {
+        cursor: $cursor-disabled;
+
+        i {
+          color: #ccc;
+        }
+      }
+    }
+
+    &-up {
+      border-left: 1px solid $input-border-color;
+      right: 0;
+    }
+
+    &-down {
+      border-right: 1px solid $input-border-color;
+      left: 0;
+    }
+  }
+
+  &-disabled &-controls-outside {
+    .#{$input-number-prefix-cls}-controls-outside-btn {
+      cursor: $cursor-disabled;
+
+      i {
+        color: #ccc;
+      }
+    }
+  }
+
+  &-large &-controls-outside {
+    padding: 0 40px;
+    width: 80px + 40px *2;
+    .#{$input-number-prefix-cls}-controls-outside-btn {
+      height: 40px;
+      line-height: 38px;
+      width: 40px;
+
+      i {
+        font-size: 20px;
+      }
+    }
+  }
+
+  &-small &-controls-outside {
+    padding: 0 24px;
+    width: 80px + 24px *2;
+    .#{$input-number-prefix-cls}-controls-outside-btn {
+      height: 24px;
+      line-height: 22px;
+      width: 24px;
+
+      i {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.#{$form-item-prefix-cls}-error {
+  .#{$input-number-prefix-cls} {
+    @include input-error;
+
+    &-focused {
+      @include active-error;
+    }
+  }
+}

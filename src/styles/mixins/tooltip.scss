@@ -1,0 +1,88 @@
+@mixin popper($arrow, $arrow-width, $arrow-distance, $bg) {
+  display: block;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  position: absolute;
+  visibility: visible;
+  z-index: $zindex-tooltip;
+
+  &[x-placement^='top'] {
+    padding: $arrow-width 0 $arrow-distance 0;
+  }
+
+  &[x-placement^='right'] {
+    padding: 0 $arrow-width 0 $arrow-distance;
+  }
+
+  &[x-placement^='bottom'] {
+    padding: $arrow-distance 0 $arrow-width 0;
+  }
+
+  &[x-placement^='left'] {
+    padding: 0 $arrow-distance 0 $arrow-width;
+  }
+
+  &[x-placement^="top"] .#{$arrow} {
+    border-top-color: $bg;
+    border-width: $arrow-width $arrow-width 0;
+    bottom: $arrow-distance - $arrow-width;
+  }
+  &[x-placement="top"] .#{$arrow} {
+    left: 50%;
+    margin-left: -$arrow-width;
+  }
+  &[x-placement="top-start"] .#{$arrow} {
+    left: 16px;
+  }
+  &[x-placement="top-end"] .#{$arrow} {
+    right: 16px;
+  }
+
+  &[x-placement^="right"] .#{$arrow} {
+    border-right-color: $bg;
+    border-width: $arrow-width $arrow-width $arrow-width 0;
+    left: $arrow-distance - $arrow-width;
+  }
+  &[x-placement="right"] .#{$arrow} {
+    margin-top: -$arrow-width;
+    top: 50%;
+  }
+  &[x-placement="right-start"] .#{$arrow} {
+    top: 8px;
+  }
+  &[x-placement="right-end"] .#{$arrow} {
+    bottom: 8px;
+  }
+
+  &[x-placement^="left"] .#{$arrow} {
+    border-left-color: $bg;
+    border-width: $arrow-width 0 $arrow-width $arrow-width;
+    right: $arrow-distance - $arrow-width;
+  }
+  &[x-placement="left"] .#{$arrow} {
+    margin-top: -$arrow-width;
+    top: 50%;
+  }
+  &[x-placement="left-start"] .#{$arrow} {
+    top: 8px;
+  }
+  &[x-placement="left-end"] .#{$arrow} {
+    bottom: 8px;
+  }
+
+  &[x-placement^="bottom"] .#{$arrow} {
+    border-bottom-color: $bg;
+    border-width: 0 $arrow-width $arrow-width;
+    top: $arrow-distance - $arrow-width;
+  }
+  &[x-placement="bottom"] .#{$arrow} {
+    left: 50%;
+    margin-left: -$arrow-width;
+  }
+  &[x-placement="bottom-start"] .#{$arrow} {
+    left: 16px;
+  }
+  &[x-placement="bottom-end"] .#{$arrow} {
+    right: 16px;
+  }
+}

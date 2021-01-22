@@ -1,0 +1,184 @@
+.#{$time-picker-prefix-cls} {
+  &-cells {
+    min-width: $time-picker-cells-width;
+
+    &-with-seconds {
+      min-width: $time-picker-cells-width-with-seconds;
+    }
+
+    &-list {
+      border-left: 1px solid $border-color-split;
+      float: left;
+      max-height: 144px;
+      overflow: hidden;
+      position: relative;
+      width: $time-picker-cells-width-base;
+
+      &:hover {
+        overflow-y: auto;
+      }
+
+      &:first-child {
+        border-left: 0;
+        border-radius: $btn-border-radius 0 0 $btn-border-radius;
+      }
+
+      &:last-child {
+        border-radius: 0 $btn-border-radius $btn-border-radius 0;
+      }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0 0 120px;
+        width: 100%;
+
+        li {
+          box-sizing: content-box;
+          cursor: pointer;
+          height: 24px;
+          line-height: 24px;
+          list-style: none;
+          margin: 0;
+          padding: 0 0 0 16px;
+          text-align: left;
+          transition: background $transition-time $ease-in-out;
+          user-select: none;
+          width: 100%;
+
+        }
+      }
+    }
+
+    &-cell {
+      &:hover {
+        background: $background-color-select-hover;
+      }
+
+      &-disabled {
+        color: $btn-disable-color;
+        cursor: $cursor-disabled;
+
+        &:hover {
+          background-color: #fff;
+          color: $btn-disable-color;
+          cursor: $cursor-disabled;
+        }
+      }
+
+      &-selected ,
+      &-selected:hover {
+        background: $background-color-select-hover;
+        color: $primary-color;
+      }
+
+      &-focused {
+        background-color: tint($primary-color, 80%);
+      }
+    }
+  }
+
+  &-header {
+    border-bottom: 1px solid $border-color-split;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+  }
+
+  &-with-range {
+    .#{$picker-prefix-cls}-panel {
+      &-body {
+        min-width: $time-picker-cells-width * 2 + 4px;
+      }
+
+      &-content {
+        float: left;
+        position: relative;
+
+        &::after {
+          background: $border-color-split;
+          bottom: 0;
+          content: '';
+          display: block;
+          position: absolute;
+          right: -2px;
+          top: 31px;
+          width: 2px;
+          z-index: 1;
+        }
+
+        &-right {
+          float: right;
+
+          &::after {
+            left: -2px;
+            right: auto;
+          }
+        }
+      }
+    }
+    .#{$time-picker-prefix-cls}-cells {
+      &-list {
+        &:first-child {
+          border-radius: 0;
+        }
+
+        &:last-child {
+          border-radius: 0;
+        }
+      }
+    }
+  }
+
+  &-with-range &-with-seconds {
+    .#{$picker-prefix-cls}-panel {
+      &-body {
+        min-width: $time-picker-cells-width-with-seconds * 2 + 4px;
+      }
+    }
+  }
+}
+
+.#{$picker-prefix-cls}-panel-content {
+  .#{$picker-prefix-cls}-panel-content {
+    .#{$time-picker-prefix-cls} {
+      &-cells {
+        min-width: $time-picker-cells-width-with-date-with-seconds;
+
+        &-with-seconds {
+          min-width: $time-picker-cells-width-with-date-with-seconds;
+          .#{$time-picker-prefix-cls}-cells-list {
+            width: $time-picker-cells-width-with-date-with-seconds / 3;
+
+            ul {
+              li {
+                padding: 0 0 0 28px;
+              }
+            }
+          }
+        }
+
+        &-list {
+          max-height: 216px;
+          width: $time-picker-cells-width-with-date-with-seconds / 2;
+
+          &:first-child {
+            border-radius: 0;
+          }
+
+          &:last-child {
+            border-radius: 0;
+          }
+
+          ul {
+            padding: 0 0 192px;
+
+            li {
+              padding: 0 0 0 46px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

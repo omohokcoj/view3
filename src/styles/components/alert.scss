@@ -1,0 +1,99 @@
+.#{$alert-prefix-cls} {
+  border-radius: $border-radius-small;
+  color: $text-color;
+  font-size: $font-size-base;
+  line-height: 16px;
+  margin-bottom: 10px;
+  padding: 8px 48px 8px 16px;
+  position: relative;
+
+  &#{&}-with-icon {
+    padding: 8px 48px 8px 38px;
+  }
+
+  &-icon {
+    font-size: $font-size-large;
+    left: 12px;
+    position: absolute;
+    top: 6px;
+  }
+
+  &-desc {
+    color: $text-color;
+    display: none;
+    font-size: $font-size-base;
+    line-height: 21px;
+    text-align: justify;
+  }
+
+  &-success {
+    background-color: tint($success-color, 90%);
+    border: $border-width-base $border-style-base shade($success-color, 90%);
+    .#{$alert-prefix-cls}-icon {
+      color: $success-color;
+    }
+  }
+
+  &-info {
+    background-color: tint($primary-color, 90%);
+    border: $border-width-base $border-style-base shade($primary-color, 90%);
+    .#{$alert-prefix-cls}-icon {
+      color: $primary-color;
+    }
+  }
+
+  &-warning {
+    background-color: tint($warning-color, 90%);
+    border: $border-width-base $border-style-base shade($warning-color, 90%);
+    .#{$alert-prefix-cls}-icon {
+      color: $warning-color;
+    }
+  }
+
+  &-error {
+    background-color: tint($error-color, 90%);
+    border: $border-width-base $border-style-base shade($error-color, 90%);
+    .#{$alert-prefix-cls}-icon {
+      color: $error-color;
+    }
+  }
+
+  &-close {
+    @include content-close(-3px);
+  }
+
+  &-with-desc {
+    border-radius: $border-radius-small;
+    color: $text-color;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    padding: 16px;
+    position: relative;
+  }
+
+  &-with-desc &-with-icon {
+    padding: 16px 16px 16px 69px;
+  }
+
+  &-with-desc &-desc {
+    display: block;
+  }
+
+  &-with-desc &-message {
+    color: $title-color;
+    display: block;
+    font-size: $font-size-large;
+    margin-bottom: 4px;
+  }
+
+  &-with-desc &-icon {
+    font-size: 28px;
+    left: 24px;
+    margin-top: -24px;
+    top: 50%;
+  }
+
+  &-with-banner {
+    border-radius: 0;
+  }
+}

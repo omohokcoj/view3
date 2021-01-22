@@ -1,0 +1,69 @@
+@mixin select-item($size-class, $item-class) {
+  .#{$item-class} {
+    clear: both;
+    color: $text-color;
+    cursor: pointer;
+    font-size: $font-size-base !important;
+    line-height: normal;
+    list-style: none;
+    margin: 0;
+    padding: 7px 16px;
+    transition: background $transition-time $ease-in-out;
+    white-space: nowrap;
+
+    &:hover {
+      background: $background-color-select-hover;
+    }
+
+    &-focus {
+      background: $background-color-select-hover;
+    }
+
+    &-disabled {
+      color: $btn-disable-color;
+      cursor: $cursor-disabled;
+
+      &:hover {
+        background-color: #fff;
+        color: $btn-disable-color;
+        cursor: $cursor-disabled;
+      }
+    }
+
+    &-selected ,
+    &-selected:hover {
+      color: $primary-color;
+      //background: $selected-color;
+    }
+
+    &-selected.#{$item-class}-focus {
+      //background: shade($selected-color, 10%);
+    }
+
+    &-divided {
+      border-top: 1px solid $border-color-split;
+      margin-top: 5px;
+
+      &::before {
+        background-color: #fff;
+        content: '';
+        display: block;
+        height: 5px;
+        margin: 0 -16px;
+        position: relative;
+        top: -7px;
+      }
+    }
+
+    &-enter {
+      color: $primary-color;
+      float: right;
+      font-weight: bold;
+    }
+  }
+
+  .#{$size-class}-large .#{$item-class} {
+    font-size: $font-size-base !important;
+    padding: 7px 16px 8px;
+  }
+}

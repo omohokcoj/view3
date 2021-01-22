@@ -1,0 +1,91 @@
+.#{$tree-prefix-cls} {
+  position: relative;
+
+  ul {
+    font-size: $font-size-base;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    &.#{$dropdown-prefix-cls}-menu {
+      padding: 0;
+    }
+
+    li {
+      list-style: none;
+      margin: 8px 0;
+      outline: none;
+      padding: 0;
+      white-space: nowrap;
+
+      &.#{$dropdown-item-prefix-cls} {
+        margin: 0;
+        padding: 7px 16px;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  li {
+    ul {
+      margin: 0;
+      padding: 0 0 0 18px;
+    }
+  }
+
+  &-title {
+    border-radius: $btn-border-radius-small;
+    color: $text-color;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0;
+    padding: 0 4px;
+    transition: all $transition-time $ease-in-out;
+    vertical-align: top;
+
+    &:hover {
+      background-color: tint($primary-color, 90%);
+    }
+
+    &-selected,
+    &-selected:hover {
+      background-color: tint($primary-color, 80%);
+    }
+  }
+
+  &-arrow {
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    width: 12px;
+
+    i {
+      font-size: $font-size-base;
+      transition: all $transition-time $ease-in-out;
+      vertical-align: middle;
+    }
+
+    &-open {
+      i {
+        transform: rotate(90deg);
+      }
+    }
+    //&-hidden{
+    //    cursor: auto;
+    //    i{
+    //        display: none;
+    //    }
+    //}
+    &-disabled {
+      //cursor: $cursor-disabled;
+    }
+  }
+
+  .#{$checkbox-prefix-cls}-wrapper {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+
+  &-context-menu {
+    position: absolute;
+  }
+}

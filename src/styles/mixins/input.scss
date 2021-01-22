@@ -1,0 +1,268 @@
+@mixin hover($color: $input-hover-border-color) {
+  border-color: tint($color, 20%);
+}
+@mixin hover-error() {
+  border-color: $error-color;
+}
+
+@mixin active($color: $input-hover-border-color) {
+  border-color: tint($color, 20%);
+  box-shadow: 0 0 0 2px rgba($color, 20%/100%);
+  outline: 0;
+}
+@mixin active-error() {
+  border-color: $error-color;
+  box-shadow: 0 0 0 2px rgba($error-color, 20%/100%);
+  outline: 0;
+}
+
+@mixin disabled() {
+  background-color: $input-disabled-bg;
+  color: #ccc;
+  cursor: $cursor-disabled;
+  opacity: 1;
+
+  &:hover {
+    @include hover($input-border-color);
+  }
+}
+
+@mixin input-large() {
+  font-size: $font-size-large;
+  height: $input-height-large;
+  padding: $input-padding-vertical-large $input-padding-horizontal;
+}
+
+@mixin input-small() {
+  border-radius: $btn-border-radius-small;
+  height: $input-height-small;
+  padding: $input-padding-vertical-small $input-padding-horizontal;
+}
+
+@mixin input() {
+  @include placeholder();
+  background-color: $input-bg;
+  background-image: none;
+  border: 1px solid $input-border-color;
+  border-radius: $btn-border-radius;
+  color: $input-color;
+  cursor: text;
+  display: inline-block;
+  font-size: $font-size-base;
+  height: $input-height-base;
+  line-height: $line-height-base;
+  padding: $input-padding-vertical-base $input-padding-horizontal;
+  position: relative;
+  transition: border $transition-time $ease-in-out, background $transition-time $ease-in-out, box-shadow $transition-time $ease-in-out;
+  width: 100%;
+
+  &:hover {
+    @include hover();
+  }
+
+  &:focus {
+    @include active();
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    @include disabled();
+  }
+
+  // Reset height for textarea
+  textarea & {
+    font-size: $font-size-base;
+    height: auto;
+    max-width: 100%;
+    min-height: $input-height-base;
+    vertical-align: bottom;
+  }
+
+  // Size
+  &-large {
+    @include input-large();
+  }
+
+  &-small {
+    @include input-small();
+  }
+}
+
+@mixin input-error() {
+  border: 1px solid $error-color;
+
+  &:hover {
+    @include hover-error;
+  }
+
+  &:focus {
+    @include active-error;
+  }
+}
+
+@mixin input-group($inputClass) {
+  border-collapse: separate;
+  display: table;
+  font-size: $font-size-base;
+  position: relative;
+  width: 100%;
+
+  .ivu-form-inline & {
+    top: 1px; // fixed when using in form inline,
+  }
+
+  &-large {
+    font-size: $font-size-large;
+  }
+
+  // Undo padding and float of grid classes
+  &[class*='col-'] {
+    float: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  > [class*='col-'] {
+    padding-right: 8px;
+  }
+
+  &-prepend,
+  &-append,
+  > .#{$inputClass} {
+    display: table-cell;
+
+    //&:not(:first-child):not(:last-child) {
+    //    border-radius: 0;
+    //}
+  }
+  &-with-prepend .#{$inputClass},
+  &-with-prepend &-small .#{$inputClass} {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
+  &-with-append .#{$inputClass},
+  &-with-append &-small .#{$inputClass} {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  &-prepend .#{$css-prefix}btn,
+  &-append .#{$css-prefix}btn {
+    background-color: transparent;
+    border-color: transparent;
+    color: inherit;
+    margin: -($input-padding-vertical-base + 2) (-$input-padding-horizontal);
+  }
+
+  &-prepend,
+  &-append {
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 1px; // To make addon/wrap as small as possible
+  }
+
+  .#{$inputClass} {
+    float: left;
+    margin-bottom: 0;
+    position: relative;
+    width: 100%;
+    z-index: 2;
+  }
+
+  &-prepend,
+  &-append {
+    background-color: $input-group-bg;
+    border: 1px solid $input-border-color;
+    border-radius: $btn-border-radius;
+    color: $input-color;
+    font-size: inherit;
+    font-weight: normal;
+    line-height: 1;
+    padding: $input-padding-vertical-base $input-padding-horizontal;
+    text-align: center;
+
+    // Reset Select's style in addon
+    .#{$css-prefix}select {
+      margin: -($input-padding-vertical-base + 1) (-$input-padding-horizontal);  // lesshint spaceAroundOperator: false
+
+      &-selection {
+        background-color: inherit;
+        border: 1px solid transparent;
+        margin: -1px;
+      }
+
+      &-visible .#{$css-prefix}select-selection {
+        box-shadow: none;
+      }
+    }
+  }
+
+  // Reset rounded corners
+  > span > .#{$inputClass}:first-child,
+  > .#{$inputClass}:first-child,
+  &-prepend {
+    border-bottom-right-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+
+    // Reset Select's style in addon
+    .#{$css-prefix}-select .#{$css-prefix}-select-selection {
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+
+  &-prepend {
+    border-right: 0;
+  }
+
+  &-append {
+    border-left: 0;
+  }
+
+  > .#{$inputClass}:last-child,
+  &-append {
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+
+    // Reset Select's style in addon
+    .#{$css-prefix}-select .#{$css-prefix}-select-selection {
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+    }
+  }
+
+  // Sizing options
+  &-large .#{$inputClass},
+  &-large > &-prepend,
+  &-large > &-append {
+    @include input-large();
+  }
+
+  &-small .#{$inputClass},
+  &-small > &-prepend,
+  &-small > &-append {
+    @include input-small();
+  }
+}
+
+@mixin input-group-error() {
+  &-prepend,
+  &-append {
+    background-color: #fff;
+    border: 1px solid $error-color;
+    .#{$css-prefix}select {
+      &-selection {
+        background-color: inherit;
+        border: 1px solid transparent;
+      }
+    }
+  }
+
+  &-prepend {
+    border-right: 0;
+  }
+
+  &-append {
+    border-left: 0;
+  }
+}

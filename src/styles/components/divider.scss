@@ -1,0 +1,116 @@
+.#{$divider-prefix-cls} {
+  @include reset-component;
+  background: $border-color-split;
+
+  &,
+  &-vertical {
+    display: inline-block;
+    height: 0.9em;
+    margin: 0 8px;
+    position: relative;
+    top: -0.06em;
+    vertical-align: middle;
+    width: 1px;
+  }
+
+  &-horizontal {
+    clear: both;
+    display: block;
+    height: 1px;
+    margin: 24px 0;
+    min-width: 100%;
+    width: 100%;
+  }
+
+  &-horizontal.#{$divider-prefix-cls}-with-text-center,
+  &-horizontal.#{$divider-prefix-cls}-with-text-left,
+  &-horizontal.#{$divider-prefix-cls}-with-text-right {
+    background: transparent;
+    color: $title-color;
+    display: table;
+    font-size: $font-size-large;
+    font-weight: 500;
+    margin: 16px 0;
+    text-align: center;
+    white-space: nowrap;
+
+    &::before,
+    &::after {
+      border-top: 1px solid $border-color-split;
+      content: '';
+      display: table-cell;
+      position: relative;
+      top: 50%;
+      transform: translateY(50%);
+      width: 50%;
+    }
+  }
+
+  &-horizontal.#{$divider-prefix-cls}-small.#{$divider-prefix-cls}-with-text-center,
+  &-horizontal.#{$divider-prefix-cls}-small.#{$divider-prefix-cls}-with-text-left,
+  &-horizontal.#{$divider-prefix-cls}-small.#{$divider-prefix-cls}-with-text-right {
+    font-size: $font-size-base;
+    margin: 8px 0;
+  }
+
+  &-horizontal.#{$divider-prefix-cls}-with-text-left,
+  &-horizontal.#{$divider-prefix-cls}-with-text-right {
+    .#{$divider-prefix-cls}-inner-text {
+      display: inline-block;
+      padding: 0 10px;
+    }
+  }
+
+  &-horizontal.#{$divider-prefix-cls}-with-text-left {
+    &::before {
+      top: 50%;
+      width: 5%;
+    }
+
+    &::after {
+      top: 50%;
+      width: 95%;
+    }
+  }
+
+  &-horizontal.#{$divider-prefix-cls}-with-text-right {
+    &::before {
+      top: 50%;
+      width: 95%;
+    }
+
+    &::after {
+      top: 50%;
+      width: 5%;
+    }
+  }
+
+  &-inner-text {
+    display: inline-block;
+    padding: 0 24px;
+  }
+
+  &-dashed {
+    background: none;
+    border-top: 1px dashed $border-color-split;
+  }
+
+  &-horizontal.#{$divider-prefix-cls}-with-text.#{$divider-prefix-cls}-dashed,
+  &-horizontal.#{$divider-prefix-cls}-with-text-left.#{$divider-prefix-cls}-dashed,
+  &-horizontal.#{$divider-prefix-cls}-with-text-right.#{$divider-prefix-cls}-dashed {
+    border-top: 0;
+
+    &::before,
+    &::after {
+      border-style: dashed none none;
+    }
+  }
+
+  &-plain.#{$divider-prefix-cls}-with-text,
+  &-plain.#{$divider-prefix-cls}-with-text-left,
+  &-plain.#{$divider-prefix-cls}-with-text-right {
+    color: $text-color;
+    font-size: $font-size-base;
+    font-weight: normal;
+  }
+}

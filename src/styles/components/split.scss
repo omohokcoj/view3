@@ -1,0 +1,131 @@
+.#{$split-prefix-cls} {
+  &-wrapper {
+    height: 100%;
+    position: relative;
+    width: 100%;
+  }
+
+  &-pane {
+    position: absolute;
+
+    &.left-pane,
+    &.right-pane {
+      bottom: 0;
+      top: 0;
+    }
+
+    &.left-pane {
+      left: 0;
+    }
+
+    &.right-pane {
+      right: 0;
+    }
+
+    &.top-pane,
+    &.bottom-pane {
+      left: 0;
+      right: 0;
+    }
+
+    &.top-pane {
+      top: 0;
+    }
+
+    &.bottom-pane {
+      bottom: 0;
+    }
+
+    &-moving {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+  }
+
+  &-trigger {
+    border: 1px solid $border-color-base;
+
+    &-con {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+
+    &-bar-con {
+      overflow: hidden;
+      position: absolute;
+
+      &.vertical {
+        height: $trigger-bar-con-height;
+        left: $trigger-bar-offset;
+        top: 50%;
+        transform: translate(0, -50%);
+      }
+
+      &.horizontal {
+        left: 50%;
+        top: $trigger-bar-offset;
+        transform: translate(-50%, 0);
+        width: $trigger-bar-con-height;
+      }
+    }
+
+    &-vertical {
+      background: $trigger-background;
+      border-bottom: 0;
+      border-top: 0;
+      cursor: col-resize;
+      height: 100%;
+      width: $trigger-width;
+      .#{$split-prefix-cls}-trigger-bar {
+        background: $trigger-bar-background;
+        float: left;
+        height: 1px;
+        margin-top: $trigger-bar-interval;
+        width: $trigger-bar-width;
+      }
+    }
+
+    &-horizontal {
+      background: $trigger-background;
+      border-left: 0;
+      border-right: 0;
+      cursor: row-resize;
+      height: $trigger-width;
+      width: 100%;
+      .#{$split-prefix-cls}-trigger-bar {
+        background: $trigger-bar-background;
+        float: left;
+        height: $trigger-bar-width;
+        margin-right: $trigger-bar-interval;
+        width: 1px;
+      }
+    }
+  }
+
+  &-horizontal {
+    > .#{$split-prefix-cls}-trigger-con {
+      height: 100%;
+      top: 50%;
+      width: 0;
+    }
+  }
+
+  &-vertical {
+    > .#{$split-prefix-cls}-trigger-con {
+      height: 0;
+      left: 50%;
+      width: 100%;
+    }
+  }
+
+  .no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}

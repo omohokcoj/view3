@@ -1,0 +1,77 @@
+.#{$collapse-prefix-cls} {
+  background-color: $background-color-base;
+  border: 1px solid $border-color-base;
+  border-radius: 3px;
+
+  &-simple {
+    background-color: #fff;
+    border-left: 0;
+    border-radius: 0;
+    border-right: 0;
+  }
+
+  & > &-item {
+    border-top: 1px solid $border-color-base;
+
+    &:first-child {
+      border-top: 0;
+    }
+
+    > .#{$collapse-prefix-cls}-header {
+      border-bottom: 1px solid transparent;
+      color: #666;
+      cursor: pointer;
+      height: 38px;
+      line-height: 38px;
+      padding-left: 16px;
+      position: relative;
+      transition: all $transition-time $ease-in-out;
+
+      > i {
+        margin-right: 14px;
+        text-align: center;
+        transition: transform $transition-time $ease-in-out;
+        width: 16px;
+      }
+    }
+  }
+
+  &  > &-item.#{$collapse-prefix-cls}-item-active > &-header {
+    border-bottom: 1px solid $border-color-base;
+  }
+
+  &-simple > &-item.#{$collapse-prefix-cls}-item-active > &-header {
+    border-bottom: 1px solid transparent;
+  }
+
+  &  > &-item.#{$collapse-prefix-cls}-item-active > &-header > i {
+    transform: rotate(90deg);
+  }
+
+  &-content {
+    background-color: #fff;
+    //display: none;
+    //overflow: hidden;
+    color: $text-color;
+    padding: 0 16px;
+
+    & > &-box {
+      padding-bottom: 16px;
+      padding-top: 16px;
+    }
+  }
+
+  &-simple > &-item > &-content > &-content-box {
+    padding-top: 0;
+  }
+
+  &-item-active > &-content {
+    //display: block;
+  }
+
+  &-item:last-child {
+    > .#{$collapse-prefix-cls}-content {
+      border-radius: 0 0 3px 3px;
+    }
+  }
+}

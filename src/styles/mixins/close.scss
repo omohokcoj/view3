@@ -1,0 +1,13 @@
+@mixin close-base($top: 0, $icon-font-size: 22px) {
+  color: $legend-color;
+  font-size: $icon-font-size;
+  position: relative;
+  text-align: center;
+  top: $top;
+  transition: color $transition-time ease;
+  width: $icon-font-size;
+
+  &:hover {
+    color: #444;
+  }
+}

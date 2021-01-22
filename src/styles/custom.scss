@@ -1,0 +1,385 @@
+@import 'color/colors';
+
+// Prefix
+$css-prefix: ivu-;
+$css-prefix-iconfont: ion;
+
+$input-disabled-bg: #f3f3f3 !default;
+// Color
+$primary-color: #2d8cf0 !default;
+$info-color: #2db7f5 !default;
+$success-color: #19be6b !default;
+$processing-color: $primary-color;
+$warning-color: #f90 !default;
+$error-color: #ed4014 !default;
+$normal-color: #e6ebf1 !default;
+$link-color: #2d8cf0 !default;
+$link-hover-color: tint($link-color, 20%) !default;
+$link-active-color: shade($link-color, 5%) !default;
+$selected-color: rgba($primary-color, 90%/100%) !default;
+$tooltip-color: #fff !default;
+$subsidiary-color: #808695 !default;
+$rate-star-color: #f5a623 !default;
+$white: #fff;
+$black: #000;
+
+// Base
+$body-background: #fff !default;
+$component-background: #fff !default;
+$font-family: 'Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','微软雅黑',Arial,sans-serif !default;
+$code-family: Consolas,Menlo,Courier,monospace !default;
+$title-color: #17233d !default;
+$text-color: #515a6e !default;
+$text-color-secondary: rgba($black, 45%/100%) !default;
+$heading-color: rgba(#000, 85%/100%) !default;
+$heading-color-dark: rgba($white, 100%/100%) !default;
+$font-size-base: 14px !default;
+$font-size-small: 12px !default;
+$font-size-large: $font-size-base + 2px !default;
+$line-height-base: 1.5 !default;
+$line-height-computed: floor(($font-size-base * $line-height-base)) !default;
+$border-radius-base: 6px !default;
+$border-radius-small: 4px !default;
+$cursor-disabled: not-allowed !default;
+
+// vertical paddings
+$padding-lg: 24px !default; // containers
+$padding-md: 16px !default; // small containers and buttons
+$padding-sm: 12px !default; // Form controls and items
+$padding-xs: 8px !default; // small items
+
+// Border color
+$border-color-base: #dcdee2 !default;  // outside
+$border-color-split: #e8eaec !default;  // inside
+$border-width-base: 1px !default;            // width of the border for a component
+$border-style-base: solid !default;          // style of a components border
+
+// Background color
+$background-color-base: #f7f7f7 !default;  // base
+$background-color-select-hover: $input-disabled-bg !default;
+$tooltip-bg: rgba(70, 76, 91, 0.9) !default;
+$head-bg: #f9fafc !default;
+$table-thead-bg: #f8f8f9 !default;
+$table-td-stripe-bg: #f8f8f9 !default;
+$table-td-hover-bg: #ebf7ff !default;
+$table-td-highlight-bg: #ebf7ff !default;
+$menu-dark-title: #515a6e !default;
+$menu-dark-active-bg: #363e4f !default;
+$menu-dark-subsidiary-color: rgba(255, 255, 255, 0.7) !default;
+$menu-dark-group-title-color: rgba(255, 255, 255, 0.36) !default;
+$date-picker-cell-hover-bg: #e1f0fe !default;
+
+// Shadow
+$shadow-color: rgba(0, 0, 0, 0.2) !default;
+$shadow-down: 0 1px 6px $shadow-color !default;
+$shadow-base: $shadow-down !default;
+$shadow-card: 0 1px 1px 0 rgba(0, 0, 0, 0.1) !default;
+$shadow-up: 0 -1px 6px $shadow-color !default;
+$shadow-left: -1px 0 6px $shadow-color !default;
+$shadow-right: 1px 0 6px $shadow-color !default;
+
+// Button
+$btn-height-base: 32px !default;
+$btn-height-large: 40px !default;
+$btn-height-small: 24px !default;
+
+$btn-padding-base: 0 $padding-md - 1px !default;
+$btn-padding-large: $btn-padding-base !default;
+$btn-padding-small: 0 $padding-xs - 1px !default;
+
+$btn-font-weight: normal !default;
+$btn-padding-base-icon: 5px 15px 6px !default;
+$btn-padding-large-icon: 6px 15px 6px 15px !default;
+$btn-padding-small-icon: 1px 7px 2px !default;
+$btn-font-size: $font-size-base !default;
+$btn-font-size-large: $font-size-large !default;
+$btn-font-size-small: $font-size-base !default;
+$btn-border-radius: 4px !default;
+$btn-border-radius-small: 3px !default;
+$btn-group-border: shade($primary-color, 5%) !default;
+
+$btn-disable-color: #c5c8ce !default;
+$btn-disable-bg: $background-color-base !default;
+$btn-disable-border: $border-color-base !default;
+
+$btn-default-color: $text-color !default;
+$btn-default-bg: #fff !default;
+$btn-default-border: $border-color-base !default;
+
+$btn-primary-color: #fff !default;
+$btn-primary-bg: $primary-color !default;
+
+$btn-ghost-color: $text-color !default;
+$btn-ghost-bg: #fff !default;
+$btn-ghost-border: $border-color-base !default;
+
+$btn-circle-size: $btn-height-base !default;
+$btn-circle-size-large: $btn-height-large !default;
+$btn-circle-size-small: $btn-height-small !default;
+
+$btn-square-size: $btn-height-base !default;
+$btn-square-size-large: $btn-height-large !default;
+$btn-square-size-small: $btn-height-small !default;
+
+// Layout and Grid
+$grid-columns: 24 !default;
+$grid-gutter-width: 0 !default;
+$layout-body-background: #f5f7f9 !default;
+$layout-header-background: #515a6e !default;
+$layout-header-height: 64px !default;
+$layout-header-padding: 0 50px !default;
+$layout-footer-padding: 24px 50px !default;
+$layout-footer-background: $layout-body-background !default;
+$layout-sider-background: $layout-header-background !default;
+$layout-trigger-height: 48px !default;
+$layout-trigger-color: #fff !default;
+$layout-zero-trigger-width: 36px !default;
+$layout-zero-trigger-height: 42px !default;
+
+// Legend
+$legend-color: #999 !default;
+
+// Input
+$input-height-base: 32px !default;
+$input-height-large: 40px !default;
+$input-height-small: 24px !default;
+
+$input-padding-horizontal: 7px !default;
+$input-padding-vertical-base: 4px !default;
+$input-padding-vertical-small: 1px !default;
+$input-padding-vertical-large: 6px !default;
+
+$input-placeholder-color: $btn-disable-color !default;
+$input-color: $text-color !default;
+$input-border-color: $border-color-base !default;
+$input-bg: #fff !default;
+$input-group-bg: #f8f8f9 !default;
+
+$input-hover-border-color: $primary-color !default;
+$input-focus-border-color: $primary-color !default;
+
+// Tag
+$tag-font-size: 12px !default;
+
+// Media queries breakpoints
+// Extra small screen / phone
+$screen-xs: 480px !default;
+$screen-xs-min: $screen-xs !default;
+$screen-xs-max: ($screen-xs-min - 1) !default;
+
+// Small screen / tablet
+$screen-sm: 576px !default;
+$screen-sm-min: $screen-sm !default;
+$screen-sm-max: ($screen-sm-min - 1) !default;
+
+// Medium screen / desktop
+$screen-md: 768px;
+$screen-md-min: $screen-md;
+$screen-md-max: ($screen-md-min - 1);
+
+// Large screen / wide desktop
+$screen-lg: 992px !default;
+$screen-lg-min: $screen-lg !default;
+$screen-lg-max: ($screen-lg-min - 1) !default;
+
+// Extra large screen / full hd
+$screen-xl: 1200px !default;
+$screen-xl-min: $screen-xl !default;
+$screen-xl-max: ($screen-xl-min - 1) !default;
+
+// Extra extra large screen / large descktop
+$screen-xxl: 1600px !default;
+$screen-xxl-min: $screen-xxl !default;
+$screen-xxl-max: ($screen-xxl-min - 1) !default;
+
+// Z-index
+$zindex-spin: 8;
+$zindex-affix: 10;
+$zindex-back-top: 10;
+$zindex-select: 900;
+$zindex-modal: 1000;
+$zindex-drawer: 1000;
+$zindex-message: 1010;
+$zindex-notification: 1010;
+$zindex-tooltip: 1060;
+$zindex-transfer: 1060;
+$zindex-loading-bar: 2000;
+$zindex-spin-fullscreen: 2010;
+
+// Animation
+$animation-time: 0.3s !default;
+$animation-time-quick: 0.15s !default;
+$transition-time: 0.2s !default;
+$ease-in-out: ease-in-out !default;
+
+// Slider
+$slider-color: tint($primary-color, 20%) !default;
+$slider-height: 4px !default;
+$slider-margin: 16px 0 !default;
+$slider-button-wrap-size: 18px !default;
+$slider-button-wrap-offset: -5px !default;
+$slider-disabled-color: #ccc !default;
+
+// Avatar
+$avatar-size-base: 32px !default;
+$avatar-size-lg: 40px !default;
+$avatar-size-sm: 24px !default;
+$avatar-font-size-base: 18px !default;
+$avatar-font-size-lg: 24px !default;
+$avatar-font-size-sm: 14px !default;
+$avatar-bg: #ccc !default;
+$avatar-color: #fff !default;
+$avatar-border-radius: $border-radius-small !default;
+
+// Anchor
+$anchor-border-width: 2px !default;
+
+// List
+// ---
+$list-header-background: transparent !default;
+$list-footer-background: transparent !default;
+$list-empty-text-padding: $padding-md !default;
+$list-item-padding: $padding-sm 0 !default;
+$list-item-meta-margin-bottom: $padding-md !default;
+$list-item-meta-avatar-margin-right: $padding-md !default;
+$list-item-meta-title-margin-bottom: $padding-sm !default;
+
+// Notice
+$notice-width: 335px !default;
+$notice-padding: 16px !default;
+$notice-margin-bottom: 10px !default;
+
+// Spin
+$spin-dot-size-small: 12px !default;
+$spin-dot-size: 20px !default;
+$spin-dot-size-large: 32px !default;
+
+// Split
+$box-shadow: 0 0 4px 0 rgba(28, 36, 56, 0.4) !default;
+$trigger-bar-background: rgba(23, 35, 61, 0.25) !default;
+$trigger-background: #f8f8f9 !default;
+$trigger-width: 6px !default;
+$trigger-bar-width: 4px !default;
+$trigger-bar-offset: ($trigger-width - $trigger-bar-width) / 2 !default;
+$trigger-bar-interval: 3px !default;
+$trigger-bar-weight: 1px !default;
+$trigger-bar-con-height: ($trigger-bar-weight + $trigger-bar-interval) * 8 !default;
+
+// Date picker
+$date-picker-cells-width: 196px !default;
+$date-picker-cells-width-with-weeknumbers: 226px !default;
+
+// Poptip
+$poptip-max-width: 250px !default;
+$poptip-arrow-width: 7px !default;
+$poptip-arrow-outer-width: ($poptip-arrow-width + 1) !default;
+$poptip-distance: $poptip-arrow-width - 1 + 4 !default;
+//$poptip-arrow-color: fadein($border-color-base, 5%);
+$poptip-arrow-color: hsla(0, 0%, 85%, 0.5) !default;
+
+// Steps
+$steps-wait-icon-color: #ccc !default;
+$steps-wait-title-color: #999 !default;
+$steps-wait-description-color: $steps-wait-title-color !default;
+$steps-wait-tail-color: $border-color-split !default;
+$steps-title-color: #666 !default;
+
+// Timepicker
+$time-picker-cells-width-base: 56px !default;
+$time-picker-cells-width-with-date-base: 72px !default;
+$time-picker-cells-width: $time-picker-cells-width-base * 2 !default;
+$time-picker-cells-width-with-seconds: $time-picker-cells-width-base *3 !default;
+$time-picker-cells-width-with-date: $time-picker-cells-width-with-date-base * 2 !default;
+$time-picker-cells-width-with-date-with-seconds: $time-picker-cells-width-with-date-base * 3 !default;
+
+// Timeline
+$timeline-color: $border-color-split !default;
+
+// Tooltip
+$tooltip-max-width: 250px !default;
+$tooltip-arrow-width: 5px !default;
+$tooltip-distance: $tooltip-arrow-width - 1 + 4 !default;
+
+$tooltip-arrow-width-light: 7px !default;
+$tooltip-distance-light: $tooltip-arrow-width-light - 1 + 4 !default;
+$tooltip-arrow-outer-width-light: ($tooltip-arrow-width-light + 1) !default;
+$tooltip-arrow-color: hsla(0, 0%, 85%, 0.5) !default;
+
+// Modal
+
+$modal-header-height: 51px !default;
+$modal-footer-height: 61px !default;
+
+// Classes
+$icon-prefix-cls: 'ion';
+$checkbox-prefix-cls: unquote('#{$css-prefix}checkbox');
+$cell-prefix-cls: unquote('#{$css-prefix}cell');
+$badge-prefix-cls: unquote('#{$css-prefix}badge');
+$btn-prefix-cls: unquote('#{$css-prefix}btn');
+$card-prefix-cls: unquote('#{$css-prefix}card');
+$collapse-prefix-cls: unquote('#{$css-prefix}collapse');
+$divider-prefix-cls: unquote('#{$css-prefix}divider');
+$form-prefix-cls: unquote('#{$css-prefix}form');
+$form-item-prefix-cls: unquote('#{$form-prefix-cls}-item');
+$list-prefix-cls: unquote('#{$css-prefix}list');
+$select-dropdown-prefix-cls: unquote('#{$css-prefix}select-dropdown');
+$menu-prefix-cls: unquote('#{$css-prefix}menu');
+$menu-dropdown-item-prefix-cls: unquote('#{$menu-prefix-cls}-horizontal .#{$menu-prefix-cls}-submenu .#{$select-dropdown-prefix-cls} .#{$menu-prefix-cls}-item');
+$modal-prefix-cls: unquote('#{$css-prefix}modal');
+$confirm-prefix-cls: unquote('#{$css-prefix}modal-confirm');
+$notice-prefix-cls: unquote('#{$css-prefix}notice');
+$transfer-no-max-height: unquote('#{$css-prefix}transfer-no-max-height');
+$select-prefix-cls: unquote('#{$css-prefix}select');
+$select-item-prefix-cls: unquote('#{$css-prefix}select-item');
+$select-group-prefix-cls: unquote('#{$css-prefix}select-group');
+$spin-prefix-cls: unquote('#{$css-prefix}spin');
+$split-prefix-cls: unquote('#{$css-prefix}split');
+$switch-prefix-cls: unquote('#{$css-prefix}switch');
+$table-prefix-cls: unquote('#{$css-prefix}table');
+$table-select-item-prefix-cls: unquote('#{$table-prefix-cls}-filter-select-item');
+$radio-prefix-cls: unquote('#{$css-prefix}radio');
+$radio-group-prefix-cls: unquote('#{$radio-prefix-cls}-group');
+$radio-inner-prefix-cls: unquote('#{$radio-prefix-cls}-inner');
+$radio-group-button-prefix-cls: unquote('#{$radio-group-prefix-cls}-button');
+$alert-prefix-cls: unquote('#{$css-prefix}alert');
+$anchor-prefix: unquote('#{$css-prefix}anchor');
+$auto-complete-prefix-cls: unquote('#{$css-prefix}auto-complete');
+$avatar-prefix-cls: unquote('#{$css-prefix}avatar');
+$backtop-prefix-cls: unquote('#{$css-prefix}back-top');
+$breadcrumb-prefix-cls: unquote('#{$css-prefix}breadcrumb');
+$carousel-prefix-cls: unquote('#{$css-prefix}carousel');
+$carousel-item-prefix-cls: unquote('#{$css-prefix}carousel-item');
+$cascader-prefix-cls: unquote('#{$css-prefix}cascader');
+$cascader-item-prefix-cls: unquote('#{$css-prefix}cascader-menu-item');
+$circle-prefix-cls: unquote('#{$css-prefix}chart-circle');
+$color-picker-prefix-cls: '#{$css-prefix}color-picker';
+$date-picker-prefix-cls: unquote('#{$css-prefix}date-picker');
+$picker-prefix-cls: unquote('#{$css-prefix}picker');
+$drawer-prefix-cls: unquote('#{$css-prefix}drawer');
+$dropdown-prefix-cls: unquote('#{$css-prefix}dropdown');
+$dropdown-item-prefix-cls: unquote('#{$dropdown-prefix-cls}-item');
+$input-number-prefix-cls: unquote('#{$css-prefix}input-number');
+$input-prefix-cls: unquote('#{$css-prefix}input');
+$layout-prefix-cls: unquote('#{$css-prefix}layout');
+$loading-bar-prefix-cls: unquote('#{$css-prefix}loading-bar');
+$message-prefix-cls: unquote('#{$css-prefix}message');
+$page-prefix-cls: unquote('#{$css-prefix}page');
+$poptip-prefix-cls: unquote('#{$css-prefix}poptip');
+$progress-prefix-cls: unquote('#{$css-prefix}progress');
+$rate-prefix-cls: unquote('#{$css-prefix}rate');
+$scroll-prefix-cls: unquote('#{$css-prefix}scroll');
+$slider-prefix-cls: unquote('#{$css-prefix}slider');
+$poptip-arrow: unquote('#{$poptip-prefix-cls}-arrow');
+$steps-prefix-cls: unquote('#{$css-prefix}steps');
+$tabs-prefix-cls: unquote('#{$css-prefix}tabs');
+$tag-prefix-cls: unquote('#{$css-prefix}tag');
+$tag-close-prefix-cls: ion-ios-close;
+$time-picker-prefix-cls: unquote('#{$css-prefix}time-picker');
+$time-prefix-cls: unquote('#{$css-prefix}time');
+$timeline-prefix-cls: unquote('#{$css-prefix}timeline');
+$tooltip-prefix-cls: unquote('#{$css-prefix}tooltip');
+$tooltip-arrow: unquote('#{$tooltip-prefix-cls}-arrow');
+$transfer-prefix-cls: unquote('#{$css-prefix}transfer');
+$transfer-item-prefix-cls: unquote('#{$css-prefix}transfer-list-content-item');
+$tree-prefix-cls: unquote('#{$css-prefix}tree');
+$upload-prefix-cls: unquote('#{$css-prefix}upload');

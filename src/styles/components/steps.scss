@@ -1,0 +1,370 @@
+.#{$steps-prefix-cls} {
+  display: box;
+  display: flexbox;
+  display: flex;
+  font-size: 0;
+  line-height: 1.5;
+  width: 100%;
+
+  &-item {
+    -webkit-box-flex: 1;
+    display: inline-block;
+    -ms-flex: 1;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    vertical-align: top;
+
+    &:last-child {
+      -webkit-box-flex: 0;
+      -ms-flex: 0;
+      flex: none;
+    }
+
+    &.#{$steps-prefix-cls}-status-wait {
+      .#{$steps-prefix-cls}-head-inner {
+        background-color: #fff;
+        > .#{$steps-prefix-cls}-icon, span {
+          color: $steps-wait-icon-color;
+        }
+      }
+      .#{$steps-prefix-cls}-title {
+        color: $steps-wait-title-color;
+      }
+      .#{$steps-prefix-cls}-content {
+        color: $steps-wait-description-color;
+      }
+      .#{$steps-prefix-cls}-tail > i {
+        background-color: $steps-wait-tail-color;
+      }
+    }
+    &.#{$steps-prefix-cls}-status-process {
+      .#{$steps-prefix-cls}-head-inner {
+        background-color: $primary-color;
+        border-color: $primary-color;
+        > .#{$steps-prefix-cls}-icon, span {
+          color: #fff;
+        }
+      }
+      .#{$steps-prefix-cls}-title {
+        color: $steps-title-color;
+      }
+      .#{$steps-prefix-cls}-content {
+        color: $steps-title-color;
+      }
+      .#{$steps-prefix-cls}-tail > i {
+        background-color: $border-color-split;
+      }
+    }
+    &.#{$steps-prefix-cls}-status-finish {
+      .#{$steps-prefix-cls}-head-inner {
+        background-color: #fff;
+        border-color: $primary-color;
+        > .#{$steps-prefix-cls}-icon, span {
+          color: $primary-color;
+        }
+      }
+      .#{$steps-prefix-cls}-tail > i:after {
+        background: $primary-color;
+        opacity: 1;
+        transition: all $transition-time $ease-in-out;
+        width: 100%;
+      }
+      .#{$steps-prefix-cls}-title {
+        color: $steps-wait-title-color;
+      }
+      .#{$steps-prefix-cls}-content {
+        color: $steps-wait-description-color;
+      }
+    }
+
+    &.#{$steps-prefix-cls}-status-error {
+      .#{$steps-prefix-cls}-head-inner {
+        background-color: #fff;
+        border-color: $error-color;
+        > .#{$steps-prefix-cls}-icon {
+          color: $error-color;
+        }
+      }
+      .#{$steps-prefix-cls}-title {
+        color: $error-color;
+      }
+      .#{$steps-prefix-cls}-content {
+        color: $error-color;
+      }
+      .#{$steps-prefix-cls}-tail > i {
+        background-color: $border-color-split;
+      }
+    }
+
+    &.#{$steps-prefix-cls}-next-error {
+      .#{$steps-prefix-cls}-tail > i,
+      .#{$steps-prefix-cls}-tail > i:after {
+        background-color: $error-color;
+      }
+    }
+
+    &.#{$steps-prefix-cls}-custom {
+      .#{$steps-prefix-cls}-head-inner {
+        background: none;
+        border: 0;
+        height: auto;
+        width: auto;
+        > .#{$steps-prefix-cls}-icon {
+          font-size: 20px;
+          height: 20px;
+          top: 2px;
+          width: 20px;
+        }
+      }
+      &.#{$steps-prefix-cls}-status-process {
+        .#{$steps-prefix-cls}-head-inner > .#{$steps-prefix-cls}-icon {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+
+  &-item:last-child &-tail {
+    display: none;
+  }
+
+  .#{$steps-prefix-cls}-head,
+  .#{$steps-prefix-cls}-main {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+  }
+  .#{$steps-prefix-cls}-head {
+    background: #fff;
+  }
+
+  .#{$steps-prefix-cls}-head-inner {
+    border: 1px solid $steps-wait-icon-color;
+    border-radius: 50%;
+    display: block;
+    font-size: 14px;
+    height: 26px;
+    line-height: 24px;
+    margin-right: 8px;
+    text-align: center;
+    transition: background-color $transition-time $ease-in-out;
+    width: 26px;
+
+    > .#{$steps-prefix-cls}-icon {
+      line-height: 1;
+      position: relative;
+
+      &.ivu-icon {
+        font-size: 24px;
+
+        &-ios-checkmark-empty,
+        &-ios-close-empty {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  .#{$steps-prefix-cls}-main {
+    display: inline;
+    margin-top: 2.5px;
+  }
+  .#{$steps-prefix-cls}-custom .#{$steps-prefix-cls}-title {
+    margin-top: 2.5px;
+  }
+
+  .#{$steps-prefix-cls}-title {
+    background: #fff;
+    color: #666;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    padding-right: 10px;
+
+    > a:first-child:last-child {
+      color: #666;
+    }
+  }
+  .#{$steps-prefix-cls}-item-last {
+    .#{$steps-prefix-cls}-title {
+      padding-right: 0;
+      width: 100%;
+    }
+  }
+  .#{$steps-prefix-cls}-content {
+    color: #999;
+    font-size: 12px;
+  }
+  .#{$steps-prefix-cls}-tail {
+    left: 0;
+    padding: 0 10px;
+    position: absolute;
+    top: 13px;
+    width: 100%;
+
+    > i {
+      background: $border-color-split;
+      border-radius: 1px;
+      display: inline-block;
+      height: 1px;
+      position: relative;
+      vertical-align: top;
+      width: 100%;
+
+      &::after {
+        background: $border-color-split;
+        content: '';
+        height: 100%;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        width: 0;
+      }
+    }
+  }
+
+  &.#{$steps-prefix-cls}-small {
+    .#{$steps-prefix-cls}-head-inner {
+      border-radius: 50%;
+      font-size: 12px;
+      height: 18px;
+      line-height: 16px;
+      margin-right: 10px;
+      text-align: center;
+      width: 18px;
+
+      > .#{$steps-prefix-cls}-icon.ivu-icon {
+        font-size: 16px;
+        top: 0;
+      }
+    }
+    .#{$steps-prefix-cls}-main {
+      margin-top: 0;
+    }
+    .#{$steps-prefix-cls}-title {
+      color: #666;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 4px;
+      margin-top: 0;
+    }
+    .#{$steps-prefix-cls}-content {
+      color: #999;
+      font-size: 12px;
+      padding-left: 30px;
+    }
+    .#{$steps-prefix-cls}-tail {
+      padding: 0 8px;
+      top: 8px;
+
+      > i {
+        border-radius: 1px;
+        height: 1px;
+        width: 100%;
+      }
+    }
+  }
+
+  &.#{$steps-prefix-cls}-small .#{$steps-prefix-cls}-item.#{$steps-prefix-cls}-custom .#{$steps-prefix-cls}-head-inner,
+  .#{$steps-prefix-cls}-item.#{$steps-prefix-cls}-custom .#{$steps-prefix-cls}-head-inner {
+    background: none;
+    border: 0;
+    border-radius: 0;
+    height: inherit;
+    line-height: inherit;
+    width: inherit;
+  }
+}
+
+.#{$steps-prefix-cls}-vertical {
+  display: block;
+  .#{$steps-prefix-cls}-item {
+    display: block;
+    overflow: visible;
+  }
+
+  .#{$steps-prefix-cls}-tail {
+    height: 100%;
+    left: 13px;
+    padding: 30px 0 4px;
+    position: absolute;
+    top: 0;
+    width: 1px;
+
+    > i {
+      height: 100%;
+      width: 1px;
+
+      &::after {
+        height: 0;
+        width: 100%;
+      }
+    }
+  }
+
+  .#{$steps-prefix-cls}-status-finish {
+    .#{$steps-prefix-cls}-tail > i:after {
+      height: 100%;
+    }
+  }
+
+  .#{$steps-prefix-cls}-head {
+    float: left;
+
+    &-inner {
+      margin-right: 16px;
+    }
+  }
+
+  .#{$steps-prefix-cls}-main {
+    display: block;
+    min-height: 47px;
+    overflow: hidden;
+    .#{$steps-prefix-cls}-title {
+      line-height: 26px;
+    }
+    .#{$steps-prefix-cls}-content {
+      padding-bottom: 12px;
+      padding-left: 0;
+    }
+  }
+
+  .#{$steps-prefix-cls}-custom .#{$steps-prefix-cls}-icon {
+    left: 4px;
+  }
+  &.#{$steps-prefix-cls}-small .#{$steps-prefix-cls}-custom .#{$steps-prefix-cls}-icon {
+    left: 0;
+  }
+}
+
+.#{$steps-prefix-cls}-vertical.#{$steps-prefix-cls}-small {
+  .#{$steps-prefix-cls}-tail {
+    left: 9px;
+    padding: 22px 0 4px;
+    position: absolute;
+    top: 0;
+
+    > i {
+      height: 100%;
+    }
+  }
+
+  .#{$steps-prefix-cls}-title {
+    line-height: 18px;
+  }
+}
+
+.#{$steps-prefix-cls}-horizontal {
+  &.#{$steps-prefix-cls}-hidden {
+    visibility: hidden;
+  }
+  .#{$steps-prefix-cls}-content {
+    //max-width: 100px;
+    padding-left: 35px;
+  }
+  .#{$steps-prefix-cls}-item:not(:first-child) .#{$steps-prefix-cls}-head {
+    margin-left: -10px;
+    padding-left: 10px;
+  }
+}

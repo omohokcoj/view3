@@ -1,0 +1,86 @@
+.#{$timeline-prefix-cls} {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &-item {
+    list-style: none;
+    margin: 0 !important;
+    padding: 0 0 12px;
+    position: relative;
+
+    &-tail {
+      border-left: 1px solid $timeline-color;
+      height: 100%;
+      left: 6px;
+      position: absolute;
+      top: 0;
+    }
+
+    &-pending &-tail {
+      display: none;
+    }
+
+    &-head {
+      background-color: #fff;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      height: 13px;
+      position: absolute;
+      width: 13px;
+
+      &-blue {
+        border-color: $primary-color;
+        color: $primary-color;
+      }
+
+      &-red {
+        border-color: $error-color;
+        color: $error-color;
+      }
+
+      &-green {
+        border-color: $success-color;
+        color: $success-color;
+      }
+    }
+
+    &-head-custom {
+      border: 0;
+      border-radius: 0;
+      font-size: $font-size-base;
+      height: auto;
+      left: -13px;
+      line-height: 1;
+      margin-top: 6px;
+      padding: 3px 0;
+      position: absolute;
+      text-align: center;
+      transform: translateY(-50%);
+      width: 40px;
+    }
+
+    &-content {
+      font-size: $font-size-base;
+      padding: 1px 1px 10px 24px;
+      position: relative;
+      top: -3px;
+    }
+
+    &:last-child {
+      .#{$timeline-prefix-cls}-item-tail {
+        display: none;
+      }
+    }
+  }
+
+  &#{&}-pending &-item:nth-last-of-type(2) {
+
+    .#{$timeline-prefix-cls}-item-tail {
+      border-left: 1px dotted $timeline-color;
+    }
+    .#{$timeline-prefix-cls}-item-content {
+      min-height: 48px;
+    }
+  }
+}

@@ -1,0 +1,116 @@
+.#{$notice-prefix-cls} {
+  margin-right: 24px;
+  position: fixed;
+  width: $notice-width;
+  z-index: $zindex-notification;
+
+  &-content-with-icon {
+    margin-left: 51px;
+  }
+
+  &-with-desc &-with-icon &-title {
+    margin-left: 51px;
+  }
+
+  &-notice {
+    background: #fff;
+    // border: 1px solid $border-color-split;
+    border-radius: $border-radius-small;
+    box-shadow: $shadow-base;
+    line-height: 1;
+    margin-bottom: $notice-margin-bottom;
+    overflow: hidden;
+    padding: $notice-padding;
+    position: relative;
+
+    &-close {
+      color: #999;
+      outline: none;
+      position: absolute;
+      right: 8px;
+      top: 15px;
+
+      i {
+        @include close-base(-3px);
+      }
+    }
+
+    &-content-with-render {
+      .ivu-notice-desc {
+        display: none;
+      }
+    }
+
+    &-with-desc {
+      .#{$notice-prefix-cls}-notice-close {
+        top: 11px;
+      }
+    }
+  }
+
+  &-content-with-render-notitle {
+    margin-left: 26px;
+  }
+
+  &-title {
+    color: $title-color;
+    font-size: $font-size-large;
+    line-height: $font-size-large + 3;  //fixed the bug that the bottom of some letters were hidden just like 'g'
+    overflow: hidden;
+    padding-right: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &-with-desc &-title {
+    //font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  &-desc {
+    //color: $legend-color;
+    color: $text-color;
+    font-size: $font-size-base;
+    line-height: 1.5;
+    text-align: justify;
+  }
+
+  &-with-desc &-with-icon &-desc {
+    margin-left: 51px;
+  }
+
+  &-with-icon &-title {
+    margin-left: 26px;
+  }
+
+  &-icon {
+    font-size: $font-size-large + 4;
+    position: absolute;
+    top: -2px;
+
+    &-success {
+      color: $success-color;
+    }
+
+    &-info {
+      color: $primary-color;
+    }
+
+    &-warning {
+      color: $warning-color;
+    }
+
+    &-error {
+      color: $error-color;
+    }
+  }
+
+  &-with-desc &-icon {
+    font-size: 36px;
+    top: -6px;
+  }
+
+  &-custom-content {
+    position: relative;
+  }
+}

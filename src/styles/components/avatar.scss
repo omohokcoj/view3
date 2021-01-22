@@ -1,0 +1,58 @@
+@mixin avatar-size($size, $font-size) {
+  border-radius: 50%;
+  height: $size;
+  line-height: $size;
+  width: $size;
+
+  //& > * {
+  //    line-height: $size;
+  //}
+
+  &.#{$avatar-prefix-cls}-icon {
+    font-size: $font-size;
+  }
+}
+
+.#{$avatar-prefix-cls} {
+
+  @include avatar-size($avatar-size-base, $avatar-font-size-base);
+  background: $avatar-bg;
+  color: $avatar-color;
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  &-image {
+    background: transparent;
+  }
+
+  .ivu-icon {
+    position: relative;
+    top: -1px;
+  }
+
+  &-large {
+    @include avatar-size($avatar-size-lg, $avatar-font-size-lg);
+
+    .ivu-icon {
+      position: relative;
+      top: -2px;
+    }
+  }
+
+  &-small {
+    @include avatar-size($avatar-size-sm, $avatar-font-size-sm);
+  }
+
+  &-square {
+    border-radius: $avatar-border-radius;
+  }
+
+  & > img {
+    height: 100%;
+    width: 100%;
+  }
+}

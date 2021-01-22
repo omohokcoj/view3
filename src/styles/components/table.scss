@@ -1,0 +1,585 @@
+.#{$table-prefix-cls} {
+  background-color: #fff;
+
+  box-sizing: border-box;
+  color: $text-color;
+  font-size: $font-size-base;
+  height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  width: inherit;
+
+  &-wrapper {
+    //border: 1px solid $border-color-base;
+    //border-bottom: 0;
+    //border-right: 0;
+    overflow: hidden; // 开启 max-height 时，没有 overflow: hidden，则底部多出 1px，早期没有 overflow 是因为有些控件没有加 transfer
+    position: relative;
+
+    &-with-border {
+      border: 1px solid $border-color-base;
+      border-bottom: 0;
+      border-right: 0;
+    }
+  }
+  //position: relative;
+
+  &-summary {
+    border-top: 1px solid $border-color-split;
+
+    tr td {
+      background-color: $table-thead-bg;
+    }
+  }
+
+  &-with-summary {
+    .ivu-table-tbody {
+      tr:last-child td {
+        border-bottom: none;
+      }
+    }
+  }
+
+  &-resize-line {
+    border-right: 1px dashed $border-color-split;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 1px;
+  }
+
+  &-hide {
+    opacity: 0;
+  }
+
+  &::before {
+    background-color: $border-color-base;
+    bottom: 0;
+    content: '';
+    height: 1px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    //z-index: 1;
+    z-index: 4; // 解决开启 border，同时固定表头和列，fixed 的最底下没有边框
+  }
+
+  &-border::after {
+    background-color: $border-color-base;
+    content: '';
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 1px;
+    z-index: 3;
+  }
+
+  &-with-header {
+    //border-radius: $border-radius-base $border-radius-base 0 0;
+  }
+
+  &-with-footer {
+    //border: 1px solid $border-color-base;
+    //border-radius: 0 0 $border-radius-base $border-radius-base;
+  }
+
+  &-with-header &-with-footer {
+    //border-radius: $border-radius-base;
+  }
+
+  &-title,
+  &-footer {
+    border-bottom: 1px solid $border-color-split;
+    height: 48px;
+    line-height: 48px;
+  }
+
+  &-footer {
+    border-bottom: none;
+  }
+
+  &-header {
+    overflow: hidden;
+
+    thead {
+      tr {
+        th {
+          height: 100%;
+          padding: 8px 0;
+          position: relative;
+        }
+      }
+    }
+
+    &-resizable {
+      bottom: 0;
+      cursor: col-resize;
+      height: 100%;
+      position: absolute;
+      right: -5px;
+      width: 10px;
+      z-index: 1;
+    }
+  }
+
+  &-body {
+    //overflow: auto;
+    //position: relative;
+
+  }
+
+  &-overflowX {
+    overflow-x: scroll;
+  }
+
+  &-overflowY {
+    overflow-y: scroll;
+  }
+
+  &-tip {
+    overflow-x: auto;
+    overflow-y: hidden;
+    //position: relative;
+  }
+
+  &-with-fixed-top &-with-footer {
+    .#{$table-prefix-cls}-footer {
+      border-top: 1px solid $border-color-base;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+  }
+
+  th,
+  td {
+    //position: relative;
+    border-bottom: 1px solid $border-color-split;
+    box-sizing: border-box;
+    height: 48px;
+    min-width: 0;
+    text-align: left;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+  }
+
+  th {
+    background-color: $table-thead-bg;
+    height: 40px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  td {
+    background-color: #fff;
+    transition: background-color $transition-time $ease-in-out;
+  }
+
+  th &-column,
+  td &-column {
+    &-left {
+      text-align: left;
+    }
+
+    &-center {
+      text-align: center;
+    }
+
+    &-right {
+      text-align: right;
+    }
+  }
+
+  & table {
+    //width: 100%;
+    table-layout: fixed;
+  }
+
+  &-border {
+    th,
+    td {
+      border-right: 1px solid $border-color-split;
+    }
+  }
+
+  &-cell {
+    box-sizing: border-box;
+    overflow: hidden;
+    padding-left: 18px;
+    padding-right: 18px;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-all;
+
+    &-ellipsis {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      word-break: keep-all;
+    }
+
+    &-tooltip {
+      align-items: center;
+      display: flex;
+      width: 100%;
+
+      &-content {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    &-with-expand {
+      height: 47px;
+      line-height: 47px;
+      padding: 0;
+      text-align: center;
+    }
+
+    &-expand {
+      cursor: pointer;
+      transition: transform $transition-time $ease-in-out;
+
+      i {
+        font-size: $font-size-base;
+      }
+
+      &-expanded {
+        transform: rotate(90deg);
+      }
+    }
+
+    &-sort {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    // #3159
+    &-with-selection {
+      .#{$checkbox-prefix-cls}-wrapper {
+        margin-right: 0;
+      }
+    }
+
+    &-tree {
+      background-color: #fff;
+      border: 1px solid $border-color-base;
+      border-radius: 2px;
+      cursor: pointer;
+      display: inline-block;
+      height: 16px;
+      line-height: 12px;
+      transition: color $transition-time $ease-in-out, border-color $transition-time $ease-in-out;
+      vertical-align: middle;
+      width: 16px;
+
+      &-empty {
+        background-color: transparent;
+        border-color: transparent;
+        color: transparent;
+        cursor: default;
+      }
+
+      &:hover {
+        border-color: $primary-color;
+        color: $primary-color;
+      }
+
+      &-empty:hover {
+        border-color: transparent;
+        color: transparent;
+      }
+
+      &-loading {
+        background-color: transparent;
+        border-color: transparent;
+        cursor: default;
+
+        &:hover {
+          border-color: transparent;
+        }
+      }
+
+      &-level {
+        display: inline-block;
+        height: 16px;
+      }
+    }
+
+    &-slot {
+      &-inline {
+        display: inline;
+      }
+
+      &-inline-block {
+        display: inline-block;
+      }
+    }
+  }
+
+  &-hidden {
+    visibility: hidden;
+  }
+
+  th &-cell {
+    display: inline-block;
+    vertical-align: middle;
+    //position: relative;
+    word-wrap: normal;
+  }
+
+  td &-expanded-cell {
+    background: $table-thead-bg;
+    padding: 20px 50px;
+  }
+
+  &-stripe &-body,
+  &-stripe &-fixed-body {
+    tr:nth-child(2n) {
+      td {
+        background-color: $table-td-stripe-bg;
+      }
+    }
+    // #1380
+    tr.#{$table-prefix-cls}-row-hover {
+      td {
+        background-color: $table-td-hover-bg;
+      }
+    }
+  }
+
+  tr &-row-hover {
+    td {
+      background-color: $table-td-hover-bg;
+    }
+  }
+
+  &-large {
+    font-size: $font-size-large;
+
+    th {
+      height: 48px;
+    }
+
+    td {
+      height: 60px;
+    }
+
+    &-title,
+    &-footer {
+      height: 60px;
+      line-height: 60px;
+    }
+    .#{$table-prefix-cls}-cell-with-expand {
+      height: 59px;
+      line-height: 59px;
+
+      i {
+        font-size: $font-size-base+2;
+      }
+    }
+  }
+
+  &-small {
+    font-size: $font-size-small;
+
+    th {
+      height: 32px;
+    }
+
+    td {
+      height: 40px;
+    }
+
+    &-title,
+    &-footer {
+      height: 40px;
+      line-height: 40px;
+    }
+    .#{$table-prefix-cls}-cell-with-expand {
+      height: 39px;
+      line-height: 39px;
+    }
+  }
+
+  &-row-highlight,
+  tr &-row-highlight &-row-hover,
+  &-stripe &-body tr &-row-highlight:nth-child(2n),
+  &-stripe &-fixed-body tr &-row-highlight:nth-child(2n) {
+    td {
+      background-color: $table-td-highlight-bg;
+    }
+  }
+
+  &-fixed,
+  &-fixed-right {
+    box-shadow: 2px 0 6px -2px rgba(0, 0, 0, 0.2);
+    left: 0;
+    position: absolute;
+    top: 0;
+
+    &::before {
+      background-color: $border-color-base;
+      bottom: 0;
+      content: '';
+      height: 1px;
+      left: 0;
+      position: absolute;
+      width: 100%;
+      z-index: 4;
+    }
+  }
+
+  &-fixed-right {
+    box-shadow: -2px 0 6px -2px rgba(0, 0, 0, 0.2);
+    left: auto;
+    right: 0;
+    top: 0;
+  }
+
+  &-fixed-right-header {
+    background-color: $table-thead-bg;
+    border-bottom: 1px solid $border-color-split;
+    border-top: 1px solid $border-color-base;
+    position: absolute;
+    right: 0;
+    top: -1px;
+  }
+
+  &-fixed-header {
+    overflow: hidden;
+    // 在 #1387 里，添加了下面的代码，但是在 #5174 会出现新的问题。
+    // 但是，在新版本里，注释掉后，#1387 的问题并没有再复现，所以注释掉
+    //&-with-empty{
+    //    .#{$table-prefix-cls}-hidden{
+    //        .#{$table-prefix-cls}-sort{
+    //            display: none;
+    //        }
+    //        .#{$table-prefix-cls}-cell span{
+    //            display: none;
+    //        }
+    //    }
+    //}
+    thead {
+      tr {
+        th {
+          height: 100%;
+          padding: 8px 0;
+          position: relative;
+        }
+      }
+    }
+  }
+
+  &-fixed-body {
+    overflow: hidden;
+    position: relative;
+    z-index: 3;
+  }
+
+  &-fixed-shadow {
+    box-shadow: $shadow-right;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 1px;
+    z-index: 1;
+  }
+
+  &-sort {
+    @include sortable();
+  }
+
+  &-filter {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    //top: 1px;
+
+    i {
+      color: $btn-disable-color;
+      transition: color $transition-time $ease-in-out;
+
+      &:hover {
+        color: inherit;
+      }
+
+      &.on {
+        color: $primary-color;
+      }
+    }
+
+    &-list {
+      @include select-item($table-prefix-cls, $table-select-item-prefix-cls);
+      padding: 8px 0 0;
+
+      &-item {
+        padding: 0 12px 8px;
+
+        .ivu-checkbox-wrapper + .ivu-checkbox-wrapper {
+          margin: 0;
+        }
+
+        label {
+          display: block;
+
+          & > span {
+            margin-right: 4px;
+          }
+        }
+      }
+
+      ul {
+        padding-bottom: 8px;
+      }
+    }
+
+    &-footer {
+      border-top: 1px solid $border-color-split;
+      overflow: hidden;
+      padding: 4px;
+
+      button:first-child {
+        float: left;
+      }
+
+      button:last-child {
+        float: right;
+      }
+    }
+  }
+
+  &-tip {
+    table {
+      width: 100%;
+
+      td {
+        text-align: center;
+      }
+    }
+  }
+
+  &-expanded-hidden {
+    visibility: hidden;
+  }
+
+  &-context-menu {
+    position: absolute;
+  }
+}
+
+.ivu-table-popper {
+  min-width: 0;
+  text-align: left;
+
+  .ivu-poptip-body {
+    padding: 0;
+  }
+}

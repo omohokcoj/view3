@@ -1,0 +1,189 @@
+.#{$carousel-prefix-cls} {
+  box-sizing: border-box;
+  display: block;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: pan-y;
+  user-select: none;
+
+  &-track,
+  &-list {
+    transform: translate3d(0, 0, 0);
+  }
+
+  &-list {
+    display: block;
+
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+  }
+
+  &-track {
+    display: block;
+    left: 0;
+
+    overflow: hidden;
+    position: relative;
+    //top: 0;
+    top: 100%;
+
+    z-index: 1;
+
+    &.higher {
+      top: 0;
+      z-index: 2;
+    }
+  }
+
+  &-item {
+    display: block;
+    float: left;
+    height: 100%;
+    min-height: 1px;
+  }
+
+  &-arrow {
+    background-color: rgba(31, 45, 61, 0.11);
+
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+
+    cursor: pointer;
+
+    display: none;
+
+    font-family: inherit;
+    font-size: 1em;
+    height: 36px;
+    line-height: inherit;
+    margin: 0;
+    outline: none;
+
+    padding: 0;
+
+    position: absolute;
+
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+
+    transition: $transition-time;
+
+    width: 36px;
+    z-index: 10;
+
+    &:hover {
+      background-color: rgba(31, 45, 61, 0.5);
+    }
+
+    & > * {
+      vertical-align: baseline;
+    }
+
+    &.left {
+      left: 16px;
+    }
+
+    &.right {
+      right: 16px;
+    }
+
+    &-always {
+      display: inherit;
+    }
+
+    &-hover {
+      display: inherit;
+
+      opacity: 0;
+    }
+  }
+
+  &:hover &-arrow-hover {
+    opacity: 1;
+  }
+
+  &-dots {
+
+    $padding: 7px;
+
+    display: none;
+    height: 3px + $padding * 2;
+
+    list-style: none;
+
+    padding: 0;
+
+    position: relative;
+
+    text-align: center;
+    width: 100%;
+    z-index: 10;
+
+    &-inside {
+      bottom: 10px - $padding;
+      display: block;
+      position: absolute;
+    }
+
+    &-outside {
+      display: block;
+      margin-top: 10px - $padding;
+    }
+
+    li {
+
+      cursor: pointer;
+      display: inline-block;
+
+      margin: 0 2px;
+      padding: $padding 0;
+      position: relative;
+      text-align: center;
+
+      vertical-align: top;
+
+      button {
+
+        background: #8391a5;
+        border: 0;
+
+        border-radius: 1px;
+        color: transparent;
+        cursor: pointer;
+
+        display: block;
+
+        font-size: 0;
+        height: 3px;
+        opacity: 0.3;
+        outline: none;
+
+        transition: all 0.5s;
+        width: 16px;
+
+        &.radius {
+          border-radius: 50%;
+          height: 6px;
+          width: 6px;
+        }
+      }
+
+      &:hover > button {
+        opacity: 0.7;
+      }
+
+      &.#{$carousel-prefix-cls}-active > button {
+        opacity: 1;
+        width: 24px;
+
+        &.radius {
+          width: 6px;
+        }
+      }
+    }
+  }
+}

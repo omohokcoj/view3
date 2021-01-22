@@ -1,0 +1,381 @@
+.#{$select-prefix-cls} {
+  box-sizing: border-box;
+  color: $text-color;
+  display: inline-block;
+  font-size: $font-size-base;
+  //position: relative;
+  line-height: normal;
+  vertical-align: middle;
+  width: 100%;
+
+  &-selection {
+
+    background-color: #fff;
+    border: 1px solid $border-color-base;
+    border-radius: $btn-border-radius;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    outline: none;
+    position: relative;
+    transition: all $transition-time $ease-in-out;
+    user-select: none;
+
+    &:hover,
+    &-focused {
+      @include hover();
+      .#{$select-prefix-cls}-arrow {
+        display: inline-block;
+      }
+    }
+  }
+
+  &-arrow {
+    @include inner-arrow();
+  }
+
+  &-visible {
+    .#{$select-prefix-cls}-selection {
+      @include active();
+    }
+
+    .#{$select-prefix-cls}-arrow {
+      display: inline-block;
+      transform: translateY(-50%) rotate(180deg);
+    }
+  }
+
+  &-disabled {
+    .#{$select-prefix-cls}-selection {
+      @include disabled();
+
+      .#{$select-prefix-cls}-arrow {
+        color: $slider-disabled-color;
+      }
+
+      &:hover {
+        border-color: $border-color-base;
+        box-shadow: none;
+
+        .#{$select-prefix-cls}-arrow {
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  &-single &-selection {
+    height: $input-height-base;
+    position: relative;
+
+    .#{$select-prefix-cls}-placeholder {
+      color: $input-placeholder-color;
+    }
+
+    .#{$select-prefix-cls}-placeholder, .#{$select-prefix-cls}-selected-value {
+      display: block;
+      font-size: $font-size-base;
+      height: $input-height-base - 2px;
+      line-height: $input-height-base - 2px;
+      overflow: hidden;
+      padding-left: 8px;
+      padding-right: 24px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  &-multiple &-selection {
+    padding: 0 24px 0 4px;
+    //min-height: $input-height-base;
+
+    .#{$select-prefix-cls}-placeholder {
+      color: $input-placeholder-color;
+      display: block;
+      font-size: $font-size-base;
+      height: $input-height-base - 2px;
+      line-height: $input-height-base - 2px;
+      overflow: hidden;
+      padding-left: 4px;
+      padding-right: 22px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  &-default.#{$select-prefix-cls}-multiple &-selection {
+    min-height: $input-height-base;
+  }
+
+  &-large.#{$select-prefix-cls}-single &-selection {
+    height: $input-height-large;
+
+    .#{$select-prefix-cls}-placeholder, .#{$select-prefix-cls}-selected-value {
+      font-size: $font-size-large;
+      height: $input-height-large - 2px;
+      line-height: $input-height-large - 2px;
+    }
+  }
+
+  &-large.#{$select-prefix-cls}-multiple &-selection {
+    min-height: $input-height-large;
+
+    .#{$select-prefix-cls}-placeholder, .#{$select-prefix-cls}-selected-value {
+      font-size: $font-size-large;
+      line-height: $input-height-large - 2px;
+      min-height: $input-height-large - 2px;
+    }
+  }
+
+  &-small.#{$select-prefix-cls}-single &-selection {
+    border-radius: $btn-border-radius-small;
+    height: $input-height-small;
+
+    .#{$select-prefix-cls}-placeholder, .#{$select-prefix-cls}-selected-value {
+      height: $input-height-small - 2px;
+      line-height: $input-height-small - 2px;
+    }
+  }
+
+  &-small.#{$select-prefix-cls}-multiple &-selection {
+    border-radius: $btn-border-radius-small;
+    min-height: $input-height-small;
+
+    .#{$select-prefix-cls}-placeholder, .#{$select-prefix-cls}-selected-value {
+      height: auto;
+      line-height: $input-height-small - 2px;
+      min-height: $input-height-small - 2px;
+    }
+  }
+
+  // input
+  &-input {
+    @include placeholder();
+    background-color: transparent;
+    border: none;
+    box-sizing: border-box;
+    color: $input-color;
+    cursor: pointer;
+    display: inline-block;
+    font-size: $font-size-base;
+    height: $input-height-base;
+    line-height: $input-height-base;
+    outline: none;
+    padding: 0 24px 0 8px;
+    position: relative;
+
+    &[disabled] {
+      color: #ccc;
+      cursor: $cursor-disabled;
+      -webkit-text-fill-color: #ccc;  // #5249
+    }
+  }
+
+  &-single &-input {
+    width: 100%;
+  }
+
+  &-large &-input,
+  &-large.#{$select-prefix-cls}-multiple &-input {
+    font-size: $font-size-large;
+    height: $input-height-large - 8px;
+    line-height: $input-height-large - 8px;
+    top: 3px;
+  }
+
+  &-small &-input,
+  &-small.#{$select-prefix-cls}-multiple &-input {
+    height: $input-height-small - 6px;
+    line-height: $input-height-small - 6px;
+    top: 2px;
+  }
+
+  &-multiple &-input {
+    height: $input-height-base - 6px;
+    line-height: $input-height-base - 6px;
+    padding: 0 0 0 4px;
+    top: 2px;
+  }
+
+  &-not-found {
+    color: $btn-disable-color;
+    text-align: center;
+
+    li:not([class^=ivu-]) {
+      margin-bottom: 0;
+    }
+  }
+
+  &-loading {
+    color: $btn-disable-color;
+    text-align: center;
+  }
+
+  &-multiple .#{$css-prefix}tag {
+    height: 24px;
+    line-height: 22px;
+    margin: 3px 4px 3px 0;
+    max-width: 99%;
+    position: relative;
+
+    span:not(.ivu-select-max-tag) {
+      display: block;
+      margin-right: 14px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    i {
+      display: block;
+      position: absolute;
+      right: 4px;
+      top: 4px;
+    }
+  }
+
+  &-multiple-tag-hidden {
+    margin-right: 0 !important;
+  }
+
+  &-large.#{$select-prefix-cls}-multiple .#{$css-prefix}tag {
+    font-size: $font-size-large;
+    height: 32px;
+    line-height: 30px;
+
+    i {
+      top: 9px;
+    }
+  }
+
+  &-small.#{$select-prefix-cls}-multiple .#{$css-prefix}tag {
+    font-size: $font-size-small;
+    height: 17px;
+    line-height: 15px;
+    margin: 3px 4px 2px 0;
+    padding: 0 6px;
+
+    span {
+      margin-right: 14px;
+    }
+
+    i {
+      right: 2px;
+      top: 1px;
+    }
+  }
+
+  &-dropdown-list {
+    list-style: none;
+    min-width: 100%;
+  }
+
+  // & .#{$select-prefix-cls}-dropdown {
+  //   width: auto;
+  // }
+
+  &-prefix {
+    display: inline-block;
+    vertical-align: middle;
+
+    i {
+      vertical-align: top;
+    }
+  }
+
+  &-head-with-prefix {
+    display: inline-block !important;
+    vertical-align: middle;
+  }
+
+  &-single &-prefix {
+    padding-left: 4px;
+  }
+
+  &-single &-head-with-prefix,
+  &-multiple &-head-with-prefix {
+    padding-left: 0 !important;
+  }
+
+  &-head-flex {
+    align-items: center;
+    display: flex;
+  }
+
+  &-multiple &-head-flex &-prefix {
+    margin-right: 4px;
+  }
+}
+
+@include select-item($select-prefix-cls, $select-item-prefix-cls);
+
+.#{$select-prefix-cls}-multiple .#{$select-item-prefix-cls} {
+  position: relative;
+
+  &-selected {
+    background: #fff;
+    color: $selected-color;
+  }
+
+  &-focus,
+  &-selected:hover {
+    background: $background-color-select-hover;
+  }
+
+  &-selected.#{$select-prefix-cls}-focus {
+    background: #fff;
+    color: shade($selected-color, 10%);
+  }
+
+  &-selected::after {
+    @include ion();
+    color: $selected-color;
+    content: '\f3ff';
+    //float: right;
+    font-size: 24px;
+    position: absolute;
+    right: 8px;
+    top: 2px;
+  }
+
+  &-selected.ivu-select-item-disabled {
+    color: $btn-disable-color;
+
+    &::after {
+      color: $btn-disable-color;
+    }
+
+    &:hover {
+      background-color: #fff;
+    }
+  }
+}
+
+.#{$select-group-prefix-cls} {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &-title {
+    color: $legend-color;
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 8px;
+  }
+}
+
+.#{$form-item-prefix-cls}-error {
+  .#{$select-prefix-cls} {
+    &-selection {
+      border: 1px solid $error-color;
+    }
+
+    &-arrow {
+      color: $error-color;
+    }
+    &-visible .#{$select-prefix-cls}-selection {
+      @include active-error;
+    }
+  }
+}

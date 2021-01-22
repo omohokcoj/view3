@@ -1,0 +1,141 @@
+.#{$transfer-prefix-cls} {
+  line-height: $line-height-base;
+  position: relative;
+
+  &-list {
+    display: inline-block;
+    font-size: $font-size-base;
+    height: 210px;
+    padding-top: 35px;
+    position: relative;
+    vertical-align: middle;
+    width: 180px;
+
+    &-with-footer {
+      padding-bottom: 35px;
+    }
+
+    &-header {
+      background: $head-bg;
+      border: 1px solid $border-color-base;
+      border-bottom: 1px solid $border-color-split;
+      border-radius: $border-radius-base $border-radius-base 0 0;
+      color: $text-color;
+      left: 0;
+      overflow: hidden;
+      padding: 8px 16px;
+      position: absolute;
+      top: 0;
+      width: 100%;
+
+      &-title {
+        cursor: pointer;
+      }
+
+      & > span {
+        padding-left: 4px;
+      }
+
+      &-count {
+        float: right;
+        margin: 0 !important;
+      }
+    }
+
+    &-body {
+      border: 1px solid $border-color-base;
+      border-radius: 0 0 $border-radius-base $border-radius-base;
+      border-top: 0;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+
+      &-with-search {
+        padding-top: 34px;
+      }
+
+      &-with-footer {
+        border-radius: 0;
+      }
+    }
+
+    &-content {
+      height: 100%;
+      overflow: auto;
+      padding: 4px 0;
+
+      &-item {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        & > span {
+          padding-left: 4px;
+        }
+      }
+
+      &-not-found {
+        color: $btn-disable-color;
+        display: none;
+        text-align: center;
+      }
+
+      li &-not-found:only-child {
+        display: block;
+      }
+    }
+
+    &-body-with-search &-content {
+      padding: 6px 0 0;
+    }
+
+    &-body-search-wrapper {
+      left: 0;
+      padding: 8px 8px 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    &-search {
+      position: relative;
+    }
+
+    &-footer {
+
+      @include clearfix();
+      border: 1px solid $border-color-base;
+      border-radius: 0 0 $border-radius-base $border-radius-base;
+      border-top: 0;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      right: 0;
+    }
+  }
+
+  &-operation {
+    display: inline-block;
+    //overflow: hidden;
+    margin: 0 16px;
+    vertical-align: middle;
+
+    .#{$btn-prefix-cls} {
+      display: block;
+      min-width: $btn-circle-size-small;
+
+      &:first-child {
+        margin-bottom: 12px;
+      }
+    }
+    .#{$btn-prefix-cls} {
+      span {
+        i,
+        span {
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}
+@include select-item($transfer-prefix-cls, $transfer-item-prefix-cls);

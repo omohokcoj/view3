@@ -1,0 +1,171 @@
+@mixin move-motion($className, $keyframeName) {
+  @include make-motion($className, $keyframeName);
+  .#{$className}-enter-active, .#{$className}-appear {
+    animation-timing-function: $ease-in-out;
+    opacity: 0;
+  }
+  .#{$className}-leave-active {
+    animation-timing-function: $ease-in-out;
+  }
+}
+
+@include move-motion(move-up, ivuMoveUp);
+@include move-motion(move-down, ivuMoveDown);
+@include move-motion(move-left, ivuMoveLeft);
+@include move-motion(move-right, ivuMoveRight);
+
+@keyframes ivuMoveDownIn {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+    transform-origin: 0 0;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+    transform-origin: 0 0;
+  }
+}
+
+@keyframes ivuMoveDownOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0%);
+    transform-origin: 0 0;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(100%);
+    transform-origin: 0 0;
+  }
+}
+
+@keyframes ivuMoveLeftIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+    transform-origin: 0 0;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+    transform-origin: 0 0;
+  }
+}
+
+@keyframes ivuMoveLeftOut {
+  0% {
+    opacity: 1;
+    transform: translateX(0%);
+    transform-origin: 0 0;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
+    transform-origin: 0 0;
+  }
+}
+
+@keyframes ivuMoveRightIn {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+    transform-origin: 0 0;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+    transform-origin: 0 0;
+  }
+}
+
+@keyframes ivuMoveRightOut {
+  0% {
+    opacity: 1;
+    transform: translateX(0%);
+    transform-origin: 0 0;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+    transform-origin: 0 0;
+  }
+}
+
+@keyframes ivuMoveUpIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+    transform-origin: 0 0;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+    transform-origin: 0 0;
+  }
+}
+
+@keyframes ivuMoveUpOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0%);
+    transform-origin: 0 0;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+    transform-origin: 0 0;
+  }
+}
+
+// specific transition for Notice
+
+@include move-motion(move-notice, ivuMoveNotice);
+
+@keyframes ivuMoveNoticeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+    transform-origin: 0 0;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+    transform-origin: 0 0;
+  }
+}
+
+@keyframes ivuMoveNoticeOut {
+  0% {
+    opacity: 1;
+    transform: translateX(0%);
+    transform-origin: 0 0;
+  }
+
+  70% {
+    height: auto;
+    margin-bottom: $notice-margin-bottom;
+    opacity: 0;
+    padding: $notice-padding;
+    transform: translateX(100%);
+    transform-origin: 0 0;
+  }
+
+  100% {
+    height: 0;
+    margin-bottom: 0;
+    opacity: 0;
+    padding: 0;
+    transform: translateX(100%);
+    transform-origin: 0 0;
+  }
+}

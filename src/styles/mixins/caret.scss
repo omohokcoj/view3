@@ -1,0 +1,38 @@
+// sortable
+@mixin sortable() {
+  cursor: pointer;
+  display: inline-block;
+  height: 12px;
+  margin-top: -1px;
+  overflow: hidden;
+  position: relative;
+  vertical-align: middle;
+  width: 14px;
+
+  i {
+    color: $btn-disable-color;
+    display: block;
+    font-size: $font-size-large;
+    height: 6px;
+    line-height: 6px;
+    overflow: hidden;
+    position: absolute;
+    transition: color $transition-time $ease-in-out;
+
+    &:hover {
+      color: inherit;
+    }
+
+    &.on {
+      color: $primary-color;
+    }
+
+    &:first-child {
+      top: 0;
+    }
+
+    &:last-child {
+      bottom: 0;
+    }
+  }
+}

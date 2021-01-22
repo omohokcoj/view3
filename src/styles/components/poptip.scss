@@ -1,0 +1,153 @@
+.#{$poptip-prefix-cls} {
+  display: inline-block;
+
+  &-rel {
+    display: inline-block;
+    position: relative;
+  }
+
+  &-title {
+    margin: 0;
+    padding: 8px 16px;
+    position: relative;
+
+    &::after {
+      background-color: $border-color-split;
+      bottom: 0;
+      content: '';
+      display: block;
+      height: 1px;
+      left: 8px;
+      position: absolute;
+      right: 8px;
+    }
+
+    &-inner {
+      color: $title-color;
+      font-size: $font-size-base;
+      font-weight: 500;
+    }
+  }
+
+  &-body {
+    padding: 8px 16px;
+
+    &-content {
+      overflow: auto;
+
+      &-word-wrap {
+        text-align: justify;
+        white-space: pre-wrap;
+      }
+
+      &-inner {
+        color: $text-color;
+      }
+    }
+  }
+
+  &-inner {
+    background-clip: padding-box;
+    background-color: #fff;
+    //border: 1px solid $border-color-split;
+    border-radius: $border-radius-small;
+    box-shadow: $shadow-base;
+    white-space: nowrap;
+    width: 100%;
+  }
+
+  &-popper {
+    @include popper($poptip-arrow, $poptip-arrow-width, $poptip-distance, $poptip-arrow-color);
+    font-size: $font-size-base;
+    min-width: 150px;
+
+    &[x-placement^="top"] .#{$poptip-arrow}:after {
+      border-bottom-width: 0;
+      border-top-color: #fff;
+      border-top-width: $poptip-arrow-width;
+      bottom: 1px;
+      content: ' ';
+      margin-left: -$poptip-arrow-width;
+    }
+
+    &[x-placement^="right"] .#{$poptip-arrow}:after {
+      border-left-width: 0;
+      border-right-color: #fff;
+      border-right-width: $poptip-arrow-width;
+      bottom: -$poptip-arrow-width;
+      content: ' ';
+      left: 1px;
+    }
+
+    &[x-placement^="bottom"] .#{$poptip-arrow}:after {
+      border-bottom-color: #fff;
+      border-bottom-width: $poptip-arrow-width;
+      border-top-width: 0;
+      content: ' ';
+      margin-left: -$poptip-arrow-width;
+      top: 1px;
+    }
+
+    &[x-placement^="left"] .#{$poptip-arrow}:after {
+      border-left-color: #fff;
+      border-left-width: $poptip-arrow-width;
+      border-right-width: 0;
+      bottom: -$poptip-arrow-width;
+      content: ' ';
+      right: 1px;
+    }
+  }
+
+  &-arrow {
+    &,
+    &::after {
+      border-color: transparent;
+      border-style: solid;
+      display: block;
+      height: 0;
+      position: absolute;
+      width: 0;
+    }
+  }
+
+  &-arrow {
+    border-width: $poptip-arrow-outer-width;
+  }
+
+  &-arrow::after {
+    border-width: $poptip-arrow-width;
+    content: '';
+  }
+
+  &-confirm &-popper {
+    max-width: 300px;
+  }
+
+  &-confirm &-inner {
+    white-space: normal;
+  }
+
+  &-confirm &-body {
+    padding: 16px 16px 8px;
+
+    .#{$icon-prefix-cls} {
+      color: $warning-color;
+      font-size: 16px;
+      line-height: 18px;
+      position: absolute;
+    }
+
+    &-message {
+      padding-left: 20px;
+    }
+  }
+
+  &-confirm &-footer {
+    padding: 8px 16px 16px;
+    text-align: right;
+
+    button {
+      margin-left: 4px;
+    }
+  }
+}

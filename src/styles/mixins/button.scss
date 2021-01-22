@@ -1,0 +1,425 @@
+@mixin button-size($height, $padding, $font-size, $border-radius) {
+  border-radius: $border-radius;
+  font-size: $font-size;
+  height: $height;
+  padding: $padding;
+}
+
+@mixin button-color($color, $background, $border) {
+  background-color: $background;
+  border-color: $border;
+  color: $color;
+  // a inside Button which only work in Chrome
+  // http://stackoverflow.com/a/17253457
+  > a:only-child {
+    color: currentColor;
+
+    &::after {
+      background: transparent;
+      bottom: 0;
+      content: '';
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+}
+
+@mixin button-variant($color, $background, $border) {
+  @include button-color($color, $background, $border);
+
+  &:hover {
+    @include button-color(tint($color, 20%), tint($background, 20%), tint($border, 20%));
+  }
+
+  &:active,
+  &.active {
+    @include button-color(shade($color, 5%), shade($background, 5%), shade($background, 5%));
+  }
+
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &,
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      @include button-color($btn-disable-color, $btn-disable-bg, $btn-disable-border);
+    }
+  }
+}
+
+@mixin button-group-base($btnClassName) {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  > .#{$btnClassName} {
+    float: left;
+    position: relative;
+
+    &:hover,
+        
+    &:active,
+    &.active {
+      z-index: 2;
+    }
+  }
+
+  &-circle .#{$btnClassName} {
+    border-radius: $btn-circle-size;
+  }
+
+  &-large &-circle .#{$btnClassName} {
+    border-radius: $btn-circle-size-large;
+  }
+
+  &-large {
+    .#{$btnClassName} {
+      @include button-size($btn-height-large, $btn-padding-large, $btn-font-size-large, $btn-border-radius);
+    }
+  }
+
+  &-small &-circle .#{$btnClassName} {
+    border-radius: $btn-circle-size-small;
+  }
+
+  &-small {
+    .#{$btnClassName} {
+      @include button-size($btn-height-small, $btn-padding-small, $btn-font-size, $btn-border-radius-small);
+      > .#{$css-prefix-iconfont} {
+        font-size: $btn-font-size;
+      }
+    }
+  }
+
+  &-small .#{$btnClassName}-icon-only {
+    @include square($btn-height-small);
+    padding: 0;
+  }
+  &-large .#{$btnClassName}-icon-only {
+    @include square($btn-height-large);
+    padding: 0;
+  }
+}
+
+@mixin button-group-vertical-base($btnClassName) {
+  display: inline-block;
+  vertical-align: middle;
+  > .#{$btnClassName} {
+    display: block;
+    float: none;
+    max-width: 100%;
+    min-width: $btn-height-base;
+    width: 100%;
+
+  }
+  &.#{$btnClassName}-group-small > .#{$btnClassName} {
+    min-width: $btn-height-small;
+  }
+  &.#{$btnClassName}-group-large > .#{$btnClassName} {
+    min-width: $btn-height-large;
+  }
+}
+
+@mixin btn-square($btnClassName) {
+  @include square($btn-square-size);
+  @include button-size($btn-square-size, 0, $font-size-base + 2px, $btn-border-radius);
+  &.#{$btnClassName}-large {
+    @include square($btn-square-size-large);
+    @include button-size($btn-square-size-large, 0, $btn-font-size-large + 2px, $btn-border-radius);
+  }
+  &.#{$btnClassName}-small {
+    @include square($btn-square-size-small);
+    @include button-size($btn-square-size-small, 0, $font-size-base, $btn-border-radius);
+  }
+}
+
+@mixin btn() {
+  @include button-size($btn-height-base, $btn-padding-base, $btn-font-size, $btn-border-radius);
+  background-image: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: $btn-font-weight;
+  line-height: $line-height-base;
+  margin-bottom: 0;
+  text-align: center;
+  touch-action: manipulation;
+  transition: color $transition-time linear, background-color $transition-time linear, border $transition-time linear, box-shadow $transition-time linear;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  > .#{$css-prefix-iconfont} {
+    line-height: $line-height-base;
+  }
+
+  &-icon-only &-circle > .#{$css-prefix-iconfont} {
+    vertical-align: baseline;
+  }
+
+  > span,
+  > i {
+    display: inline-block;
+  }
+
+  &,
+  &:active,
+  &:focus {
+    outline: 0;
+  }
+
+  &:not([disabled]):hover {
+    text-decoration: none;
+  }
+
+  &:not([disabled]):active {
+    outline: 0;
+  }
+
+  &.disabled,
+  &[disabled] {
+    cursor: $cursor-disabled;
+
+    > * {
+      pointer-events: none;
+    }
+  }
+
+  &-large {
+    @include button-size($btn-height-large, $btn-padding-large, $btn-font-size-large, $btn-border-radius);
+  }
+
+  &-small {
+    @include button-size($btn-height-small, $btn-padding-small, $btn-font-size, $btn-border-radius-small);
+  }
+
+  &-icon-only {
+    @include btn-square($btn-prefix-cls);
+  }
+}
+
+@mixin btn-default() {
+  @include button-variant($btn-default-color, $btn-default-bg, $btn-default-border);
+  @include active-btn-color($primary-color);
+
+  &:hover {
+    @include button-color(tint($primary-color, 20%), white, tint($primary-color, 20%));
+  }
+
+  &:active,
+  &.active {
+    @include button-color(shade($primary-color, 5%), white, shade($primary-color, 5%));
+  }
+}
+
+@mixin btn-primary() {
+  @include button-variant($btn-primary-color, $btn-primary-bg, $primary-color);
+  @include active-btn-color($primary-color);
+
+  &:hover,
+  &:active,
+  &.active {
+    color: $btn-primary-color;
+  }
+}
+
+// Ghost
+@mixin btn-ghost() {
+  @include button-variant($btn-ghost-color, $btn-ghost-bg, $btn-ghost-border);
+  @include active-btn-color($primary-color);
+
+  &:hover {
+    @include button-color(tint($primary-color, 20%), $btn-ghost-bg, tint($primary-color, 20%));
+  }
+
+  &:active,
+  &.active {
+    @include button-color(shade($primary-color, 5%), $btn-ghost-bg, shade($primary-color, 5%));
+  }
+}
+
+// Dashed
+@mixin btn-dashed() {
+  @include button-variant($btn-ghost-color, $btn-ghost-bg, $btn-ghost-border);
+  @include active-btn-color($primary-color);
+  border-style: dashed;
+
+  &:hover {
+    @include button-color(tint($primary-color, 20%), $btn-ghost-bg, tint($primary-color, 20%));
+  }
+
+  &:active,
+  &.active {
+    @include button-color(shade($primary-color, 5%), $btn-ghost-bg, shade($primary-color, 5%));
+  }
+}
+
+// Text
+@mixin btn-text() {
+  @include button-variant($btn-ghost-color, transparent, transparent);
+  @include active-btn-color($primary-color);
+
+  // for disabled
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &,
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      @include button-color($btn-disable-color, $btn-ghost-bg, transparent);
+    }
+  }
+
+  &:hover {
+    @include button-color(tint($primary-color, 20%), $btn-ghost-bg, transparent);
+  }
+
+  &:active,
+  &.active {
+    @include button-color(shade($primary-color, 5%), $btn-ghost-bg, transparent);
+  }
+}
+
+// Color
+// for tabindex
+@mixin active-btn-color($color) {
+  &:focus {
+    box-shadow: 0 0 0 2px rgba($color, 20%/100%);
+  }
+}
+@mixin btn-color($color) {
+  @include button-variant($btn-primary-color, $color, $color);
+
+  @include active-btn-color($color);
+
+  &:hover,
+  &:active,
+  &.active {
+    color: $btn-primary-color;
+  }
+}
+
+// Circle for Icon
+@mixin btn-circle($btnClassName: ivu-btn) {
+  border-radius: $btn-circle-size;
+
+  &.#{$btnClassName}-large {
+    border-radius: $btn-circle-size-large;
+  }
+
+  &.#{$btnClassName}-size {
+    border-radius: $btn-circle-size-small;
+  }
+
+  &.#{$btnClassName}-icon-only {
+    @include square($btn-circle-size);
+    @include button-size($btn-height-base, 0, $font-size-base + 2, 50%);
+
+    &.#{$btnClassName}-large {
+      @include square($btn-circle-size-large);
+      @include button-size($btn-height-large, 0, $btn-font-size-large + 2, 50%);
+    }
+
+    &.#{$btnClassName}-small {
+      @include square($btn-circle-size-small);
+      @include button-size($btn-height-small, 0, $font-size-base, 50%);
+    }
+  }
+}
+
+// Group
+@mixin btn-group($btnClassName: ivu-btn) {
+  @include button-group-base($btnClassName);
+
+  .#{$btnClassName} + .#{$btnClassName},
+  .#{$btnClassName} + &,
+  .#{$btnClassName},
+  & + & {
+    margin-left: -1px;
+  }
+
+  .#{$btnClassName}:not(:first-child):not(:last-child) {
+    border-radius: 0;
+  }
+
+  &:not(&-vertical) > .#{$btnClassName}:first-child {
+    margin-left: 0;
+
+    &:not(:last-child) {
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+
+  &:not(&-vertical) > .#{$btnClassName}:last-child:not(:first-child) {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
+
+  & > & {
+    float: left;
+  }
+
+  & > &:not(:first-child):not(:last-child) > .#{$btnClassName} {
+    border-radius: 0;
+  }
+
+  &:not(&-vertical) > &:first-child:not(:last-child) {
+    > .#{$btnClassName}:last-child {
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+      padding-right: 8px;
+    }
+  }
+
+  &:not(&-vertical) > &:last-child:not(:first-child) > .#{$btnClassName}:first-child {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    padding-left: 8px;
+  }
+}
+
+@mixin btn-group-vertical($btnClassName: ivu-btn) {
+  @include button-group-vertical-base($btnClassName);
+
+  .#{$btnClassName} + .#{$btnClassName},
+  .#{$btnClassName} + &,
+  .#{$btnClassName},
+  & + & {
+    margin-left: 0;
+    margin-top: -1px;
+  }
+
+  > .#{$btnClassName}:first-child {
+    margin-top: 0;
+
+    &:not(:last-child) {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  > .#{$btnClassName}:last-child:not(:first-child) {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  & > &:first-child:not(:last-child) {
+    > .#{$btnClassName}:last-child {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      padding-bottom: 8px;
+    }
+  }
+
+  & > &:last-child:not(:first-child) > .#{$btnClassName}:first-child {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-top: 8px;
+  }
+}

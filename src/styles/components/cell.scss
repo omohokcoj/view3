@@ -1,0 +1,81 @@
+.#{$cell-prefix-cls} {
+  overflow: hidden;
+  position: relative;
+
+  &-link,
+  &-link:hover,
+  &-link:active {
+    color: inherit;
+  }
+
+  &-icon {
+    display: inline-block;
+    font-size: $font-size-base;
+    margin-right: 4px;
+    vertical-align: middle;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  &-main {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  &-title {
+    font-size: $font-size-base;
+    line-height: 24px;
+  }
+
+  &-label {
+    color: $subsidiary-color;
+    font-size: $font-size-small;
+    line-height: 1.2;
+  }
+
+  &-selected &-label {
+    color: inherit;
+  }
+
+  &-selected, &#{&}-selected:hover {
+    background: tint($primary-color, 90%);
+  }
+
+  &-footer {
+    color: $text-color;
+    display: inline-block;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &-with-link &-footer {
+    right: 32px;
+  }
+
+  &-selected &-footer {
+    color: inherit;
+  }
+
+  &-arrow {
+    display: inline-block;
+    font-size: $font-size-base;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &:focus {
+    background: $background-color-select-hover;
+    outline: none;
+  }
+
+  &-selected:focus {
+    background: shade($selected-color, 10%);
+  }
+}
+@include select-item($cell-prefix-cls, $cell-prefix-cls);

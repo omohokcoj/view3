@@ -1,0 +1,300 @@
+.#{$menu-prefix-cls} {
+  color: $text-color;
+  display: block;
+  font-size: $font-size-base;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  position: relative;
+  z-index: $zindex-select;
+
+  &-horizontal {
+    height: 60px;
+    line-height: 60px;
+
+    &.#{$menu-prefix-cls}-light {
+      &::after {
+        background: $border-color-base;
+        bottom: 0;
+        content: '';
+        display: block;
+        height: 1px;
+        left: 0;
+        position: absolute;
+        width: 100%;
+      }
+    }
+  }
+
+  &-vertical {
+    &.#{$menu-prefix-cls}-light {
+      &::after {
+        background: $border-color-base;
+        bottom: 0;
+        content: '';
+        display: block;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 1px;
+        z-index: 1;
+      }
+    }
+  }
+
+  &-light {
+    background: #fff;
+  }
+
+  &-dark {
+    background: $menu-dark-title;
+  }
+
+  &-primary {
+    background: $primary-color;
+  }
+
+  &-item {
+    cursor: pointer;
+    display: block;
+    font-size: $font-size-base;
+    list-style: none;
+    outline: none;
+    position: relative;
+    transition: all $transition-time $ease-in-out;
+    z-index: 1;
+  }
+
+  a &-item {
+    color: inherit;
+
+    &:hover,
+    &:active {
+      color: inherit;
+    }
+  }
+
+  &-item > i {
+    margin-right: 6px;
+  }
+
+  &-submenu-title > i,
+  &-submenu-title span > i {
+    margin-right: 8px;
+  }
+
+  &-horizontal &-item,
+  &-horizontal &-submenu {
+    cursor: pointer;
+    float: left;
+    padding: 0 20px;
+    position: relative;
+    transition: all $transition-time $ease-in-out;
+    z-index: 3;
+  }
+
+  &-light.#{$menu-prefix-cls}-horizontal &-item,
+  &-light.#{$menu-prefix-cls}-horizontal &-submenu {
+    border-bottom: 2px solid transparent;
+    color: $text-color;
+    height: inherit;
+    line-height: inherit;
+
+    &-active,
+    &:hover {
+      border-bottom: 2px solid $primary-color;
+      color: $primary-color;
+    }
+  }
+
+  &-dark.#{$menu-prefix-cls}-horizontal &-item,
+  &-dark.#{$menu-prefix-cls}-horizontal &-submenu {
+    color: $menu-dark-subsidiary-color;
+
+    &-active,
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  &-primary.#{$menu-prefix-cls}-horizontal &-item,
+  &-primary.#{$menu-prefix-cls}-horizontal &-submenu {
+    color: #fff;
+
+    &-active,
+    &:hover {
+      //background: $link-active-color;
+    }
+  }
+
+  &-horizontal &-submenu .#{$select-dropdown-prefix-cls} {
+    max-height: none;
+    min-width: 100%;
+    width: auto;
+    .#{$menu-prefix-cls}-item {
+      border-bottom: 0;
+      float: none;
+      height: auto;
+      line-height: normal;
+    }
+  }
+
+  &-item-group {
+    line-height: normal;
+
+    &-title {
+      color: $legend-color;
+      font-size: $font-size-small;
+      height: 30px;
+      line-height: 30px;
+      padding-left: 8px;
+    }
+
+    & > ul {
+      list-style: none !important;
+      padding: 0 !important;
+    }
+  }
+
+  // vertical
+  &-vertical &-item,
+  &-vertical &-submenu-title {
+    cursor: pointer;
+    padding: 14px 24px;
+    position: relative;
+    transition: all $transition-time $ease-in-out;
+    z-index: 1;
+
+    &:hover {
+      //background: $background-color-select-hover;
+      color: $primary-color;
+    }
+  }
+
+  &-vertical &-submenu-title-icon {
+    // #5592 支持自定义图标 size 后，换一种位置
+    //float: right;
+    //position: relative;
+    //top: 4px;
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &-submenu-title-icon {
+    transition: transform $transition-time $ease-in-out;
+  }
+
+  &-horizontal &-opened > * > &-submenu-title-icon {
+    transform: rotate(180deg);
+  }
+
+  &-vertical &-opened > * > &-submenu-title-icon {
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  &-vertical &-submenu {
+    &-nested {
+      padding-left: 20px;
+    }
+    .#{$menu-prefix-cls}-item {
+      padding-left: 43px;
+    }
+  } 
+
+  &-vertical &-item-group {
+    &-title {
+      font-size: $font-size-base;
+      height: 48px;
+      line-height: 48px;
+      padding-left: 28px;
+    }
+  }
+
+  &-dark.#{$menu-prefix-cls}-vertical &-item-group {
+    &-title {
+      color: $menu-dark-group-title-color;
+    }
+  }
+
+  &-light.#{$menu-prefix-cls}-vertical &-item {
+    //border-right: 2px solid transparent;
+    &-active:not(.#{$menu-prefix-cls}-submenu) {
+      background: tint($primary-color, 90%);
+      color: $primary-color;
+      //border-right: 2px solid $primary-color;
+      z-index: 2;
+
+      &::after {
+        background: $primary-color;
+        bottom: 0;
+        content: '';
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 2px;
+      }
+    }
+  }
+
+  &-dark.#{$menu-prefix-cls}-vertical &-item,
+  &-dark.#{$menu-prefix-cls}-vertical &-submenu-title {
+    color: $menu-dark-subsidiary-color;
+    &-active:not(.#{$menu-prefix-cls}-submenu),
+    &-active:not(.#{$menu-prefix-cls}-submenu):hover {
+      background: $menu-dark-active-bg;
+    }
+
+    &:hover {
+      background: $menu-dark-title;
+      color: #fff;
+    }
+    &-active:not(.#{$menu-prefix-cls}-submenu) {
+      color: $primary-color;
+      //border-right: 2px solid $primary-color;
+    }
+  }
+
+  &-dark.#{$menu-prefix-cls}-vertical &-submenu &-item {
+    &:hover {
+      background: transparent !important;
+      color: #fff;
+    }
+
+    &-active,
+    &-active:hover {
+      background: $primary-color !important;
+      border-right: none;
+      color: #fff;
+    }
+  }
+  // &-dark &-vertical &-item-active &-submenu-title{
+  //     color: #fff;
+  // }
+  &-dark.#{$menu-prefix-cls}-vertical &-child-item-active > &-submenu-title {
+    color: #fff;
+  }
+
+  &-dark.#{$menu-prefix-cls}-vertical &-opened {
+    background: $menu-dark-active-bg;
+    .#{$menu-prefix-cls}-submenu-title {
+      background: $menu-dark-title;
+    }
+
+    .#{$menu-prefix-cls}-submenu-has-parent-submenu {
+      .#{$menu-prefix-cls}-submenu-title {
+        background: transparent;
+      }
+    }
+  }
+}
+@include select-item($menu-prefix-cls, $menu-dropdown-item-prefix-cls);
+
+.#{$menu-dropdown-item-prefix-cls} {
+  font-size: $font-size-base !important;
+  padding: 7px 16px 8px;
+}

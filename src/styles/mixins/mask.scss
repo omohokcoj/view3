@@ -1,0 +1,14 @@
+@mixin mask() {
+  background-color: rgba(55, 55, 55, 0.6);
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: $zindex-modal;
+
+  &-hidden {
+    display: none;
+  }
+}

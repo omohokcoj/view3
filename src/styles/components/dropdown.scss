@@ -1,0 +1,38 @@
+.#{$dropdown-prefix-cls} {
+  display: inline-block;
+  //position: relative;
+
+  .#{$select-dropdown-prefix-cls} {
+    max-height: none;
+    overflow: visible;
+  }
+  .#{$dropdown-prefix-cls} {
+    width: 100%;
+  }
+
+  &-rel {
+    //display: inline-block;
+    position: relative;
+
+    &-user-select-none {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+  }
+
+  &-menu {
+    min-width: 100px;
+  }
+
+  &-transfer {
+    width: auto;
+  }
+
+  &-item-selected,
+  &-item.#{$dropdown-prefix-cls}-item-selected:hover {
+    background: tint($primary-color, 90%);
+  }
+}
+
+@include select-item($dropdown-prefix-cls, $dropdown-item-prefix-cls);

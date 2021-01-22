@@ -1,0 +1,21 @@
+@mixin size($width, $height) {
+  height: $height;
+  width: $width;
+}
+
+@mixin square($size) {
+  @include size($size, $size);
+}
+
+// fix chrome 12px bug, support ie
+@mixin iconfont-size-under-12px($size, $rotate: 0deg) {
+  $font-scale: unit($size / $font-size-base);
+  display: inline-block;
+  font-size: $font-size-base;
+  font-size: '#{$size} \9'; // ie8-9
+  transform: scale($font-scale) rotate($rotate);
+
+  :root & {
+    font-size: $font-size-base; // reset ie9 and above
+  }
+}

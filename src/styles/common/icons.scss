@@ -1,0 +1,38 @@
+@import 'ionicons/dist/scss/ionicons-variables';
+@import 'ionicons/dist/scss/ionicons-icons';
+
+$ionicons-font-path: 'ionicons/dist/fonts';
+
+@font-face {
+  font-family: 'Ionicons';
+  font-style: normal;
+  font-weight: normal;
+  src: url('#{$ionicons-font-path}/ionicons.eot?v=#{$ionicons-version}');
+  src:url('#{$ionicons-font-path}/ionicons.eot?v=#{$ionicons-version}#iefix') format('embedded-opentype'),
+    url('#{$ionicons-font-path}/ionicons.woff2?v=#{$ionicons-version}') format('woff2'),
+    url('#{$ionicons-font-path}/ionicons.woff?v=#{$ionicons-version}') format('woff'),
+    url('#{$ionicons-font-path}/ionicons.ttf?v=#{$ionicons-version}') format('truetype'),
+    url('#{$ionicons-font-path}/ionicons.svg?v=#{$ionicons-version}#Ionicons') format('svg');
+}
+
+@mixin ion() {
+  display: inline-block;
+  font-family: 'Ionicons';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  speak: none;
+  text-rendering: auto;
+  text-transform: none;
+}
+
+.#{$icon-prefix-cls} {
+  @include ion(); }
+
+.#{$icon-prefix-cls}-ios-loading:before {
+  // content: "\f38b";
+  content: '\f366';
+}

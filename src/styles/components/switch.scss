@@ -1,0 +1,198 @@
+.#{$switch-prefix-cls} {
+  background-color: #ccc;
+  border: 1px solid #ccc;
+  border-radius: 22px;
+  cursor: pointer;
+  display: inline-block;
+  height: 22px;
+  line-height: 20px;
+  position: relative;
+  transition: all $transition-time $ease-in-out;
+  user-select: none;
+  vertical-align: middle;
+  width: 44px;
+
+  &-loading {
+    opacity: 0.4;
+  }
+
+  &-inner {
+    color: #fff;
+    font-size: $font-size-small;
+    left: 23px;
+    position: absolute;
+
+    i {
+      height: 12px;
+      position: relative;
+      text-align: center;
+      top: -1px;
+      width: 12px;
+    }
+  }
+
+  &::after {
+    background-color: #fff;
+    border-radius: 18px;
+    content: '';
+    cursor: pointer;
+    height: 18px;
+    left: 1px;
+    position: absolute;
+    top: 1px;
+    transition: left $transition-time $ease-in-out, width $transition-time $ease-in-out;
+    width: 18px;
+  }
+
+  &:active::after {
+    width: 26px;
+  }
+
+  &::before {
+    animation: switch-loading 1s linear;
+    animation-iteration-count: infinite;
+    background-color: transparent;
+    border: 1px solid $primary-color;
+    border-color: transparent transparent transparent $primary-color;
+    border-radius: 50%;
+    content: '';
+    display: none;
+    height: 14px;
+    left: 3px;
+    position: absolute;
+    top: 3px;
+    width: 14px;
+    z-index: 1;
+  }
+
+  &-loading::before {
+    display: block;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px rgba($primary-color, 20%/100%);
+    outline: 0;
+  }
+
+  &:focus:hover {
+    box-shadow: none;
+  }
+
+  &-small {
+    height: 16px;
+    line-height: 14px;
+    width: 28px;
+
+    &::after {
+      height: 12px;
+      width: 12px;
+    }
+
+    &:active::after {
+      width: 14px;
+    }
+
+    &::before {
+      height: 10px;
+      left: 2px;
+      top: 2px;
+      width: 10px;
+    }
+  }
+
+  &-small &-checked::after {
+    left: 13px;
+  }
+
+  &-small &-checked::before {
+    left: 14px;
+  }
+
+  &-small:active.#{$switch-prefix-cls}-checked::after {
+    left: 11px;
+  }
+
+  &-large {
+    width: 56px;
+
+    &:active::after {
+      width: 26px;
+    }
+  }
+
+  &-large:active::after {
+    width: 30px;
+  }
+
+  &-large.#{$switch-prefix-cls}-checked::after {
+    left: 35px;
+  }
+
+  &-large.#{$switch-prefix-cls}-checked::before {
+    left: 37px;
+  }
+
+  &-large:active.#{$switch-prefix-cls}-checked::after {
+    left: 23px;
+  }
+
+  &-checked {
+    background-color: $primary-color;
+    border-color: $primary-color;
+
+    .#{$switch-prefix-cls}-inner {
+      left: 7px;
+    }
+
+    &::after {
+      left: 23px;
+    }
+
+    &::before {
+      left: 25px;
+    }
+
+    &:active::after {
+      left: 15px;
+    }
+  }
+
+  &-disabled {
+    cursor: $cursor-disabled;
+    opacity: 0.4;
+
+    &::after {
+      background: #fff;
+      cursor: not-allowed;
+    }
+
+    .#{$switch-prefix-cls}-inner {
+      color: #fff;
+    }
+  }
+
+  &-disabled &-checked {
+    background-color: $primary-color;
+    border-color: $primary-color;
+    opacity: 0.4;
+
+    &::after {
+      background: #fff;
+    }
+
+    .#{$switch-prefix-cls}-inner {
+      color: #fff;
+    }
+  }
+
+}
+
+@keyframes switch-loading {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

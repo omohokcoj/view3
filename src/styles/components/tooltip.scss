@@ -1,0 +1,104 @@
+.#{$tooltip-prefix-cls} {
+  display: inline-block;
+
+  &-rel {
+    display: inline-block;
+    position: relative;
+    width: inherit;
+  }
+
+  &-popper {
+    @include popper($tooltip-arrow, $tooltip-arrow-width, $tooltip-distance, $tooltip-bg);
+  }
+
+  &-light &-popper {
+    @include popper($tooltip-arrow, $tooltip-arrow-width-light, $tooltip-distance-light, $tooltip-arrow-color);
+
+    &[x-placement^="top"] .#{$tooltip-arrow}:after {
+      border-bottom-width: 0;
+      border-top-color: #fff;
+      border-top-width: $tooltip-arrow-width-light;
+      bottom: 1px;
+      content: ' ';
+      margin-left: -$tooltip-arrow-width-light;
+    }
+
+    &[x-placement^="right"] .#{$tooltip-arrow}:after {
+      border-left-width: 0;
+      border-right-color: #fff;
+      border-right-width: $tooltip-arrow-width-light;
+      bottom: -$tooltip-arrow-width-light;
+      content: ' ';
+      left: 1px;
+    }
+
+    &[x-placement^="bottom"] .#{$tooltip-arrow}:after {
+      border-bottom-color: #fff;
+      border-bottom-width: $tooltip-arrow-width-light;
+      border-top-width: 0;
+      content: ' ';
+      margin-left: -$tooltip-arrow-width-light;
+      top: 1px;
+    }
+
+    &[x-placement^="left"] .#{$tooltip-arrow}:after {
+      border-left-color: #fff;
+      border-left-width: $tooltip-arrow-width-light;
+      border-right-width: 0;
+      bottom: -$tooltip-arrow-width-light;
+      content: ' ';
+      right: 1px;
+    }
+  }
+
+  &-inner {
+    background-color: $tooltip-bg;
+    border-radius: $border-radius-small;
+    box-shadow: $shadow-base;
+    color: $tooltip-color;
+    max-width: $tooltip-max-width;
+    min-height: 34px;
+    padding: 8px 12px;
+    text-align: left;
+    text-decoration: none;
+    white-space: nowrap;
+
+    &-with-width {
+      text-align: justify;
+      white-space: pre-wrap;
+      word-break: break-all;
+      // 解决纯字母或数字不换行的问题
+      word-wrap: break-word;
+    }
+  }
+
+  &-light &-inner {
+    background-color: #fff;
+    color: $text-color;
+  }
+
+  &-arrow {
+    border-color: transparent;
+    border-style: solid;
+    height: 0;
+    position: absolute;
+    width: 0;
+  }
+
+  &-light {
+    .#{$tooltip-arrow} {
+      border-width: $tooltip-arrow-outer-width-light;
+
+      &::after {
+        border-color: transparent;
+        border-style: solid;
+        border-width: $tooltip-arrow-width-light;
+        content: '';
+        display: block;
+        height: 0;
+        position: absolute;
+        width: 0;
+      }
+    }
+  }
+}

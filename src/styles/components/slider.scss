@@ -1,0 +1,126 @@
+.#{$slider-prefix-cls} {
+  line-height: normal;
+
+  &-wrap {
+    background-color: $border-color-split;
+    border-radius: $btn-border-radius-small;
+    cursor: pointer;
+    height: $slider-height;
+    margin: $slider-margin;
+    position: relative;
+    vertical-align: middle;
+    width: 100%;
+  }
+
+  &-button-wrap {
+    @include square($slider-button-wrap-size);
+    background-color: transparent;
+    position: absolute;
+    text-align: center;
+    top: $slider-button-wrap-offset;
+    transform: translateX(-50%);
+
+    .#{$tooltip-prefix-cls} {
+      display: block;
+      user-select: none;
+    }
+  }
+
+  &-button {
+    background-color: #fff;
+    border: 2px solid $slider-color;
+    border-radius: 50%;
+    height: 12px;
+    outline: 0;
+    transition: all $transition-time linear;
+    width: 12px;
+
+    &:focus,
+    &:hover,
+    &-dragging {
+      border-color: $primary-color;
+      transform: scale(1.5);
+    }
+
+    &:hover {
+      cursor: grab;
+    }
+
+    &-dragging,
+    &-dragging:hover {
+      cursor: grabbing;
+    }
+  }
+
+  &-bar {
+    background: $slider-color;
+    border-radius: $btn-border-radius-small;
+    height: $slider-height;
+    position: absolute;
+  }
+
+  &-stop {
+    @include square($slider-height);
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+  }
+
+  &-marks {
+    height: 100%;
+    left: 12px;
+    top: 0;
+    width: 18px;
+
+    &-item {
+      color: $subsidiary-color;
+      font-size: $font-size-base;
+      margin-top: 15px;
+      position: absolute;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+.#{$slider-prefix-cls}-disabled {
+  cursor: $cursor-disabled;
+
+  .#{$slider-prefix-cls}-wrap {
+    background-color: $slider-disabled-color;
+    cursor: $cursor-disabled;
+  }
+  .#{$slider-prefix-cls}-bar {
+    background-color: $slider-disabled-color;
+  }
+
+  .#{$slider-prefix-cls}-button {
+    border-color: $slider-disabled-color;
+
+    &:hover,
+    &-dragging {
+      border-color: $slider-disabled-color;
+    }
+
+    &:hover {
+      cursor: $cursor-disabled;
+    }
+
+    &-dragging,
+    &-dragging:hover {
+      cursor: $cursor-disabled;
+    }
+  }
+}
+
+.#{$slider-prefix-cls}-input {
+  .#{$slider-prefix-cls}-wrap {
+    margin-right: 100px;
+    width: auto;
+  }
+
+  .#{$input-number-prefix-cls} {
+    float: right;
+    margin-top: -14px;
+  }
+}

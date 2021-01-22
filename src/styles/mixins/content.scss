@@ -1,0 +1,37 @@
+@mixin content-header() {
+  border-bottom: 1px solid $border-color-split;
+  line-height: 1;
+  padding: 14px 16px;
+
+  p,
+  &-inner {
+    color: $title-color;
+    display: inline-block;
+    font-size: $font-size-large;
+    font-weight: 500;
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+  }
+
+  p i,
+  p span {
+    //vertical-align: middle;
+  }
+}
+
+@mixin content-close($top: 0, $icon-font-size: 22px) {
+  cursor: pointer;
+  font-size: $font-size-small;
+  overflow: hidden;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+
+  .#{$icon-prefix-cls}-ios-close {
+    @include close-base($top, $icon-font-size);
+  }
+}

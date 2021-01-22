@@ -1,0 +1,114 @@
+.#{$layout-prefix-cls} {
+  background: $layout-body-background;
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+    
+  &#{&}-has-sider {
+    flex-direction: row;
+    > .#{$layout-prefix-cls},
+    > .#{$layout-prefix-cls}-content {
+      overflow-x: hidden;
+    }
+  }
+
+  &-header,
+  &-footer {
+    flex: 0 0 auto;
+  }
+
+  &-header {
+    background: $layout-header-background;
+    height: $layout-header-height;
+    line-height: $layout-header-height;
+    padding: $layout-header-padding;
+  }
+
+  &-sider {
+    background: $layout-sider-background;
+
+    min-width: 0;
+    position: relative;
+    transition: all 0.2s $ease-in-out;
+
+    &-children {
+      height: 100%;
+      margin-top: -0.1px;
+      padding-top: 0.1px;
+    }
+
+    &-has-trigger {
+      padding-bottom: $layout-trigger-height;
+    }
+
+    &-trigger {
+      background: $layout-sider-background;
+      bottom: 0;
+      color: $layout-trigger-color;
+      cursor: pointer;
+      height: $layout-trigger-height;
+      line-height: $layout-trigger-height;
+      position: fixed;
+      text-align: center;
+      transition: all 0.2s $ease-in-out;
+      z-index: 1000;
+
+      .ivu-icon {
+        font-size: 16px;
+      }
+
+      >* {
+        transition: all 0.2s;
+      }
+
+      &-collapsed {
+        .#{$layout-prefix-cls}-sider-trigger-icon {
+          transform: rotateZ(180deg);
+        }
+      }
+    }
+
+    &-zero-width {
+      & > * {
+        overflow: hidden;
+      }
+
+      &-trigger {
+        background: $layout-sider-background;
+        border-radius: 0 $border-radius-base $border-radius-base 0;
+        color: #fff;
+        cursor: pointer;
+        font-size: $layout-zero-trigger-width / 2;
+        height: $layout-zero-trigger-height;
+        line-height: $layout-zero-trigger-height;
+        position: absolute;
+        right: -$layout-zero-trigger-width;
+        text-align: center;
+        top: $layout-header-height;
+        transition: background 0.3s ease;
+        width: $layout-zero-trigger-width;
+        
+        &:hover {
+          background: tint($layout-sider-background, 10%);
+        }
+
+        &#{&}-left {
+          border-radius: $border-radius-base 0 0 $border-radius-base;
+          left: -$layout-zero-trigger-width;
+          right: 0;
+        }
+      }
+    }
+  }
+
+  &-footer {
+    background: $layout-footer-background;
+    color: $text-color;
+    font-size: $font-size-base;
+    padding: $layout-footer-padding;
+  }
+
+  &-content {
+    flex: auto;
+  }
+}

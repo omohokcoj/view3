@@ -1,0 +1,227 @@
+.#{$btn-prefix-cls} {
+  @include btn;
+  @include btn-default;
+
+  &-long {
+    width: 100%;
+  }
+
+  .ion + span,
+  span + .ion {
+    margin-left: 4px;
+  }
+
+  &-primary {
+    @include btn-primary;
+
+    .#{$btn-prefix-cls}-group:not(.#{$btn-prefix-cls}-group-vertical) &:not(:first-child):not(:last-child) {
+      border-left-color: $btn-group-border;
+      border-right-color: $btn-group-border;
+    }
+
+    .#{$btn-prefix-cls}-group:not(.#{$btn-prefix-cls}-group-vertical) &:first-child {
+      &:not(:last-child) {
+        border-right-color: $btn-group-border;
+
+        &[disabled] {
+          border-right-color: $btn-default-border;
+        }
+      }
+    }
+
+    .#{$btn-prefix-cls}-group:not(.#{$btn-prefix-cls}-group-vertical) &:last-child:not(:first-child),
+    .#{$btn-prefix-cls}-group:not(.#{$btn-prefix-cls}-group-vertical) & + .#{$btn-prefix-cls} {
+      border-left-color: $btn-group-border;
+
+      &[disabled] {
+        border-left-color: $btn-default-border;
+      }
+    }
+
+    .#{$btn-prefix-cls}-group-vertical &:not(:first-child):not(:last-child) {
+      border-bottom-color: $btn-group-border;
+      border-top-color: $btn-group-border;
+    }
+
+    .#{$btn-prefix-cls}-group-vertical &:first-child {
+      &:not(:last-child) {
+        border-bottom-color: $btn-group-border;
+
+        &[disabled] {
+          border-top-color: $btn-default-border;
+        }
+      }
+    }
+
+    .#{$btn-prefix-cls}-group-vertical &:last-child:not(:first-child),
+    .#{$btn-prefix-cls}-group-vertical & + .#{$btn-prefix-cls} {
+      border-top-color: $btn-group-border;
+
+      &[disabled] {
+        border-bottom-color: $btn-default-border;
+      }
+    }
+  }
+
+  //&-ghost {
+  //    @include btn-ghost;
+  //}
+
+  &-dashed {
+    @include btn-dashed;
+  }
+
+  &-text {
+    @include btn-text;
+  }
+
+  &-success {
+    @include btn-color($success-color);
+  }
+
+  &-warning {
+    @include btn-color($warning-color);
+  }
+
+  &-error {
+    @include btn-color($error-color);
+  }
+
+  &-info {
+    @include btn-color($info-color);
+  }
+
+  &-circle,
+  &-circle-outline {
+    @include btn-circle($btn-prefix-cls);
+  }
+
+  &::before {
+    background: #fff;
+    border-radius: inherit;
+    bottom: -1px;
+    content: '';
+    display: none;
+    left: -1px;
+    opacity: 0.35;
+    pointer-events: none;
+    position: absolute;
+    right: -1px;
+    top: -1px;
+    transition: opacity $transition-time;
+    z-index: 1;
+  }
+
+  &#{&}-loading {
+    pointer-events: none;
+    position: relative;
+
+    &::before {
+      display: block;
+    }
+  }
+
+  &-group {
+    @include btn-group($btn-prefix-cls);
+  }
+
+  &-group-vertical {
+    @include btn-group-vertical($btn-prefix-cls);
+  }
+
+  // The new ghost in 3.0
+  &-ghost {
+    background: transparent;
+    color: #fff;
+
+    &:hover {
+      background: transparent;
+    }
+  }
+
+  &-ghost.#{$btn-prefix-cls}-dashed,
+  &-ghost.#{$btn-prefix-cls}-default {
+    border-color: #fff;
+    color: #fff;
+
+    &:hover {
+      border-color: tint($primary-color, 20%);
+      color: tint($primary-color, 20%);
+    }
+  }
+
+  &-ghost.#{$btn-prefix-cls}-primary {
+    color: $primary-color;
+
+    &:hover {
+      background: fade(tint($primary-color, 95%), 50%);
+      color: tint($primary-color, 20%);
+    }
+  }
+
+  &-ghost.#{$btn-prefix-cls}-info {
+    color: $info-color;
+
+    &:hover {
+      background: fade(tint($info-color, 95%), 50%);
+      color: tint($info-color, 20%);
+    }
+  }
+
+  &-ghost.#{$btn-prefix-cls}-success {
+    color: $success-color;
+
+    &:hover {
+      background: fade(tint($success-color, 95%), 50%);
+      color: tint($success-color, 20%);
+    }
+  }
+
+  &-ghost.#{$btn-prefix-cls}-warning {
+    color: $warning-color;
+
+    &:hover {
+      background: fade(tint($warning-color, 95%), 50%);
+      color: tint($warning-color, 20%);
+    }
+  }
+
+  &-ghost.#{$btn-prefix-cls}-error {
+    color: $error-color;
+
+    &:hover {
+      background: fade(tint($error-color, 95%), 50%);
+      color: tint($error-color, 20%);
+    }
+  }
+
+  &-ghost.#{$btn-prefix-cls}-default[disabled],
+  &-ghost.#{$btn-prefix-cls}-dashed[disabled],
+  &-ghost.#{$btn-prefix-cls}-primary[disabled],
+  &-ghost.#{$btn-prefix-cls}-info[disabled],
+  &-ghost.#{$btn-prefix-cls}-success[disabled],
+  &-ghost.#{$btn-prefix-cls}-warning[disabled],
+  &-ghost.#{$btn-prefix-cls}-error[disabled] {
+    background: transparent;
+    border-color: $btn-disable-border;
+    color: rgba(#000, 25%/100%);
+  }
+
+  &-ghost.#{$btn-prefix-cls}-text[disabled] {
+    background: transparent;
+    color: rgba(#000, 25%/100%);
+  }
+}
+
+a.#{$btn-prefix-cls} {
+  line-height: $btn-height-base - 2px;
+  padding-top: 0.1px;
+
+  &-large {
+    line-height: $btn-height-large - 2px;
+  }
+
+  &-small {
+    line-height: $btn-height-small - 2px;
+  }
+}
