@@ -85,7 +85,7 @@
     //border-radius: 0 0 $border-radius-base $border-radius-base;
   }
 
-  &-with-header &-with-footer {
+  &-with-header.#{$table-prefix-cls}-with-footer {
     //border-radius: $border-radius-base;
   }
 
@@ -178,8 +178,8 @@
     transition: background-color $transition-time $ease-in-out;
   }
 
-  th &-column,
-  td &-column {
+  th.#{$table-prefix-cls}-column,
+  td.#{$table-prefix-cls}-column {
     &-left {
       text-align: left;
     }
@@ -333,7 +333,7 @@
     word-wrap: normal;
   }
 
-  td &-expanded-cell {
+  td.#{$table-prefix-cls}-expanded-cell {
     background: $table-thead-bg;
     padding: 20px 50px;
   }
@@ -353,7 +353,7 @@
     }
   }
 
-  tr &-row-hover {
+  tr.#{$table-prefix-cls}-row-hover {
     td {
       background-color: $table-td-hover-bg;
     }
@@ -408,9 +408,9 @@
   }
 
   &-row-highlight,
-  tr &-row-highlight &-row-hover,
-  &-stripe &-body tr &-row-highlight:nth-child(2n),
-  &-stripe &-fixed-body tr &-row-highlight:nth-child(2n) {
+  tr.#{$table-prefix-cls}-row-highlight.#{$table-prefix-cls}-row-hover,
+  &-stripe &-body tr.#{$table-prefix-cls}-row-highlight:nth-child(2n),
+  &-stripe &-fixed-body tr.#{$table-prefix-cls}-row-highlight:nth-child(2n) {
     td {
       background-color: $table-td-highlight-bg;
     }

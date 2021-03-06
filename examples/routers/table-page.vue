@@ -1,7 +1,7 @@
 <template>
   <div style="margin: 200px">
     <Divider>TreeTable</Divider>
-    <Table
+    <VTable
       border
       highlight-row
       ref="selection"
@@ -25,196 +25,199 @@
       >
         <strong>{{ row.age }}</strong>
       </template>
-    </Table>
+    </VTable>
     <br><br>
-    <Button @click="addData">
+    <VButton @click="addData">
       添加数据
-    </Button>
-    <Button @click="addData2">
+    </VButton>
+    <VButton @click="addData2">
       添加数据2
-    </Button>
-    <Button @click="handleSelectAll(true)">
+    </VButton>
+    <VButton @click="handleSelectAll(true)">
       Set all selected
-    </Button>
-    <Button @click="handleSelectAll(false)">
+    </VButton>
+    <VButton @click="handleSelectAll(false)">
       Cancel all selected
-    </Button>
+    </VButton>
     <Divider>合计</Divider>
-    <Table
+    <VTable
       size="small"
       border
-      :columns="columns4"
+      :columns="deepCopy(columns4)"
       :data="data11"
       show-summary
       :height="200"
     />
     <br>
-    <Table
+    <VTable
       border
-      :columns="columns4"
+      :columns="deepCopy(columns4)"
       :data="data11"
       show-summary
       :height="200"
     />
     <br>
-    <Table
+    <VTable
       size="large"
       border
-      :columns="columns4"
+      :columns="deepCopy(columns4)"
       :data="data11"
       show-summary
       :height="200"
     />
     <br>
-    <Table
+    <VTable
       border
-      :columns="columns4"
+      :columns="deepCopy(columns4)"
       :data="data11"
       show-summary
     />
     <br>
-    <Table
+    <VTable
       border
-      :columns="columns5"
+      :columns="deepCopy(columns5)"
       :data="data11"
       show-summary
     />
     <br>
-    <Table
+    <VTable
       border
-      :columns="columns8"
+      :columns="deepCopy(columns5)"
       :data="data11"
       show-summary
     />
     <br>
-    <Table
+    <VTable
       border
-      :columns="columns5"
+      :columns="deepCopy(columns5)"
       :data="data11"
       show-summary
       :height="200"
     />
     <Divider>合并单元格</Divider>
-    <Table
+    <VTable
       border
-      :columns="columns1"
+      :columns="deepCopy(columns1)"
       :data="data1"
       :span-method="handleSpan"
     />
     <br>
-    <Table
+    <VTable
       border
-      :columns="columns1"
+      :columns="deepCopy(columns1)"
       :data="data1"
       :span-method="handleSpan2"
     />
     <Divider>拖拽调整列宽</Divider>
-    <Table
+    <VTable
       border
-      :columns="columns1"
+      :columns="deepCopy(columns1)"
       :data="data1"
     />
     <Divider>排序筛选</Divider>
     <div style="margin: 0 0px;">
-      <Table
+      <VTable
         border
-        :columns="columns6"
+        :columns="deepCopy(columns1)"
         :data="data5"
         @on-column-width-resize="handleResize"
       />
     </div>
     <Divider>普通表格</Divider>
-    <Table
+    <VTable
       size="small"
-      :columns="columns1"
+      :columns="deepCopy(columns1)"
       :data="data1"
     />
     <br>
-    <Table
-      :columns="columns1"
+    <VTable
+      :columns="deepCopy(columns1)"
       :data="data1"
     />
     <br>
-    <Table
+    <VTable
       size="large"
-      :columns="columns1"
+      :columns="deepCopy(columns1)"
       :data="data1"
     />
     <Divider>斑马纹</Divider>
-    <Table
+    <VTable
       stripe
-      :columns="columns1"
+      :columns="deepCopy(columns1)"
       :data="data1"
     />
     <Divider>带边框</Divider>
-    <Table
+    <VTable
       border
-      :columns="columns1"
+      :columns="deepCopy(columns1)"
       :data="data1"
     />
     <Divider>头固定（普通）</Divider>
-    <Table
+    <VTable
       height="200"
-      :columns="columns1"
+      :columns="deepCopy(columns1)"
       :data="data2"
     />
     <Divider>头固定（边框）</Divider>
-    <Table
+    <VTable
       height="200"
       border
-      :columns="columns1"
+      :columns="deepCopy(columns1)"
       :data="data2"
     />
     <Divider>列固定（普通）</Divider>
-    <Table
+    <VTable
       width="550"
-      :columns="columns2"
+      :columns="deepCopy(columns2)"
       :data="data3"
     />
     <Divider>列固定（边框）</Divider>
-    <Table
+    <VTable
       width="550"
       border
-      :columns="columns2"
+      :columns="deepCopy(columns2)"
       :data="data3"
     />
     <Divider>都固定（普通）</Divider>
-    <Table
+    <VTable
       width="550"
       height="200"
-      :columns="columns2"
+      :columns="deepCopy(columns2)"
       :data="data4"
     />
     <Divider>都固定（边框）</Divider>
-    <Table
+    <VTable
       width="550"
       height="200"
       border
-      :columns="columns2"
+      :columns="deepCopy(columns2)"
       :data="data4"
     />
     <Divider>表头分组（普通）</Divider>
-    <Table
-      :columns="columns11"
+    <VTable
+      :columns="deepCopy(columns11)"
       :data="data10"
       height="500"
     />
     <Divider>表头分组（边框）</Divider>
-    <Table
+    <VTable
       border
-      :columns="columns11"
+      :columns="deepCopy(columns11)"
       :data="data10"
       height="500"
     />
     <Divider>筛选</Divider>
-    <Table
+    <VTable
       border
-      :columns="columns6"
+      :columns="deepCopy(columns6)"
       :data="data5"
     />
   </div>
 </template>
 <script>
+import { deepCopy } from '../../src/utils/assist'
+import { h } from 'vue'
+
 export default {
   data () {
     return {
@@ -560,15 +563,15 @@ export default {
           key: 'action',
           fixed: 'right',
           width: 120,
-          render: (h, params) => {
+          render: (params) => {
             return h('div', [
-              h('Button', {
+              h('VButton', {
                 props: {
                   type: 'text',
                   size: 'small'
                 }
               }, 'View'),
-              h('Button', {
+              h('VButton', {
                 props: {
                   type: 'text',
                   size: 'small'
@@ -968,6 +971,7 @@ export default {
     }
   },
   methods: {
+    deepCopy,
     handleResize (width) {
       console.log(width)
     },
@@ -1067,7 +1071,8 @@ export default {
           date: '2016-10-02'
         }
       ]
-      this.$set(this.data0, 3, d)
+
+      this.data0[3] = d
     },
     addData2 () {
       this.data0.push({

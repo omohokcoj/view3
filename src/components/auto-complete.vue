@@ -8,7 +8,7 @@
     :placeholder="placeholder"
     :size="size"
     :placement="placement"
-    :value="currentValue"
+    :model-value="currentValue"
     :transfer-class-name="transferClassName"
     filterable
     remote

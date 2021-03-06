@@ -3,8 +3,8 @@
     v-if="draggable"
     :class="rowClasses(row._index)"
     :draggable="draggable"
-    @dragstart="onDrag($event,row._index)"
-    @drop="onDrop($event,row._index)"
+    @dragstart="onDrag($event, row._index)"
+    @drop="onDrop($event, row._index)"
     @dragover="allowDrop($event)"
   >
     <slot />
@@ -20,10 +20,25 @@
 <script>
 export default {
   props: {
-    row: Object,
-    prefixCls: String,
-    draggable: Boolean,
-    isChildren: Boolean // 开启后，会认为是子节点，相关逻辑通过 rowKey 查找
+    row: {
+      type: Object,
+      required: true
+    },
+    prefixCls: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    draggable: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    isChildren: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
   },
   computed: {
     objData () {

@@ -35,7 +35,7 @@
             </template>
             <template v-else-if="column.type === 'selection'">
               <Checkbox
-                :value="isSelectAll"
+                :model-value="isSelectAll"
                 :disabled="isSelectDisabled"
                 @on-change="selectAll"
               />
@@ -52,74 +52,83 @@
                 :column="column"
                 :index="index"
               />
+              {{ ' ' }}
               <span
                 v-if="column.sortable"
                 :class="[prefixCls + '-sort']"
               >
                 <i
-                  class="ivu-icon ivu-icon-md-arrow-dropup"
+                  class="ion ion-md-arrow-dropup"
                   :class="{on: getColumn(rowIndex, index)._sortType === 'asc'}"
                   @click="handleSort(getColumn(rowIndex, index)._index, 'asc')"
                 />
                 <i
-                  class="ivu-icon ivu-icon-md-arrow-dropdown"
+                  class="ion ion-md-arrow-dropdown"
                   :class="{on: getColumn(rowIndex, index)._sortType === 'desc'}"
                   @click="handleSort(getColumn(rowIndex, index)._index, 'desc')"
                 />
               </span>
+              {{ ' ' }}
               <Poptip
                 v-if="isPopperShow(column)"
-                v-model="getColumn(rowIndex, index)._filterVisible"
+                :model-value="getColumn(rowIndex, index)._filterVisible"
                 placement="bottom"
                 popper-class="ivu-table-popper"
                 transfer
                 :capture="false"
+                @update:model-value="getColumn(rowIndex, index)._filterVisible = $event"
                 @on-popper-hide="handleFilterHide(getColumn(rowIndex, index)._index)"
               >
                 <span :class="[prefixCls + '-filter']">
                   <i
-                    class="ivu-icon ivu-icon-ios-funnel"
+                    class="ion ion-ios-funnel"
                     :class="{on: getColumn(rowIndex, index)._isFiltered}"
                   />
                 </span>
 
-                <div
+                <template #content
                   v-if="getColumn(rowIndex, index)._filterMultiple"
-                  slot="content"
+                  >
+                <div
                   :class="[prefixCls + '-filter-list']"
                 >
                   <div :class="[prefixCls + '-filter-list-item']">
-                    <checkbox-group v-model="getColumn(rowIndex, index)._filterChecked">
-                      <checkbox
+                    <CheckboxGroup
+                      :model-value="getColumn(rowIndex, index)._filterChecked"
+                      @update:model-value="getColumn(rowIndex, index)._filterChecked = $event"
+                    >
+                      <Checkbox
                         v-for="(item, index) in column.filters"
                         :key="index"
                         :label="item.value"
                       >
                         {{ item.label }}
-                      </checkbox>
-                    </checkbox-group>
+                      </Checkbox>
+                    </CheckboxGroup>
                   </div>
                   <div :class="[prefixCls + '-filter-footer']">
-                    <i-button
+                    <VButton
                       type="text"
                       size="small"
                       :disabled="!getColumn(rowIndex, index)._filterChecked.length"
                       @click.native="handleFilter(getColumn(rowIndex, index)._index)"
                     >
                       {{ t('i.table.confirmFilter') }}
-                    </i-button>
-                    <i-button
+                    </VButton>
+                    <VButton
                       type="text"
                       size="small"
                       @click.native="handleReset(getColumn(rowIndex, index)._index)"
                     >
                       {{ t('i.table.resetFilter') }}
-                    </i-button>
+                    </VButton>
                   </div>
                 </div>
-                <div
+                </template>
+                <template #content
                   v-else
-                  slot="content"
+                  >
+                <div
                   :class="[prefixCls + '-filter-list']"
                 >
                   <ul :class="[prefixCls + '-filter-list-single']">
@@ -138,6 +147,7 @@
                     </li>
                   </ul>
                 </div>
+                </template>
               </Poptip>
             </template>
           </div>
@@ -160,17 +170,17 @@
   </table>
 </template>
 <script>
-import CheckboxGroup from '../checkbox/checkbox-group.vue'
-import Checkbox from '../checkbox/checkbox.vue'
-import Poptip from '../poptip/poptip.vue'
-import iButton from '../button/button.vue'
+import CheckboxGroup from './checkbox-group.vue'
+import Checkbox from './checkbox.vue'
+import Poptip from './poptip.vue'
+import VButton from './button.vue'
 import renderHeader from './header'
-import Mixin from './mixin'
-import Locale from '../../mixins/locale'
+import Mixin from '../mixins/table'
+import Locale from '../mixins/locale'
 
 export default {
   name: 'TableHead',
-  components: { CheckboxGroup, Checkbox, Poptip, iButton, renderHeader },
+  components: { CheckboxGroup, Checkbox, Poptip, VButton, renderHeader },
   mixins: [Mixin, Locale],
   props: {
     prefixCls: String,

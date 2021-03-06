@@ -1,51 +1,9 @@
-<!--
-<template>
-    <table cellspacing="0" cellpadding="0" border="0" :style="styleObject">
-        <colgroup>
-            <col v-for="(column, index) in columns" :width="setCellWidth(column)">
-        </colgroup>
-        <tbody :class="[prefixCls + '-tbody']">
-            <template v-for="(row, index) in data">
-                <table-tr
-                    :draggable="draggable"
-                    :row="row"
-                    :key="rowKey ? row._rowKey : index"
-                    :prefix-cls="prefixCls"
-                    @mouseenter.native.stop="handleMouseIn(row._index)"
-                    @mouseleave.native.stop="handleMouseOut(row._index)"
-                    @click.native="clickCurrentRow(row._index)"
-                    @dblclick.native.stop="dblclickCurrentRow(row._index)">
-                    <td v-for="(column, colIndex) in columns" :class="alignCls(column, row)" v-bind="getSpan(row, column, index, colIndex)" v-if="showWithSpan(row, column, index, colIndex)">
-                        <table-cell
-                            :fixed="fixed"
-                            :prefix-cls="prefixCls"
-                            :row="row"
-                            :key="column._columnKey"
-                            :column="column"
-                            :natural-index="index"
-                            :index="row._index"
-                            :checked="rowChecked(row._index)"
-                            :disabled="rowDisabled(row._index)"
-                            :expanded="rowExpanded(row._index)"
-                        ></table-cell>
-                    </td>
-                </table-tr>
-                <tr v-if="rowExpanded(row._index)" :class="{[prefixCls + '-expanded-hidden']: fixed}">
-                    <td :colspan="columns.length" :class="prefixCls + '-expanded-cell'">
-                        <Expand :key="rowKey ? row._rowKey : index" :row="row" :render="expandRender" :index="row._index"></Expand>
-                    </td>
-                </tr>
-            </template>
-        </tbody>
-    </table>
-</template>
--->
 <script>
-// todo :key="row"
 import TableTr from './table-tr.vue'
-import TableCell from './cell.vue'
-import Expand from './expand.js'
-import Mixin from './mixin'
+import TableCell from './table-cell.vue'
+import Expand from './table-expand'
+import Mixin from '../mixins/table'
+import { h } from 'vue'
 
 export default {
   name: 'TableBody',
@@ -239,25 +197,23 @@ export default {
           this.columns.forEach((column, colIndex) => {
             if (this.showWithSpan(row, column, index, colIndex)) {
               const $tableCell = h(TableCell, {
-                props: {
-                  fixed: this.fixed,
-                  'prefix-cls': this.prefixCls,
-                  row: row,
-                  column: column,
-                  'natural-index': index,
-                  index: row._index,
-                  checked: this.rowStatusByRowKey('_isChecked', row._rowKey),
-                  disabled: this.rowStatusByRowKey('_isDisabled', row._rowKey),
-                  expanded: this.rowStatusByRowKey('_isExpanded', row._rowKey),
-                  treeNode: true,
-                  treeLevel: this.getLevel(row._rowKey)
-                },
+                fixed: this.fixed,
+                'prefix-cls': this.prefixCls,
+                row: row,
+                column: column,
+                'natural-index': index,
+                index: row._index,
+                checked: this.rowStatusByRowKey('_isChecked', row._rowKey),
+                disabled: this.rowStatusByRowKey('_isDisabled', row._rowKey),
+                expanded: this.rowStatusByRowKey('_isExpanded', row._rowKey),
+                treeNode: true,
+                treeLevel: this.getLevel(row._rowKey),
                 key: column._columnKey
               })
 
               const $td = h('td', {
                 class: this.alignCls(column, row),
-                attrs: this.getSpan(row, column, index, colIndex)
+                ...this.getSpan(row, column, index, colIndex)
               }, [$tableCell])
               $tds.push($td)
             }
@@ -268,23 +224,19 @@ export default {
           if (!this.isTrShow(data._rowKey)) trStyle.display = 'none'
 
           const $tableTr = h(TableTr, {
-            props: {
-              draggable: false,
-              row: row,
-              'prefix-cls': this.prefixCls,
-              isChildren: true
-            },
+            draggable: false,
+            row: row,
+            'prefix-cls': this.prefixCls,
+            isChildren: true,
             style: trStyle,
             key: this.rowKey ? row._rowKey : index,
-            nativeOn: {
-              mouseenter: (e) => this.handleMouseIn(row._index, e, row._rowKey),
-              mouseleave: (e) => this.handleMouseOut(row._index, e, row._rowKey),
-              click: (e) => this.clickCurrentRow(row._index, e, row._rowKey),
-              dblclick: (e) => this.dblclickCurrentRow(row._index, e, row._rowKey),
-              contextmenu: (e) => this.contextmenuCurrentRow(row._index, e, row._rowKey),
-              selectstart: (e) => this.selectStartCurrentRow(row._index, e, row._rowKey)
-            }
-          }, $tds)
+            onMouseenter: (e) => this.handleMouseIn(row._index, e, row._rowKey),
+            onMouseleave: (e) => this.handleMouseOut(row._index, e, row._rowKey),
+            onClick: (e) => this.clickCurrentRow(row._index, e, row._rowKey),
+            onDblclick: (e) => this.dblclickCurrentRow(row._index, e, row._rowKey),
+            onContextmenu: (e) => this.contextmenuCurrentRow(row._index, e, row._rowKey),
+            onSelectstart: (e) => this.selectStartCurrentRow(row._index, e, row._rowKey)
+          }, { default: () => $tds })
 
           nodes.push($tableTr)
 
@@ -298,13 +250,11 @@ export default {
       }
     }
   },
-  render (h) {
+  render () {
     const $cols = []
     this.columns.forEach(column => {
       const $col = h('col', {
-        attrs: {
-          width: this.setCellWidth(column)
-        }
+        width: this.setCellWidth(column)
       })
       $cols.push($col)
     })
@@ -317,67 +267,57 @@ export default {
       this.columns.forEach((column, colIndex) => {
         if (this.showWithSpan(row, column, index, colIndex)) {
           const $tableCell = h(TableCell, {
-            props: {
-              fixed: this.fixed,
-              'prefix-cls': this.prefixCls,
-              row: row,
-              column: column,
-              'natural-index': index,
-              index: row._index,
-              checked: this.rowChecked(row._index),
-              disabled: this.rowDisabled(row._index),
-              expanded: this.rowExpanded(row._index)
-            },
+            fixed: this.fixed,
+            'prefix-cls': this.prefixCls,
+            row: row,
+            column: column,
+            'natural-index': index,
+            index: row._index,
+            checked: this.rowChecked(row._index),
+            disabled: this.rowDisabled(row._index),
+            expanded: this.rowExpanded(row._index),
             key: column._columnKey
           })
 
           const $td = h('td', {
             class: this.alignCls(column, row),
-            attrs: this.getSpan(row, column, index, colIndex)
+            ...this.getSpan(row, column, index, colIndex)
           }, [$tableCell])
           $tds.push($td)
         }
       })
 
       const $tableTr = h(TableTr, {
-        props: {
-          draggable: this.draggable,
-          row: row,
-          'prefix-cls': this.prefixCls
-        },
+        draggable: this.draggable,
+        row: row,
+        'prefix-cls': this.prefixCls,
         key: this.rowKey ? row._rowKey : index,
-        nativeOn: {
-          mouseenter: (e) => this.handleMouseIn(row._index, e),
-          mouseleave: (e) => this.handleMouseOut(row._index, e),
-          click: (e) => this.clickCurrentRow(row._index, e),
-          dblclick: (e) => this.dblclickCurrentRow(row._index, e),
-          contextmenu: (e) => this.contextmenuCurrentRow(row._index, e),
-          selectstart: (e) => this.selectStartCurrentRow(row._index, e)
-        }
-      }, $tds)
+        onMouseenter: (e) => this.handleMouseIn(row._index, e),
+        onMouseleave: (e) => this.handleMouseOut(row._index, e),
+        onClick: (e) => this.clickCurrentRow(row._index, e),
+        onDblclick: (e) => this.dblclickCurrentRow(row._index, e),
+        onContextmenu: (e) => this.contextmenuCurrentRow(row._index, e),
+        onSelectstart: (e) => this.selectStartCurrentRow(row._index, e)
+      }, { default: () =>  $tds })
       $tableTrs.push($tableTr)
 
       // 可展开
       if (this.rowExpanded(row._index)) {
         const $Expand = h(Expand, {
-          props: {
-            row: row,
-            render: this.expandRender,
-            index: row._index
-          },
+          row: row,
+          render: this.expandRender,
+          index: row._index,
           key: this.rowKey ? row._rowKey : index
         })
         const $td = h('td', {
-          attrs: {
-            colspan: this.columns.length
-          },
+          colspan: this.columns.length,
           class: this.prefixCls + '-expanded-cell'
-        }, [$Expand])
+        }, { default: () =>  [$Expand] })
         const $tr = h('tr', {
           class: {
             [this.prefixCls + '-expanded-hidden']: this.fixed
           }
-        }, [$td])
+        }, { default: () =>  [$td] })
         $tableTrs.push($tr)
       }
 
@@ -392,14 +332,12 @@ export default {
 
     const $tbody = h('tbody', {
       class: this.prefixCls + '-tbody'
-    }, [$tableTrs])
+    }, { default: () => [$tableTrs] })
 
     return h('table', {
-      attrs: {
-        cellspacing: '0',
-        cellpadding: '0',
-        border: '0'
-      },
+      cellspacing: '0',
+      cellpadding: '0',
+      border: '0',
       style: this.styleObject
     }, [$colgroup, $tbody])
   }

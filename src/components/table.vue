@@ -232,16 +232,17 @@
 import tableHead from './table-head.vue'
 import tableBody from './table-body.vue'
 import tableSummary from './summary.vue'
-import Dropdown from '../dropdown/dropdown.vue'
-import DropdownMenu from '../dropdown/dropdown-menu.vue'
-import Spin from '../spin/spin.vue'
-import { oneOf, getStyle, deepCopy, getScrollBarSize } from '../../utils/assist'
-import { on, off } from '../../utils/dom'
-import Csv from '../../utils/csv'
-import ExportCsv from './export-csv'
-import Locale from '../../mixins/locale'
+import Dropdown from './dropdown.vue'
+import DropdownMenu from './dropdown-menu.vue'
+import Spin from './spin.vue'
+import { oneOf, getStyle, deepCopy, getScrollBarSize } from '../utils/assist'
+import { on, off } from '../utils/dom'
+import Csv from '../utils/csv'
+import ExportCsv from '../utils/export-csv'
+import Locale from '../mixins/locale'
+import Emitter from '../mixins/emitter'
 import elementResizeDetectorMaker from 'element-resize-detector'
-import { getAllColumns, convertToRows, convertColumnOrder, getRandomStr } from './util'
+import { getAllColumns, convertToRows, convertColumnOrder, getRandomStr } from '../utils/table'
 
 const prefixCls = 'ivu-table'
 
@@ -251,7 +252,7 @@ let columnKey = 1
 export default {
   name: 'Table',
   components: { tableHead, tableBody, tableSummary, Spin, Dropdown, DropdownMenu },
-  mixins: [Locale],
+  mixins: [Locale, Emitter],
   provide () {
     return {
       tableRoot: this
@@ -275,7 +276,7 @@ export default {
         return oneOf(value, ['small', 'large', 'default'])
       },
       default () {
-        return !this.$IVIEW || this.$IVIEW.size === '' ? 'default' : this.$IVIEW.size
+        return 'default'
       }
     },
     width: {
@@ -687,7 +688,7 @@ export default {
     this.observer = elementResizeDetectorMaker()
     this.observer.listenTo(this.$el, this.handleResize)
 
-    this.$on('on-visible-change', (val) => {
+    this.mitt.on('on-visible-change', (val) => {
       if (val) {
         this.$nextTick(() => {
           this.handleResize()
@@ -985,11 +986,11 @@ export default {
       if ('_loading' in data && data._loading) return
       if ('_loading' in data && !data._loading && data.children.length === 0) {
         const sourceData = this.getBaseDataByRowKey(rowKey, this.data)
-        this.$set(sourceData, '_loading', true)
+        sourceData._loading = true
         this.loadData(sourceData, children => {
-          this.$set(sourceData, '_loading', false)
+          sourceData._loading = false
           if (children.length) {
-            this.$set(sourceData, 'children', children)
+            sourceData.children = children
             this.$nextTick(() => {
               const newData = this.getDataByRowKey(rowKey)
               newData._isShowChildren = !newData._isShowChildren
@@ -1017,7 +1018,7 @@ export default {
     // todo 单选、多选等状态可能也需要更新原数据
     updateDataStatus (rowKey, key, value) {
       const data = this.getBaseDataByRowKey(rowKey, this.data)
-      this.$set(data, key, value)
+      data[key] = value
     },
     getDataByRowKey (rowKey, objData = this.objData) {
       let data = null
@@ -1307,13 +1308,6 @@ export default {
       this.cloneColumns[index]._filterVisible = false
       this.$emit('on-filter-change', column)
     },
-    /**
-             * #2832
-             * 应该区分当前表头的 column 是左固定还是右固定
-             * 否则执行到 $parent 时，方法的 index 与 cloneColumns 的 index 是不对应的
-             * 左固定和右固定，要区分对待
-             * 所以，此方法用来获取正确的 index
-             * */
     GetOriginalIndex (_index) {
       return this.cloneColumns.findIndex(item => item._index === _index)
     },
@@ -1539,7 +1533,7 @@ export default {
     }
   },
   beforeUnmont () {
-    this.$off('on-visible-change')
+    this.mitt.off('on-visible-change')
     off(window, 'resize', this.handleResize)
     this.observer.removeAllListeners(this.$el)
     this.observer.uninstall(this.$el)

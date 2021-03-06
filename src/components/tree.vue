@@ -170,11 +170,11 @@ export default {
       if (node.checked == parent.checked && node.indeterminate == parent.indeterminate) return // no need to update upwards
 
       if (node.checked == true) {
-        this.$set(parent, 'checked', parent[this.childrenKey].every(node => node.checked))
-        this.$set(parent, 'indeterminate', !parent.checked)
+        parent.checked = parent[this.childrenKey].every(node => node.checked)
+        parent.indeterminate = !parent.checked
       } else {
-        this.$set(parent, 'checked', false)
-        this.$set(parent, 'indeterminate', parent[this.childrenKey].some(node => node.checked || node.indeterminate))
+        parent = checked = false
+        parent = indeterminate = parent[this.childrenKey].some(node => node.checked || node.indeterminate)
       }
       this.updateTreeUp(parentKey)
     },
@@ -209,7 +209,7 @@ export default {
       if (this.checkStrictly) return
 
       for (const key in changes) {
-        this.$set(node, key, changes[key])
+        node[key] = changes[key]
       }
       if (node[this.childrenKey]) {
         node[this.childrenKey].forEach(child => {
@@ -222,17 +222,20 @@ export default {
       const node = this.flatState[nodeKey].node
       if (!this.multiple) { // reset previously selected node
         const currentSelectedKey = this.flatState.findIndex(obj => obj.node.selected)
-        if (currentSelectedKey >= 0 && currentSelectedKey !== nodeKey) this.$set(this.flatState[currentSelectedKey].node, 'selected', false)
+
+        if (currentSelectedKey >= 0 && currentSelectedKey !== nodeKey) {
+          this.flatState[currentSelectedKey].node.selected = false
+        }
       }
-      this.$set(node, 'selected', !node.selected)
+      node.selected = !node.selected
 
       this.$emit('on-select-change', this.getSelectedNodes(), node)
     },
     handleCheck ({ checked, nodeKey }) {
       if (!this.flatState[nodeKey]) return
       const node = this.flatState[nodeKey].node
-      this.$set(node, 'checked', checked)
-      this.$set(node, 'indeterminate', false)
+      node.checked = checked
+      node.indeterminate = false
 
       this.updateTreeUp(nodeKey) // propagate up
       this.updateTreeDown(node, { checked, indeterminate: false }) // reset `indeterminate` when going down

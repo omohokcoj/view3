@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-import Mixin from './mixin'
+import Mixin from '../mixins/table'
 
 export default {
   name: 'TableSummary',

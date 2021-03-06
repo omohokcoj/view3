@@ -1,12 +1,12 @@
 <template>
   <div :class="classes">
-    <Input-number
+    <InputNumber
       v-if="!range && showInput"
       :min="min"
       :size="inputSize"
       :max="max"
       :step="step"
-      :value="exportValue[0]"
+      :model-value="exportValue[0]"
       :disabled="itemDisabled"
       :active-change="activeChange"
       @on-change="handleInputChange"
@@ -109,13 +109,13 @@
   </div>
 </template>
 <script>
-import InputNumber from '../../components/input-number/input-number.vue'
-import Tooltip from '../../components/tooltip/tooltip.vue'
-import SliderMarker from './marker'
-import { getStyle, oneOf } from '../../utils/assist'
-import { on, off } from '../../utils/dom'
-import Emitter from '../../mixins/emitter'
-import mixinsForm from '../../mixins/form'
+import InputNumber from '../components/input-number'
+import Tooltip from '../components/tooltip'
+import SliderMarker from './slider-marker'
+import { getStyle, oneOf } from '../utils/assist'
+import { on, off } from '../utils/dom'
+import Emitter from '../mixins/emitter'
+import mixinsForm from '../mixins/form'
 import elementResizeDetectorMaker from 'element-resize-detector'
 
 const prefixCls = 'ivu-slider'
@@ -141,7 +141,7 @@ export default {
       type: Boolean,
       default: false
     },
-    value: {
+    modelValue: {
       type: [Number, Array],
       default: 0
     },
@@ -191,7 +191,7 @@ export default {
     }
   },
   data () {
-    const val = this.checkLimits(Array.isArray(this.value) ? this.value : [this.value])
+    const val = this.checkLimits(Array.isArray(this.modelValue) ? this.modelValue : [this.modelValue])
     return {
       prefixCls: prefixCls,
       currentValue: val,
@@ -296,7 +296,7 @@ export default {
     }
   },
   watch: {
-    value (val) {
+    modelValue (val) {
       val = this.checkLimits(Array.isArray(val) ? val : [val])
       if (!this.dragging && (val[0] !== this.currentValue[0] || val[1] !== this.currentValue[1])) {
         this.currentValue = val

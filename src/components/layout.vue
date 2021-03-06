@@ -10,9 +10,11 @@ const prefixCls = 'ivu-layout'
 
 export default {
   name: 'Layout',
-  data () {
-    return {
-      hasSider: false
+  props: {
+    hasSider: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   computed: {
@@ -23,14 +25,6 @@ export default {
                       [`${prefixCls}-has-sider`]: this.hasSider
                     }
       ]
-    }
-  },
-  mounted () {
-    this.hasSider = this.findSider()
-  },
-  methods: {
-    findSider () {
-      return findComponentDownward(this, 'Sider')
     }
   }
 }

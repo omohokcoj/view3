@@ -50,6 +50,7 @@ import Header from '../src/components/header'
 import Sider from '../src/components/sider'
 import Content from '../src/components/content'
 import Layout from '../src/components/layout'
+import Table from '../src/components/table'
 
 const app = createApp(App)
 
@@ -98,6 +99,7 @@ app.component('Header', Header)
 app.component('Sider', Sider)
 app.component('Content', Content)
 app.component('Layout', Layout)
+app.component('VTable', Table)
 
 const router = createRouter({
   history: createWebHistory(),

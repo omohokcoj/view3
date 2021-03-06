@@ -4,6 +4,8 @@
   </div>
 </template>
 <script>
+import { findComponentsDownward } from '../utils/assist'
+
 const prefixCls = 'ivu-breadcrumb'
 
 export default {
@@ -34,7 +36,7 @@ export default {
   },
   methods: {
     updateChildren () {
-      this.$children.forEach((child) => {
+      findComponentsDownward(this, 'BreadcrumbItem').forEach((child) => {
         child.separator = this.separator
       })
     }
