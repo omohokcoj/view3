@@ -10,12 +10,14 @@
 <script>
 import { getStyle } from '../utils/assist';  // eslint-disable-line
 import { transferIndex, transferIncrease } from '../utils/transfer-queue'
+import Emitter from '../mixins/emitter'
 
 const isServer = false
 const Popper = isServer ? function () {} : require('popper.js/dist/umd/popper.js')
 
 export default {
   name: 'SelectDropdown',
+  mixins: [Emitter],
   props: {
     placement: {
       type: String,
@@ -47,11 +49,16 @@ export default {
     }
   },
   created () {
+    this.mitt.on('on-update-popper', this.update);
+    this.mitt.on('on-destroy-popper', this.destroy);
   },
   beforeUnmount () {
+    this.mitt.off('on-update-popper', this.update);
+    this.mitt.off('on-destroy-popper', this.destroy);
+
     if (this.popper) {
-      this.popper.destroy()
-      this.popper = null
+      this.popper.destroy();
+      this.popper = null;
     }
   },
   methods: {

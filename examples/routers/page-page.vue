@@ -10,18 +10,18 @@
       :current.sync="current"
     />
     {{ current }}
-    <Button
+    <VButton
       type="primary"
       @click="subject"
     >
       - 1
-    </Button>
-    <Button
+    </VButton>
+    <VButton
       type="primary"
       @click="change"
     >
       Change
-    </Button>
+    </VButton>
     <Page
       :current="2"
       :total="50"

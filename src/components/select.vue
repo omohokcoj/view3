@@ -61,7 +61,7 @@
         </SelectHead>
       </slot>
     </div>
-    <transition name="transition-drop"><Drop
+    <transition name="transition-drop"><SelectDropdown
         v-show="dropVisible"
         ref="dropdown"
         v-transfer-dom
@@ -79,11 +79,9 @@
 
         <FunctionalOptions
           v-if="(!remote) || (remote && !loading)"
-          :options="selectOptions"
-          :slot-update-hook="updateSlotOptions"
-          :slot-options="slotOptions"
           :class="prefixCls + '-dropdown-list'"
         >
+          <slot />
           <li
             v-if="showCreateItem"
             :class="prefixCls + '-item'"
@@ -119,11 +117,11 @@
         >
           {{ localeLoadingText }}
         </ul>
-      </Drop></transition>
+      </SelectDropdown></transition>
   </div>
 </template>
 <script>
-import Drop from './select-dropdown'
+import SelectDropdown from './select-dropdown'
 import Icon from './icon'
 import { directive as clickOutside } from '../directives/v-click-outside-x'
 import TransferDom from '../directives/transfer-dom'
@@ -183,7 +181,11 @@ const getNestedProperty = (obj, path) => {
 const getOptionLabel = option => {
   if (option.props.label) return option.props.label
 
-  return option.component.proxy.$el.innerHTML
+  if (option.component) {
+    return option.component.proxy.$el.innerHTML
+  } else {
+    return option.children.default().map((e) => e.children).join()
+  }
 }
 
 const checkValuesNotEqual = (value, publicValue, values) => {
@@ -199,9 +201,14 @@ const ANIMATION_TIMEOUT = 300
 
 export default {
   name: 'VSelect',
-  components: { FunctionalOptions, Drop, SelectHead, Icon },
+  components: { FunctionalOptions, SelectDropdown, SelectHead, Icon },
   directives: { clickOutside, TransferDom },
   mixins: [Emitter, Locale, mixinsForm],
+  provide () {
+    return {
+      selectComponent: this
+    }
+  },
   props: {
     modelValue: {
       type: [String, Number, Array],
@@ -324,6 +331,7 @@ export default {
       initialLabel: this.label,
       hasMouseHoverHead: false,
       slotOptions: [],
+      optionComponents: [],
       caretPosition: -1,
       lastRemoteQuery: '',
       unchangedQuery: true,
@@ -453,7 +461,9 @@ export default {
             return this.processOption(opt, selectedValues, optionCounter === currentIndex)
           })
 
-          if (children.length > 0) selectOptions.push({ ...option, componentOptions: { ...cOptions, children: children } })
+          if (children.length > 0) {
+            selectOptions.push({ ...option, componentOptions: { ...cOptions, children: children } })
+          }
         } else {
           if (this.filterQueryChange) {
             const optionPassesFilter = this.filterable ? this.validateOption(option) : option
@@ -492,6 +502,13 @@ export default {
     values (now, before) {
       const newValue = JSON.stringify(now)
       const oldValue = JSON.stringify(before)
+      const values = now.map((v) => v.value)
+
+      this.optionComponents.forEach((component) => {
+        component.dataSelected = values.includes(component.value)
+        component.dataIsFocused = values.includes(component.value)
+      })
+
       const vModelValue = (this.publicValue && this.labelInValue)
         ? (this.multiple ? this.publicValue.map(({ value }) => value) : this.publicValue.value)
         : this.publicValue
@@ -556,7 +573,7 @@ export default {
       }
     },
     dropVisible (open) {
-      this.broadcast('Drop', open ? 'on-update-popper' : 'on-destroy-popper')
+      this.broadcast('SelectDropdown', open ? 'on-update-popper' : 'on-destroy-popper')
     },
     selectOptions () {
       if (this.hasExpectedValue && this.selectOptions.length > 0) {
@@ -571,7 +588,7 @@ export default {
         this.query = ''
       }
 
-      this.broadcast('Drop', 'on-update-popper')
+      this.broadcast('SelectDropdown', 'on-update-popper')
     },
     visible (state) {
       this.$emit('on-open-change', state)
@@ -586,7 +603,7 @@ export default {
       }
 
       if (options && old && options.length !== old.length) {
-        this.broadcast('Drop', 'on-update-popper')
+        this.broadcast('SelectDropdown', 'on-update-popper')
       }
     }
   },
@@ -624,10 +641,10 @@ export default {
     }
   },
   beforeUnmont () {
-    this.$off('on-select-selected')
+    this.mitt.off('on-select-selected')
   },
   methods: {
-    setQuery (query) { // PUBLIC API
+    setQuery (query) {
       if (query) {
         this.onQueryChange(query)
         return
@@ -639,7 +656,6 @@ export default {
       }
     },
     clearSingleSelect () {
-      // fix #446
       if (!this.multiple) this.$emit('update:modelValue', '')
       this.$emit('on-clear')
       this.hideMenu()
@@ -707,7 +723,7 @@ export default {
       this.visible = typeof force !== 'undefined' ? force : !this.visible
       if (this.visible) {
         this.dropDownWidth = this.$el.getBoundingClientRect().width
-        this.broadcast('Drop', 'on-update-popper')
+        this.broadcast('SelectDropdown', 'on-update-popper')
       }
     },
     hideMenu () {
@@ -852,7 +868,7 @@ export default {
         if (!this.autoComplete) this.$nextTick(() => inputField.focus())
       }
       this.$emit('on-select', option)
-      this.broadcast('Drop', 'on-update-popper')
+      this.broadcast('SelectDropdown', 'on-update-popper')
       setTimeout(() => {
         this.filterQueryChange = false
       }, ANIMATION_TIMEOUT)
@@ -882,7 +898,7 @@ export default {
       this.isFocused = type === 'focus'
     },
     updateSlotOptions () {
-      this.slotOptions = this.$slots.default()
+      this.slotOptions = this.$slots.default()[0].children
     },
     checkUpdateStatus () {
       if (this.getInitialValue().length > 0 && this.selectOptions.length === 0) {

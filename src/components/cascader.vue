@@ -45,7 +45,7 @@
         />
       </slot>
     </div>
-    <transition name="transition-drop"><Drop
+    <transition name="transition-drop"><SelectDropdown
         v-show="visible"
         ref="drop"
         v-transfer-dom
@@ -85,12 +85,12 @@
             <li>{{ localeNotFoundText }}</li>
           </ul>
         </div>
-      </Drop></transition>
+      </SelectDropdown></transition>
   </div>
 </template>
 <script>
 import VInput from './input.vue'
-import Drop from './select-dropdown'
+import SelectDropdown from './select-dropdown'
 import Icon from './icon.vue'
 import Caspanel from './caspanel.vue'
 import clickOutside from '../directives/clickoutside'
@@ -105,7 +105,7 @@ const selectPrefixCls = 'ivu-select'
 
 export default {
   name: 'Cascader',
-  components: { VInput, Drop, Icon, Caspanel },
+  components: { VInput, SelectDropdown, Icon, Caspanel },
   directives: { clickOutside, TransferDom },
   mixins: [Emitter, Locale, mixinsForm],
   props: {
@@ -308,7 +308,7 @@ export default {
         if (this.transfer) {
           this.$refs.drop.update()
         }
-        this.broadcast('Drop', 'on-update-popper')
+        this.broadcast('SelectDropdown', 'on-update-popper')
       } else {
         if (this.filterable) {
           this.query = ''
@@ -317,7 +317,7 @@ export default {
         if (this.transfer) {
           this.$refs.drop.destroy()
         }
-        this.broadcast('Drop', 'on-destroy-popper')
+        this.broadcast('SelectDropdown', 'on-destroy-popper')
       }
       this.$emit('on-visible-change', val)
     },

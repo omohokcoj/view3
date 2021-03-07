@@ -270,9 +270,9 @@
     min-width: 100%;
   }
 
-  // & .#{$select-prefix-cls}-dropdown {
-  //   width: auto;
-  // }
+  & .#{$select-prefix-cls}-dropdown {
+    width: auto;
+  }
 
   &-prefix {
     display: inline-block;
@@ -338,7 +338,7 @@
     top: 2px;
   }
 
-  &-selected.ivu-select-item-disabled {
+  &-selected.#{$select-item-prefix-cls}-disabled {
     color: $btn-disable-color;
 
     &::after {

@@ -18,6 +18,7 @@ export default {
   name: 'VOption',
   componentName: 'select-item',
   mixins: [Emitter, mixinsForm],
+  inject: ['selectComponent'],
   props: {
     value: {
       type: [String, Number],
@@ -47,7 +48,17 @@ export default {
   data () {
     return {
       searchLabel: '', // the slot value (textContent)
-      autoComplete: false
+      autoComplete: false,
+      dataSelected: false,
+      dataIsFocused: false
+    }
+  },
+  watch: {
+    selected (value) {
+      this.dataSelected = value
+    },
+    isFocused (value) {
+      this.dataIsFocused = value
     }
   },
   computed: {
@@ -56,8 +67,8 @@ export default {
                     `${prefixCls}`,
                     {
                       [`${prefixCls}-disabled`]: this.itemDisabled,
-                      [`${prefixCls}-selected`]: this.selected && !this.autoComplete,
-                      [`${prefixCls}-focus`]: this.isFocused
+                      [`${prefixCls}-selected`]: this.dataSelected && !this.autoComplete,
+                      [`${prefixCls}-focus`]: this.dataIsFocused
                     }
       ]
     },
@@ -69,14 +80,21 @@ export default {
     }
   },
   mounted () {
-    const Select = findComponentUpward(this, 'VSelect')
+    const Select = this.selectComponent
     if (Select) this.autoComplete = Select.autoComplete
+
+    this.selectComponent.optionComponents.push(this)
+  },
+  beforeUnmount () {
+    const index = this.selectComponent.optionComponents.indexOf(this)
+
+    this.selectComponent.optionComponents.splice(index, 1)
   },
   methods: {
     select () {
       if (this.itemDisabled) return false
 
-      this.dispatch('VSelect', 'on-select-selected', {
+      this.selectComponent.mitt.emit('on-select-selected', {
         value: this.value,
         label: this.optionLabel,
         tag: this.tag

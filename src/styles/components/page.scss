@@ -138,14 +138,12 @@
 
   &-item-jump-prev:hover {
     i:first-child::after {
-      content: '\F115';
       margin-left: -8px;
     }
   }
 
   &-item-jump-next:hover {
     i:first-child::after {
-      content: '\F11F';
       margin-left: -8px;
     }
   }

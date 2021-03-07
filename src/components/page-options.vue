@@ -21,7 +21,7 @@
           :value="item"
           style="text-align:center;"
         >
-          {{ item }} {{ t('i.page.page') }}
+          {{ item }}{{ t('i.page.page') }}
         </VOption>
       </VSelect>
     </div>

@@ -7,8 +7,8 @@ export default {
   props: {
     render: Function
   },
-  render () {
-    return this.$props.render(h)
+  render ({ $props }) {
+    return $props.render(h)
   }
 }
 </script>

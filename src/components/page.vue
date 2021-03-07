@@ -172,7 +172,7 @@
 </template>
 <script>
 import { oneOf } from '../utils/assist'
-import PageOptions from './options'
+import PageOptions from './page-options'
 import Locale from '../mixins/locale'
 
 const prefixCls = 'ivu-page'
@@ -180,6 +180,7 @@ const prefixCls = 'ivu-page'
 export default {
   name: 'Page',
   components: { PageOptions },
+  emits: ['update:current', 'on-change'],
   mixins: [Locale],
   props: {
     current: {
@@ -209,7 +210,7 @@ export default {
     transfer: {
       type: Boolean,
       default () {
-        return !this.$IVIEW || this.$IVIEW.transfer === '' ? false : this.$IVIEW.transfer
+        return false
       }
     },
     size: {
@@ -383,9 +384,13 @@ export default {
     },
     onSize (pageSize) {
       if (this.disabled) return
-      this.currentPageSize = pageSize
-      this.$emit('on-page-size-change', pageSize)
-      this.changePage(1)
+
+      if (this.currentPageSize != pageSize) {
+        this.currentPageSize = pageSize
+        this.$emit('update:page-size', pageSize)
+        this.$emit('on-page-size-change', pageSize)
+        this.changePage(1)
+      }
     },
     onPage (page) {
       if (this.disabled) return

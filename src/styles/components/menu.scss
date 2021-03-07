@@ -7,7 +7,6 @@
   outline: none;
   padding: 0;
   position: relative;
-  z-index: $zindex-select;
 
   &-horizontal {
     height: 60px;
@@ -67,7 +66,7 @@
     z-index: 1;
   }
 
-  a &-item {
+  a.#{$menu-prefix-cls}-item {
     color: inherit;
 
     &:hover,

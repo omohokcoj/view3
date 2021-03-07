@@ -21,7 +21,7 @@ export default {
 
     if ($props.column) params.column = $props.column
 
-    return $props.render(params)
+    return $props.render(h, params)
   }
 }
 </script>
