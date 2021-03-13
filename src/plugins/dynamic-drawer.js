@@ -40,6 +40,6 @@ export default {
   install (app, _) {
     this.app = app
 
-    app.config.globalProperties.$Modal = this
+    app.config.globalProperties.$Drawer = this
   }
 }

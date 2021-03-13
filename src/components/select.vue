@@ -79,9 +79,11 @@
 
         <FunctionalOptions
           v-if="(!remote) || (remote && !loading)"
+          :options="selectOptions"
+          :slot-update-hook="updateSlotOptions"
+          :slot-options="slotOptions"
           :class="prefixCls + '-dropdown-list'"
         >
-          <slot />
           <li
             v-if="showCreateItem"
             :class="prefixCls + '-item'"
@@ -137,13 +139,7 @@ const optionRegexp = /^voption$|^option$/i
 const optionGroupRegexp = /option-?group/i
 
 const findChild = (instance, checkFn) => {
-  let match = checkFn(instance)
-  if (match) return instance
-  for (let i = 0, l = instance.$children.length; i < l; i++) {
-    const child = instance.$children[i]
-    match = findChild(child, checkFn)
-    if (match) return match
-  }
+  return findComponentsDownward(instance, 'VOption').find(checkFn)
 }
 
 const findOptionsInVNode = (node) => {
@@ -163,12 +159,9 @@ const extractOptions = (options) => options.reduce((options, slotEntry) => {
 const applyProp = (node, propName, value) => {
   return {
     ...node,
-    componentOptions: {
-      ...node.componentOptions,
-      propsData: {
-        ...node.componentOptions.propsData,
-        [propName]: value
-      }
+    props: {
+      ...node.props,
+      [propName]: value
     }
   }
 }
@@ -182,9 +175,9 @@ const getOptionLabel = option => {
   if (option.props.label) return option.props.label
 
   if (option.component) {
-    return option.component.proxy.$el.innerHTML
+    return option.component.proxy.$el.innerHTML.trim()
   } else {
-    return option.children.default().map((e) => e.children).join()
+    return option.children.default().map((e) => e.children).join().trim()
   }
 }
 
@@ -438,7 +431,7 @@ export default {
         const selectedSlotOption = autoCompleteOptions[currentIndex]
 
         return slotOptions.map(node => {
-          if (node === selectedSlotOption || getNestedProperty(node, 'componentOptions.propsData.value') === this.modelValue) return applyProp(node, 'isFocused', true)
+          if (node === selectedSlotOption || getNestedProperty(node, 'props.value') == this.modelValue) return applyProp(node, 'isFocused', true)
           return copyChildren(node, (child) => {
             if (child !== selectedSlotOption) return child
             return applyProp(child, 'isFocused', true)
@@ -452,13 +445,13 @@ export default {
 
           if (this.filterable && this.isTyping) {
             children = children.filter(
-              ({ componentOptions }) => this.validateOption(componentOptions)
+              (option) => this.validateOption(option)
             )
           }
 
           children = children.map(opt => {
             optionCounter = optionCounter + 1
-            return this.processOption(opt, selectedValues, optionCounter === currentIndex)
+            return this.processOption(opt, selectedValues, optionCounter == currentIndex)
           })
 
           if (children.length > 0) {
@@ -471,7 +464,7 @@ export default {
           }
 
           optionCounter = optionCounter + 1
-          selectOptions.push(this.processOption(option, selectedValues, optionCounter === currentIndex))
+          selectOptions.push(this.processOption(option, selectedValues, optionCounter == currentIndex))
         }
       }
 
@@ -522,7 +515,7 @@ export default {
     query (query) {
       this.$emit('on-query-change', query)
       const { remoteMethod, lastRemoteQuery } = this
-      const hasValidQuery = query !== '' && (query !== lastRemoteQuery || !lastRemoteQuery)
+      const hasValidQuery = query !== lastRemoteQuery || !lastRemoteQuery
       const shouldCallRemoteMethod = remoteMethod && hasValidQuery && !this.preventRemoteCall
       this.preventRemoteCall = false // remove the flag
 
@@ -552,15 +545,15 @@ export default {
         const selectedLabel = String(selectedOption.label || selectedOption.value).trim()
         if (selectedLabel && this.query !== selectedLabel) {
           this.preventRemoteCall = true
-          this.query = selectedLabel
+          this.query = selectedLabel.trim()
         }
       }
     },
     focusIndex (index) {
       if (index < 0 || this.autoComplete) return
-      const optionValue = this.flatOptions[index].componentOptions.propsData.value
-      const optionInstance = findChild(this, ({ $options }) => {
-        return $options.componentName === 'select-item' && $options.propsData.value === optionValue
+      const optionValue = this.flatOptions[index].props.value
+      const optionInstance = findChild(this, (option) => {
+        return option.value == optionValue
       })
 
       const bottomOverflowDistance = optionInstance.$el.getBoundingClientRect().bottom - this.$refs.dropdown.$el.getBoundingClientRect().bottom
@@ -582,10 +575,6 @@ export default {
         }
         this.values = this.values.map(this.getOptionData).filter(Boolean)
         this.hasExpectedValue = false
-      }
-
-      if (this.slotOptions && this.slotOptions.length === 0) {
-        this.query = ''
       }
 
       this.broadcast('SelectDropdown', 'on-update-popper')
@@ -662,7 +651,7 @@ export default {
       if (this.clearable) this.reset()
     },
     getOptionData (value) {
-      const option = this.flatOptions.find(({ props }) => props.value === value)
+      const option = this.flatOptions.find(({ props }) => props.value == value)
       if (!option) return null
       const label = getOptionLabel(option)
       const disabled = option.props.disabled
@@ -690,24 +679,29 @@ export default {
       const disabled = option.props.disabled
       const isSelected = values.includes(optionValue)
 
-      const propsData = {
+      const props = {
         ...option.props,
         selected: isSelected,
         isFocused: isFocused,
         disabled: typeof disabled === 'undefined' ? false : disabled !== false
       }
 
+      if (option.component) {
+        option.component.selected = isSelected
+        option.component.isFocused = isFocused
+      }
+
       return {
         ...option,
-        props: propsData
+        props
       }
     },
 
     validateOption ({ children, el, props }) {
       const value = props.value
       const label = props.label || ''
-      const textContent = (el && el.textContent) || ((children && children()) || []).reduce((str, node) => {
-        const nodeText = node.elm ? node.elm.textContent : node.text
+      const textContent = (el && el.textContent) || ((children && children.default()) || []).reduce((str, node) => {
+        const nodeText = node.elm ? node.elm.textContent : (node.text || node.children)
         return `${str} ${nodeText}`
       }, '') || ''
       const stringValues = this.filterByLabel ? [label].toString() : [value, label, textContent].toString()
@@ -843,7 +837,7 @@ export default {
         if (this.remote) this.lastRemoteQuery = this.lastRemoteQuery || this.query
         else this.lastRemoteQuery = ''
 
-        const valueIsSelected = this.values.find(({ value }) => value === option.value)
+        const valueIsSelected = this.values.find(({ value }) => value == option.value)
         if (valueIsSelected) {
           this.values = this.values.filter(({ value }) => value !== option.value)
         } else {
@@ -859,8 +853,9 @@ export default {
       }
 
       this.focusIndex = this.flatOptions.findIndex((opt) => {
-        if (!opt || !opt.componentOptions) return false
-        return opt.componentOptions.propsData.value === option.value
+        if (!opt || !opt.props) return false
+
+        return opt.props.value == option.value
       })
 
       if (this.filterable) {
@@ -898,7 +893,11 @@ export default {
       this.isFocused = type === 'focus'
     },
     updateSlotOptions () {
-      this.slotOptions = this.$slots.default()[0].children
+      const newSlots = this.$slots.default()[0].children
+
+      if (this.slotOptions.map((opt) => opt.props.value).join() !== newSlots.map((opt) => opt.props.value).join()) {
+        this.slotOptions = newSlots
+      }
     },
     checkUpdateStatus () {
       if (this.getInitialValue().length > 0 && this.selectOptions.length === 0) {

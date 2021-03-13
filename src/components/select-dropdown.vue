@@ -42,6 +42,7 @@ export default {
     styles () {
       const style = {}
       if (this.width) style.minWidth = `${this.width}px`
+      if (this.width) style.maxWidth = `${this.width}px`
 
       if (this.transfer) style['z-index'] = 1060 + this.tIndex
 
@@ -92,6 +93,8 @@ export default {
         // set a height for parent is Modal and Select's width is 100%
         if (this.$parent.$options.name === 'VSelect') {
           this.width = parseInt(getStyle(this.$parent.$el, 'width'))
+        } else if (this.$parent.$parent.$options.name === 'VSelect') {
+          this.width = parseInt(getStyle(this.$parent.$parent.$el, 'width'))
         }
         this.tIndex = this.handleGetIndex()
       })

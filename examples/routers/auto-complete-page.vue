@@ -18,14 +18,14 @@
             target="_blank"
           >更多</a>
         </div>
-        <Option
+        <VOption
           v-for="option in item.children"
           :key="option.title"
           :value="option.title"
         >
           <span class="demo-auto-complete-title">{{ option.title }}</span>
           <span class="demo-auto-complete-count">{{ option.count }} 人关注</span>
-        </Option>
+        </VOption>
       </div>
       <a
         href="https://www.google.com/search?q=iView"

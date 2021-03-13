@@ -41,7 +41,7 @@ export default {
       })
     })
 
-    el.addEventListener(binding.value.trigger || 'mouseleave', (event) => {
+    el.addEventListener('mouseleave', (event) => {
       if (!currentTooltip.popper.contains(event.toElement)) {
         removeCurrentTooltip()
       }

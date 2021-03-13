@@ -20,6 +20,12 @@
           >
             {{ title }}
           </div>
+          <RenderCell v-if="render" :render="render"/>
+          <template
+            v-if="content"
+          >
+            {{ content }}
+          </template>
           <slot />
         </div>
         <div
@@ -47,8 +53,13 @@
 </template>
 
 <script>
+import RenderCell from './render-cell'
+
 export default {
   name: 'Popover',
+  components: {
+    RenderCell
+  },
   props: {
     content: {
       type: String,
@@ -66,9 +77,14 @@ export default {
       default: false
     },
     bodyStyle: {
-      type: String,
+      type: [String, Object],
       required: false,
       default: ''
+    },
+    render: {
+      type: Function,
+      required: false,
+      default: null
     }
   }
 }

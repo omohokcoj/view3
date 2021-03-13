@@ -285,6 +285,9 @@ export default {
     height: {
       type: [Number, String]
     },
+    fixedHeight: {
+      type: [String]
+    },
     // 3.4.0
     maxHeight: {
       type: [Number, String]
@@ -546,7 +549,9 @@ export default {
     },
     bodyStyle () {
       const style = {}
-      if (this.bodyHeight !== 0) {
+      if (this.fixedHeight) {
+        style.height = this.fixedHeight
+      } else if (this.bodyHeight !== 0) {
         const height = this.bodyHeight
         if (this.height) {
           style.height = `${height}px`

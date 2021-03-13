@@ -52,6 +52,7 @@ import Content from '../src/components/content'
 import Layout from '../src/components/layout'
 import Table from '../src/components/table'
 import Page from '../src/components/page'
+import AutoComplete from '../src/components/auto-complete'
 
 const app = createApp(App)
 
@@ -102,6 +103,7 @@ app.component('Content', Content)
 app.component('Layout', Layout)
 app.component('VTable', Table)
 app.component('Page', Page)
+app.component('AutoComplete', AutoComplete)
 
 const router = createRouter({
   history: createWebHistory(),

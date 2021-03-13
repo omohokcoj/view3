@@ -5,11 +5,19 @@ export default {
   props: {
     options: {
       type: Array,
-      default: () => []
+      default: []
+    },
+    slotOptions: {
+      type: Array,
+      default: []
+    },
+    slotUpdateHook: {
+      type: Function,
+      default: () => {}
     }
   },
   render () {
-    return h('ul', {}, this.$slots.default())
+    return h('ul', {}, [this.$slots.default(), this.options])
   }
 }
 </script>
