@@ -143,9 +143,9 @@ const findChild = (instance, checkFn) => {
 }
 
 const findOptionsInVNode = (node) => {
-  if (node.type && node.type.name.match(optionRegexp)) return [node]
+  if (node.type && node.type.name && node.type.name.match(optionRegexp)) return [node]
   if (!node.children) return []
-  const children = node.children()
+  const children = Array.isArray(node.children) ? node.children : (typeof node.children === 'function' ? node.children() : [])
   const options = children.reduce(
     (arr, el) => [...arr, ...findOptionsInVNode(el)], []
   ).filter(Boolean)
@@ -423,8 +423,7 @@ export default {
       if (this.autoComplete) {
         const copyChildren = (node, fn) => {
           return {
-            ...node,
-            children: (node.children || []).map(fn).map(child => copyChildren(child, fn))
+            ...node
           }
         }
         const autoCompleteOptions = extractOptions(slotOptions)

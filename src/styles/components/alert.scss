@@ -7,7 +7,7 @@
   padding: 8px 48px 8px 16px;
   position: relative;
 
-  &#{&}-with-icon {
+  &.#{$alert-prefix-cls}-with-icon {
     padding: 8px 48px 8px 38px;
   }
 
@@ -71,7 +71,7 @@
     position: relative;
   }
 
-  &-with-desc &-with-icon {
+  &-with-desc.#{$alert-prefix-cls}-with-icon {
     padding: 16px 16px 16px 69px;
   }
 

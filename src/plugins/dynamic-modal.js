@@ -1,5 +1,5 @@
 import createInstance from './create-modal'
-import ModalComponent from 'view3/src/components/modal'
+import ModalComponent from '../components/modal'
 
 const defaultOptions = {
   width: 620,

@@ -1,5 +1,5 @@
 import createInstance from './create-modal'
-import DrawerComponent from 'view3/src/components/drawer'
+import DrawerComponent from '../components/drawer'
 
 const defaultOptions = {
   width: 720,

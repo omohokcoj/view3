@@ -18,7 +18,7 @@
     @on-select="handleSelect"
     @on-clickoutside="handleClickOutside"
   >
-    <slot name="input">
+    <template #input>
       <VInput
         ref="input"
         slot="input"
@@ -33,8 +33,9 @@
         @on-focus="handleFocus"
         @on-blur="handleBlur"
       />
-    </slot>
-    <slot>
+    </template>
+    <slot v-if="$slots.default"/>
+    <template v-else>
       <VOption
         v-for="item in filteredData"
         :key="item"
@@ -42,7 +43,7 @@
       >
         {{ item }}
       </VOption>
-    </slot>
+    </template>
   </VSelect>
 </template>
 <script>
@@ -55,10 +56,11 @@ import mixinsForm from '../mixins/form'
 
 export default {
   name: 'AutoComplete',
+  emits: ['on-search', 'update:modelValue', 'on-focus', 'on-blur', 'on-change', 'on-select'],
   components: { VSelect, VOption, VInput },
   mixins: [Emitter, mixinsForm],
   props: {
-    value: {
+    modelValue: {
       type: [String, Number],
       default: ''
     },
@@ -120,7 +122,7 @@ export default {
   },
   data () {
     return {
-      currentValue: this.value,
+      currentValue: this.modelValue,
       disableEmitChange: false // for Form reset
     }
   },
@@ -143,7 +145,7 @@ export default {
     }
   },
   watch: {
-    value (val) {
+    modelValue (val) {
       if (this.currentValue !== val) {
         this.disableEmitChange = true
       }
@@ -151,7 +153,7 @@ export default {
     },
     currentValue (val) {
       this.$refs.select.setQuery(val)
-      this.$emit('input', val)
+      this.$emit('update:modelValue', val)
       if (this.disableEmitChange) {
         this.disableEmitChange = false
         return

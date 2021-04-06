@@ -33,9 +33,6 @@
         class="demo-auto-complete-more"
       >查看所有结果</a>
     </AutoComplete>
-    <!--        <Select v-model="model1" style="width:200px">-->
-    <!--            <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>-->
-    <!--        </Select>-->
   </div>
 </template>
 <script>

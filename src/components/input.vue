@@ -363,7 +363,10 @@ export default {
   },
   mounted () {
     this.slotReady = true
-    this.resizeTextarea()
+
+    this.$nextTick(() => {
+      this.resizeTextarea()
+    })
   },
   methods: {
     handleEnter (event) {

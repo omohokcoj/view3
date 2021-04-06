@@ -144,7 +144,7 @@
     }
 
     .#{$tabs-prefix-cls}-tab-active {
-      color: $primary-color;
+      color: $primary-color !important;
     }
   }
 
@@ -181,13 +181,13 @@
   }
 
   // card style
-  &#{&}-card > &-bar &-nav-container {
+  &.#{$tabs-prefix-cls}-card > &-bar &-nav-container {
     height: 32px;
   }
-  &#{&}-card > &-bar &-ink-bar {
+  &.#{$tabs-prefix-cls}-card > &-bar &-ink-bar {
     visibility: hidden;
   }
-  &#{&}-card > &-bar &-tab {
+  &.#{$tabs-prefix-cls}-card > &-bar &-tab {
     background: $table-thead-bg;
     border: 1px solid $border-color-base;
     border-bottom: 0;
@@ -198,7 +198,7 @@
     padding: 5px 16px 4px;
     transition: all 0.3s $ease-in-out;
   }
-  &#{&}-card > &-bar &-tab-active {
+  &.#{$tabs-prefix-cls}-card > &-bar &-tab-active {
     background: #fff;
     border-color: $border-color-base;
     color: $primary-color;
@@ -206,10 +206,10 @@
     padding-bottom: 5px;
     transform: translateZ(0);
   }
-  &#{&}-card > &-bar &-nav-wrap {
+  &.#{$tabs-prefix-cls}-card > &-bar &-nav-wrap {
     margin-bottom: 0;
   }
-  &#{&}-card > &-bar &-tab &-close {
+  &.#{$tabs-prefix-cls}-card > &-bar &-tab &-close {
     color: $legend-color;
     font-size: 22px;
     height: 22px;
@@ -228,8 +228,8 @@
     }
   }
 
-  &#{&}-card > &-bar &-tab-active &-close,
-  &#{&}-card > &-bar &-tab:hover &-close {
+  &.#{$tabs-prefix-cls}-card > &-bar &-tab-active &-close,
+  &.#{$tabs-prefix-cls}-card > &-bar &-tab:hover &-close {
     margin-right: -6px;
     transform: translateZ(0);
     width: 22px;

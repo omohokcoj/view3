@@ -53,6 +53,10 @@ import Layout from '../src/components/layout'
 import Table from '../src/components/table'
 import Page from '../src/components/page'
 import AutoComplete from '../src/components/auto-complete'
+import Slider from '../src/components/slider'
+import Rate from '../src/components/rate'
+import DatePicker from '../src/components/date-picker'
+import TimePicker from '../src/components/date-picker/picker/time-picker'
 
 const app = createApp(App)
 
@@ -104,6 +108,10 @@ app.component('Layout', Layout)
 app.component('VTable', Table)
 app.component('Page', Page)
 app.component('AutoComplete', AutoComplete)
+app.component('DatePicker', DatePicker)
+app.component('TimePicker', TimePicker)
+app.component('Slider', Slider)
+app.component('Rate', Rate)
 
 const router = createRouter({
   history: createWebHistory(),

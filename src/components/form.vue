@@ -3,17 +3,26 @@
     :class="classes"
     :autocomplete="autocomplete"
   >
+  <Alert
+    v-if="genericErrors.length"
+    type="error">
+      {{ genericErrors.join("\n") }}
+    </Alert>
     <slot />
   </form>
 </template>
 <script>
 import { oneOf } from '../utils/assist'
 import Emitter from '../mixins/emitter'
+import Alert from '../components/alert'
 
 const prefixCls = 'ivu-form'
 
 export default {
   name: 'VForm',
+  components: {
+    Alert
+  },
   mixins: [Emitter],
   provide () {
     return { FormInstance: this }
@@ -67,7 +76,8 @@ export default {
   emits: ['on-validate'],
   data () {
     return {
-      fields: []
+      fields: [],
+      genericErrors: []
     }
   },
   computed: {
@@ -111,6 +121,8 @@ export default {
       })
     },
     validate (callback) {
+      this.genericErrors = []
+
       return new Promise(resolve => {
         let valid = true
         let count = 0
@@ -135,6 +147,19 @@ export default {
             }
           })
         })
+      })
+    },
+    setErrors (errors) {
+      errors.forEach((error) => {
+        let field = this.fields.find((f) => f.prop === (error.source || error.key || error.field))
+
+        console.log(errors)
+        if (field) {
+          field.setError(error.detail || error.message)
+        } else {
+          this.genericErrors.push(error.detail || error.message)
+          console.log(this.genericErrors)
+        }
       })
     },
     validateField (prop, cb) {

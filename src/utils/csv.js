@@ -8,7 +8,7 @@ const appendLine = (content, row, { separator, quoted }) => {
     const line = row.map(data => {
         if (!quoted) return data;
         // quote data
-        data = typeof data === 'string' ? data.replace(/"/g, '"') : data;
+        data = typeof data === 'string' ? data.replace(/"/g, '""') : data;
         return `"${data}"`;
     });
     content.push(line.join(separator));

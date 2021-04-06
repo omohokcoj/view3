@@ -239,6 +239,10 @@ export default {
       })
       this.validateDisabled = false
     },
+    setError (message) {
+      this.validateState = 'error'
+      this.validateMessage = message
+    },
     resetField () {
       this.validateState = ''
       this.validateMessage = ''

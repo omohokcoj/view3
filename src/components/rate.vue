@@ -52,11 +52,11 @@
   </div>
 </template>
 <script>
-import Locale from '../../mixins/locale'
-import Emitter from '../../mixins/emitter'
-import mixinsForm from '../../mixins/form'
+import Locale from '../mixins/locale'
+import Emitter from '../mixins/emitter'
+import mixinsForm from '../mixins/form'
 
-import Icon from '../icon/icon.vue'
+import Icon from './icon'
 
 const prefixCls = 'ivu-rate'
 

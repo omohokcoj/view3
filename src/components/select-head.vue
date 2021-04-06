@@ -26,7 +26,8 @@
         <Icon
           v-if="!item.disabled"
           type="ios-close"
-          @click.native.stop="removeTag(item)"
+          size="large"
+          @click.capture.stop="removeTag(item)"
         />
       </template>
     </div>
@@ -79,7 +80,6 @@
 </template>
 <script>
 import Icon from './icon'
-import Emitter from '../mixins/emitter'
 import Locale from '../mixins/locale'
 
 const prefixCls = 'ivu-select'
@@ -87,7 +87,8 @@ const prefixCls = 'ivu-select'
 export default {
   name: 'SelectHead',
   components: { Icon },
-  mixins: [Emitter, Locale],
+  mixins: [Locale],
+  inject: ['selectComponent'],
   props: {
     disabled: {
       type: Boolean,
@@ -269,7 +270,7 @@ export default {
     },
     removeTag (value) {
       if (this.disabled) return false
-      this.dispatch('VSelect', 'on-select-selected', value)
+      this.selectComponent.onOptionClick(value)
     },
     resetInputState () {
       this.inputLength = this.$refs.input.value.length * 12 + 20

@@ -167,38 +167,15 @@ export default {
     },
     // 3.4.0, global setting customArrow 有值时，arrow 赋值空
     arrowType () {
-      let type = 'ios-arrow-forward'
-
-      if (this.$IVIEW) {
-        if (this.$IVIEW.tree.customArrow) {
-          type = ''
-        } else if (this.$IVIEW.tree.arrow) {
-          type = this.$IVIEW.tree.arrow
-        }
-      }
-      return type
+      return 'ios-arrow-forward'
     },
     // 3.4.0, global setting
     customArrowType () {
-      let type = ''
-
-      if (this.$IVIEW) {
-        if (this.$IVIEW.tree.customArrow) {
-          type = this.$IVIEW.tree.customArrow
-        }
-      }
-      return type
+      return ''
     },
     // 3.4.0, global setting
     arrowSize () {
-      let size = ''
-
-      if (this.$IVIEW) {
-        if (this.$IVIEW.tree.arrowSize) {
-          size = this.$IVIEW.tree.arrowSize
-        }
-      }
-      return size
+      return ''
     }
   },
   methods: {

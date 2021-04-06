@@ -69,8 +69,8 @@ export default {
   },
   mounted () {
     this.updateSteps()
-    this.$on('append', this.debouncedAppendRemove())
-    this.$on('remove', this.debouncedAppendRemove())
+    this.mitt.on('append', this.debouncedAppendRemove())
+    this.mitt.on('remove', this.debouncedAppendRemove())
   },
   methods: {
     updateChildProps (isInit) {

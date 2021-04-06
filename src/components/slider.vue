@@ -316,7 +316,7 @@ export default {
   },
   mounted () {
     // #2852
-    this.$on('on-visible-change', (val) => {
+    this.mitt.on('on-visible-change', (val) => {
       if (val && this.showTip === 'always') {
         this.$refs.minTooltip.doDestroy()
         if (this.range) {

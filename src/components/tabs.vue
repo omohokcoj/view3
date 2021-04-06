@@ -259,38 +259,15 @@ export default {
     },
     // 3.4.0, global setting customArrow 有值时，arrow 赋值空
     arrowType () {
-      let type = 'ios-close'
-
-      if (this.$IVIEW) {
-        if (this.$IVIEW.tabs.customCloseIcon) {
-          type = ''
-        } else if (this.$IVIEW.tabs.closeIcon) {
-          type = this.$IVIEW.tabs.closeIcon
-        }
-      }
-      return type
+      return 'ios-close'
     },
     // 3.4.0, global setting
     customArrowType () {
-      let type = ''
-
-      if (this.$IVIEW) {
-        if (this.$IVIEW.tabs.customCloseIcon) {
-          type = this.$IVIEW.tabs.customCloseIcon
-        }
-      }
-      return type
+      return ''
     },
     // 3.4.0, global setting
     arrowSize () {
-      let size = ''
-
-      if (this.$IVIEW) {
-        if (this.$IVIEW.tabs.closeIconSize) {
-          size = this.$IVIEW.tabs.closeIconSize
-        }
-      }
-      return size
+      return ''
     }
   },
   watch: {
