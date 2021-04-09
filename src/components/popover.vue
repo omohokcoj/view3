@@ -20,7 +20,10 @@
           >
             {{ title }}
           </div>
-          <RenderCell v-if="render" :render="render"/>
+          <RenderCell
+            v-if="render"
+            :render="render"
+          />
           <template
             v-if="content"
           >

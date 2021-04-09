@@ -104,7 +104,7 @@ function createInstance (properties) {
         type: 'primary',
         loading: this.buttonLoading,
         onClick: this.ok
-      }, { default: () =>  this.localeOkText }))
+      }, { default: () => this.localeOkText }))
 
       // render content
       let body_render

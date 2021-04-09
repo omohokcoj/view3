@@ -29,7 +29,8 @@
     <transition
       v-else
       name="slide-up"
-    ><SelectDropdown
+    >
+      <SelectDropdown
         v-show="opened"
         ref="drop"
         placement="bottom"
@@ -38,7 +39,8 @@
         <ul :class="[prefixCls + '-drop-list']">
           <slot />
         </ul>
-      </SelectDropdown></transition>
+      </SelectDropdown>
+    </transition>
   </li>
 </template>
 <script>

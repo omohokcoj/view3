@@ -42,7 +42,8 @@
         </div>
       </div>
     </div>
-    <transition name="transition-drop"><Drop
+    <transition name="transition-drop">
+      <Drop
         v-show="visible"
         ref="drop"
         v-transfer-dom
@@ -51,7 +52,8 @@
         :transfer="transfer"
         :class="dropClasses"
       >
-        <transition name="fade"><div
+        <transition name="fade">
+          <div
             v-if="visible"
             :class="[prefixCls + '-picker']"
           >
@@ -132,8 +134,10 @@
                 {{ t('i.datepicker.ok') }}
               </VButton>
             </div>
-          </div></transition>
-      </Drop></transition>
+          </div>
+        </transition>
+      </Drop>
+    </transition>
   </div>
 </template>
 

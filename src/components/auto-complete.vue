@@ -29,12 +29,13 @@
         :disabled="itemDisabled"
         :size="size"
         :icon="inputIcon"
+        :border="border"
         @on-click="handleClear"
         @on-focus="handleFocus"
         @on-blur="handleBlur"
       />
     </template>
-    <slot v-if="$slots.default"/>
+    <slot v-if="$slots.default" />
     <template v-else>
       <VOption
         v-for="item in filteredData"
@@ -56,7 +57,6 @@ import mixinsForm from '../mixins/form'
 
 export default {
   name: 'AutoComplete',
-  emits: ['on-search', 'update:modelValue', 'on-focus', 'on-blur', 'on-change', 'on-select'],
   components: { VSelect, VOption, VInput },
   mixins: [Emitter, mixinsForm],
   props: {
@@ -110,6 +110,12 @@ export default {
         return false
       }
     },
+    border: {
+      type: Boolean,
+      default () {
+        return true
+      }
+    },
     name: {
       type: String
     },
@@ -120,6 +126,7 @@ export default {
       type: String
     }
   },
+  emits: ['on-search', 'update:modelValue', 'on-focus', 'on-blur', 'on-change', 'on-select'],
   data () {
     return {
       currentValue: this.modelValue,

@@ -1,5 +1,6 @@
 <template>
-  <transition name="fade"><div
+  <transition name="fade">
+    <div
       v-if="fullscreenVisible"
       :class="classes"
     >
@@ -9,7 +10,8 @@
           <slot />
         </div>
       </div>
-    </div></transition>
+    </div>
+  </transition>
 </template>
 <script>
 import { oneOf } from '../utils/assist'

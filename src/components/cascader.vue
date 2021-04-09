@@ -45,7 +45,8 @@
         />
       </slot>
     </div>
-    <transition name="transition-drop"><SelectDropdown
+    <transition name="transition-drop">
+      <SelectDropdown
         v-show="visible"
         ref="drop"
         v-transfer-dom
@@ -85,7 +86,8 @@
             <li>{{ localeNotFoundText }}</li>
           </ul>
         </div>
-      </SelectDropdown></transition>
+      </SelectDropdown>
+    </transition>
   </div>
 </template>
 <script>

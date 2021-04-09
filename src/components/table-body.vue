@@ -298,7 +298,7 @@ export default {
         onDblclick: (e) => this.dblclickCurrentRow(row._index, e),
         onContextmenu: (e) => this.contextmenuCurrentRow(row._index, e),
         onSelectstart: (e) => this.selectStartCurrentRow(row._index, e)
-      }, { default: () =>  $tds })
+      }, { default: () => $tds })
       $tableTrs.push($tableTr)
 
       // 可展开
@@ -312,12 +312,12 @@ export default {
         const $td = h('td', {
           colspan: this.columns.length,
           class: this.prefixCls + '-expanded-cell'
-        }, { default: () =>  [$Expand] })
+        }, { default: () => [$Expand] })
         const $tr = h('tr', {
           class: {
             [this.prefixCls + '-expanded-hidden']: this.fixed
           }
-        }, { default: () =>  [$td] })
+        }, { default: () => [$td] })
         $tableTrs.push($tr)
       }
 

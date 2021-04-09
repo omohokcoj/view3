@@ -180,7 +180,6 @@ const prefixCls = 'ivu-page'
 export default {
   name: 'Page',
   components: { PageOptions },
-  emits: ['update:current', 'on-change'],
   mixins: [Locale],
   props: {
     current: {
@@ -253,6 +252,7 @@ export default {
       default: false
     }
   },
+  emits: ['update:current', 'on-change'],
   data () {
     return {
       prefixCls: prefixCls,

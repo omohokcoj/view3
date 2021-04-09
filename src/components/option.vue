@@ -53,14 +53,6 @@ export default {
       dataIsFocused: false
     }
   },
-  watch: {
-    selected (value) {
-      this.dataSelected = value
-    },
-    isFocused (value) {
-      this.dataIsFocused = value
-    }
-  },
   computed: {
     classes () {
       return [
@@ -77,6 +69,14 @@ export default {
     },
     optionLabel () {
       return this.label || (this.$el && this.$el.textContent)
+    }
+  },
+  watch: {
+    selected (value) {
+      this.dataSelected = value
+    },
+    isFocused (value) {
+      this.dataIsFocused = value
     }
   },
   mounted () {

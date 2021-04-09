@@ -3,9 +3,10 @@
     :class="classes"
     :autocomplete="autocomplete"
   >
-  <Alert
-    v-if="genericErrors.length"
-    type="error">
+    <Alert
+      v-if="genericErrors.length"
+      type="error"
+    >
       {{ genericErrors.join("\n") }}
     </Alert>
     <slot />
@@ -151,7 +152,7 @@ export default {
     },
     setErrors (errors) {
       errors.forEach((error) => {
-        let field = this.fields.find((f) => f.prop === (error.source || error.key || error.field))
+        const field = this.fields.find((f) => f.prop === (error.source || error.key || error.field))
 
         console.log(errors)
         if (field) {

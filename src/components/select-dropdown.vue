@@ -50,16 +50,16 @@ export default {
     }
   },
   created () {
-    this.mitt.on('on-update-popper', this.update);
-    this.mitt.on('on-destroy-popper', this.destroy);
+    this.mitt.on('on-update-popper', this.update)
+    this.mitt.on('on-destroy-popper', this.destroy)
   },
   beforeUnmount () {
-    this.mitt.off('on-update-popper', this.update);
-    this.mitt.off('on-destroy-popper', this.destroy);
+    this.mitt.off('on-update-popper', this.update)
+    this.mitt.off('on-destroy-popper', this.destroy)
 
     if (this.popper) {
-      this.popper.destroy();
-      this.popper = null;
+      this.popper.destroy()
+      this.popper = null
     }
   },
   methods: {

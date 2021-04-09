@@ -11,12 +11,14 @@
       :style="contentStyles"
     >
       <slot />
-      <transition name="fade"><div
+      <transition name="fade">
+        <div
           v-if="validateState === 'error' && showMessage && FormInstance.showMessage"
           :class="[prefixCls + '-error-tip']"
         >
           {{ validateMessage }}
-        </div></transition>
+        </div>
+      </transition>
     </div>
   </div>
 </template>

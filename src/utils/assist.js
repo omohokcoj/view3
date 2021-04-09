@@ -201,7 +201,7 @@ export function findComponentsDownward (context, componentName) {
 
   if (Array.isArray(children)) {
     return children.reduce((components, child) => {
-      let component = child.component && child.component.proxy
+      const component = child.component && child.component.proxy
 
       if (component) {
         const name = component.$options.name
@@ -216,10 +216,10 @@ export function findComponentsDownward (context, componentName) {
       }
     }, [])
   } else if (children && typeof children === 'object') {
-    let component = context.$.subTree.component
+    const component = context.$.subTree.component
 
     if (component && component.proxy && component.proxy.$options.name === componentName) {
-      return findComponentsDownward({ $: { subTree: { children: [context.$.subTree]}} }, componentName)
+      return findComponentsDownward({ $: { subTree: { children: [context.$.subTree] } } }, componentName)
     }
 
     if (component) {

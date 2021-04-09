@@ -6,7 +6,9 @@
     @before-leave="beforeLeave"
     @leave="leave"
     @after-leave="afterLeave"
-  ><slot /></transition>
+  >
+    <slot />
+  </transition>
 </template>
 
 <script>

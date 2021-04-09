@@ -14,7 +14,8 @@
     >
       <slot />
     </div>
-    <transition name="fade"><div
+    <transition name="fade">
+      <div
         v-show="visible"
         ref="popper"
         v-transfer-dom
@@ -86,7 +87,8 @@
             </div>
           </div>
         </div>
-      </div></transition>
+      </div>
+    </transition>
   </div>
 </template>
 <script>

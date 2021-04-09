@@ -42,9 +42,10 @@ module.exports = (env = {}) => ({
       {
         test: /\.scss$/,
         use: [
-          { loader: MiniCssExtractPlugin.loader },
-          { loader: 'css-loader' },
-          { loader: 'sass-loader' },
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'sass-loader',
         ]
       },
       {

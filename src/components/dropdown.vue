@@ -16,7 +16,8 @@
     >
       <slot />
     </div>
-    <transition name="transition-drop"><Drop
+    <transition name="transition-drop">
+      <Drop
         v-show="currentVisible"
         ref="drop"
         v-transfer-dom
@@ -28,7 +29,8 @@
         @mouseleave.native="handleMouseleave"
       >
         <slot name="list" />
-      </Drop></transition>
+      </Drop>
+    </transition>
   </div>
 </template>
 <script>
@@ -81,6 +83,7 @@ export default {
       }
     }
   },
+  emits: ['on-clickoutside'],
   data () {
     return {
       prefixCls: prefixCls,

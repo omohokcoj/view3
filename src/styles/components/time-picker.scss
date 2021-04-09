@@ -130,7 +130,7 @@
     }
   }
 
-  &-with-range &-with-seconds {
+  &-with-range.#{$time-picker-prefix-cls}-with-seconds {
     .#{$picker-prefix-cls}-panel {
       &-body {
         min-width: $time-picker-cells-width-with-seconds * 2 + 4px;

@@ -19,7 +19,7 @@ export default {
   },
   render: ({ $props }) => {
     return h('div', {
-      'class': {
+      class: {
         'ivu-table-cell-slot': true,
         'ivu-table-cell-slot-inline': $props.display === 'inline',
         'ivu-table-cell-slot-inline-block': $props.display === 'inline-block'

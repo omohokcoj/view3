@@ -394,7 +394,7 @@ export default {
       this.$emit('on-ok')
     },
     EscClose (e) {
-      if (this.visible && this.closable) {
+      if (this.visible) {
         if (e.keyCode === 27) {
           this.close()
         }

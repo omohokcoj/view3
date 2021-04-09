@@ -31,7 +31,8 @@ function createInstance (properties) {
     component: component,
     destroy (element) {
       component.closeAll()
-      setTimeout(function () {
+
+      setTimeout(() => {
         document.body.removeChild(document.getElementsByClassName(element)[0])
       }, 500)
     }

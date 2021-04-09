@@ -86,67 +86,69 @@
                   />
                 </span>
 
-                <template #content
+                <template
                   v-if="getColumn(rowIndex, index)._filterMultiple"
-                  >
-                <div
-                  :class="[prefixCls + '-filter-list']"
+                  #content
                 >
-                  <div :class="[prefixCls + '-filter-list-item']">
-                    <CheckboxGroup
-                      :model-value="getColumn(rowIndex, index)._filterChecked"
-                      @update:model-value="getColumn(rowIndex, index)._filterChecked = $event"
-                    >
-                      <Checkbox
-                        v-for="(item, index) in column.filters"
-                        :key="index"
-                        :label="item.value"
+                  <div
+                    :class="[prefixCls + '-filter-list']"
+                  >
+                    <div :class="[prefixCls + '-filter-list-item']">
+                      <CheckboxGroup
+                        :model-value="getColumn(rowIndex, index)._filterChecked"
+                        @update:model-value="getColumn(rowIndex, index)._filterChecked = $event"
+                      >
+                        <Checkbox
+                          v-for="(item, index) in column.filters"
+                          :key="index"
+                          :label="item.value"
+                        >
+                          {{ item.label }}
+                        </Checkbox>
+                      </CheckboxGroup>
+                    </div>
+                    <div :class="[prefixCls + '-filter-footer']">
+                      <VButton
+                        type="text"
+                        size="small"
+                        :disabled="!getColumn(rowIndex, index)._filterChecked.length"
+                        @click.native="handleFilter(getColumn(rowIndex, index)._index)"
+                      >
+                        {{ t('i.table.confirmFilter') }}
+                      </VButton>
+                      <VButton
+                        type="text"
+                        size="small"
+                        @click.native="handleReset(getColumn(rowIndex, index)._index)"
+                      >
+                        {{ t('i.table.resetFilter') }}
+                      </VButton>
+                    </div>
+                  </div>
+                </template>
+                <template
+                  v-else
+                  #content
+                >
+                  <div
+                    :class="[prefixCls + '-filter-list']"
+                  >
+                    <ul :class="[prefixCls + '-filter-list-single']">
+                      <li
+                        :class="itemAllClasses(getColumn(rowIndex, index))"
+                        @click="handleReset(getColumn(rowIndex, index)._index)"
+                      >
+                        {{ t('i.table.clearFilter') }}
+                      </li>
+                      <li
+                        v-for="item in column.filters"
+                        :class="itemClasses(getColumn(rowIndex, index), item)"
+                        @click="handleSelect(getColumn(rowIndex, index)._index, item.value)"
                       >
                         {{ item.label }}
-                      </Checkbox>
-                    </CheckboxGroup>
+                      </li>
+                    </ul>
                   </div>
-                  <div :class="[prefixCls + '-filter-footer']">
-                    <VButton
-                      type="text"
-                      size="small"
-                      :disabled="!getColumn(rowIndex, index)._filterChecked.length"
-                      @click.native="handleFilter(getColumn(rowIndex, index)._index)"
-                    >
-                      {{ t('i.table.confirmFilter') }}
-                    </VButton>
-                    <VButton
-                      type="text"
-                      size="small"
-                      @click.native="handleReset(getColumn(rowIndex, index)._index)"
-                    >
-                      {{ t('i.table.resetFilter') }}
-                    </VButton>
-                  </div>
-                </div>
-                </template>
-                <template #content
-                  v-else
-                  >
-                <div
-                  :class="[prefixCls + '-filter-list']"
-                >
-                  <ul :class="[prefixCls + '-filter-list-single']">
-                    <li
-                      :class="itemAllClasses(getColumn(rowIndex, index))"
-                      @click="handleReset(getColumn(rowIndex, index)._index)"
-                    >
-                      {{ t('i.table.clearFilter') }}
-                    </li>
-                    <li
-                      v-for="item in column.filters"
-                      :class="itemClasses(getColumn(rowIndex, index), item)"
-                      @click="handleSelect(getColumn(rowIndex, index)._index, item.value)"
-                    >
-                      {{ item.label }}
-                    </li>
-                  </ul>
-                </div>
                 </template>
               </Poptip>
             </template>

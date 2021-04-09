@@ -61,7 +61,8 @@
         </SelectHead>
       </slot>
     </div>
-    <transition name="transition-drop"><SelectDropdown
+    <transition name="transition-drop">
+      <SelectDropdown
         v-show="dropVisible"
         ref="dropdown"
         v-transfer-dom
@@ -119,7 +120,8 @@
         >
           {{ localeLoadingText }}
         </ul>
-      </SelectDropdown></transition>
+      </SelectDropdown>
+    </transition>
   </div>
 </template>
 <script>
@@ -596,9 +598,7 @@ export default {
     }
   },
   mounted () {
-    if (this.$slots.default && this.$slots.default()[0]) {
-      this.slotOptions = this.$slots.default()[0].children
-    }
+    this.updateSlotOptions()
 
     this.mitt.on('on-select-selected', this.onOptionClick)
 
@@ -892,11 +892,7 @@ export default {
       this.isFocused = type === 'focus'
     },
     updateSlotOptions () {
-      const newSlots = this.$slots.default()[0].children
-
-      if (this.slotOptions.map((opt) => opt.props.value).join() !== newSlots.map((opt) => opt.props.value).join()) {
-        this.slotOptions = newSlots
-      }
+      this.slotOptions = this.$slots.default()[0].children
     },
     checkUpdateStatus () {
       if (this.getInitialValue().length > 0 && this.selectOptions.length === 0) {

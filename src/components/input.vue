@@ -52,11 +52,13 @@
           class="ion ion-ios-eye-outline"
         />
       </span>
-      <transition name="fade"><i
+      <transition name="fade">
+        <i
           v-if="!icon"
           class="ion ion-ios-loading ivu-load-loop"
           :class="[prefixCls + '-icon', prefixCls + '-icon-validate']"
-        /></transition>
+        />
+      </transition>
       <input
         :id="elementId"
         ref="input"
@@ -259,6 +261,11 @@ export default {
     password: {
       type: Boolean,
       default: false
+    },
+    // 4.5.0
+    border: {
+      type: Boolean,
+      default: true
     }
   },
   emits: [
@@ -332,6 +339,7 @@ export default {
                     {
                       [`${prefixCls}-${this.size}`]: !!this.size,
                       [`${prefixCls}-disabled`]: this.itemDisabled,
+                      [`${prefixCls}-no-border`]: !this.border,
                       [`${prefixCls}-with-prefix`]: this.showPrefix,
                       [`${prefixCls}-with-suffix`]: this.showSuffix || (this.search && this.enterButton === false)
                     }
@@ -341,6 +349,7 @@ export default {
       return [
                     `${prefixCls}`,
                     {
+                      [`${prefixCls}-no-border`]: !this.border,
                       [`${prefixCls}-disabled`]: this.itemDisabled
                     }
       ]
