@@ -53,7 +53,7 @@
         :placeholder="placeholder"
         @focus="focus"
         @blur="blur"
-        @keydown.stop="keyDown"
+        @keydown="keyDown"
         @input="change"
         @mouseup="preventDefault"
         @change="change"
@@ -112,7 +112,7 @@ export default {
       default: true
     },
     modelValue: {
-      type: Number,
+      type: [Number, String],
       default: 1
     },
     size: {

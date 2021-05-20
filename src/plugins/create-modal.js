@@ -33,6 +33,7 @@ function createInstance (app, component, props, render, onRemove) {
   mountWithContext(instance, app)
 
   return {
+    component: node.component.proxy,
     show () {
       node.component.proxy.visible = true
     },

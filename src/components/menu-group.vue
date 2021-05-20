@@ -29,11 +29,7 @@ export default {
   },
   computed: {
     groupStyle () {
-      return this.hasParentSubmenu && this.mode !== 'horizontal'
-        ? {
-            paddingLeft: 43 + (this.parentSubmenuNum - 1) * 28 + 'px'
-          }
-        : {}
+      return {}
     }
   }
 }

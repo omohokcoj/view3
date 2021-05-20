@@ -9,21 +9,6 @@
   background-color: $background;
   border-color: $border;
   color: $color;
-  // a inside Button which only work in Chrome
-  // http://stackoverflow.com/a/17253457
-  > a:only-child {
-    color: currentColor;
-
-    &::after {
-      background: transparent;
-      bottom: 0;
-      content: '';
-      left: 0;
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-  }
 }
 
 @mixin button-variant($color, $background, $border) {

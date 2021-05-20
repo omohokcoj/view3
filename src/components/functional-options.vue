@@ -17,11 +17,13 @@ export default {
     }
   },
   render () {
-    const slotKeys = this.slotOptions[0]?.children?.map && this.slotOptions[0]?.children?.map((e) => e.props) || []
-    const newSlotKeys = this.$parent.$parent.$parent.$slots.default()[0].children[0]?.children?.map && this.$parent.$parent.$parent.$slots.default()[0].children[0]?.children.map((e) => e.props) || []
+    if (this.$parent.$parent.$parent.$slots.default) {
+      const slotKeys = this.slotOptions[0]?.children?.map && this.slotOptions[0]?.children?.map((e) => e.props) || []
+      const newSlotKeys = this.$parent.$parent.$parent.$slots.default()[0].children[0]?.children?.map && this.$parent.$parent.$parent.$slots.default()[0].children[0]?.children.map((e) => e.props) || []
 
-    if (JSON.stringify(slotKeys) !== JSON.stringify(newSlotKeys)) {
-      this.slotUpdateHook()
+      if (JSON.stringify(slotKeys) !== JSON.stringify(newSlotKeys)) {
+        this.slotUpdateHook()
+      }
     }
 
     return h('ul', {}, [this.$slots.default(), this.options])

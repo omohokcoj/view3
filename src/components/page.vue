@@ -45,7 +45,7 @@
       v-if="showTotal"
       :class="[prefixCls + '-total']"
     >
-      <slot>{{ t('i.page.total') }} {{ total }} <template v-if="total <= 1">{{ t('i.page.item') }}</template><template v-else>{{ t('i.page.items') }}</template></slot>
+      <slot>{{ total }} <template v-if="total <= 1">{{ t('i.page.item') }}</template><template v-else>{{ t('i.page.items') }}</template></slot>
     </span>
     <li
       :title="t('i.page.prev')"

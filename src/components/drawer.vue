@@ -41,7 +41,7 @@
             >
               <slot name="header">
                 <div :class="[prefixCls + '-header-inner']">
-                  {{ title }}
+                  {{ dataTitle || title }}
                 </div>
               </slot>
             </div>
@@ -162,7 +162,8 @@ export default {
       dragWidth: this.width,
       wrapperWidth: this.width,
       wrapperLeft: 0,
-      minWidth: 256
+      minWidth: 256,
+      dataTitle: ''
     }
   },
   computed: {
@@ -281,13 +282,27 @@ export default {
     on(document, 'mousemove', this.handleMousemove)
     on(document, 'mouseup', this.handleMouseup)
     this.handleSetWrapperWidth()
+
+    document.addEventListener('keydown', this.EscClose)
   },
   beforeUnmount () {
     off(document, 'mousemove', this.handleMousemove)
     off(document, 'mouseup', this.handleMouseup)
+    document.removeEventListener('keydown', this.EscClose)
     this.removeScrollEffect()
   },
   methods: {
+    setTitle (value) {
+      this.dataTitle = value
+      this.showHead = !!value
+    },
+    EscClose (e) {
+      if (this.visible) {
+        if (e.keyCode === 27) {
+          this.close()
+        }
+      }
+    },
     close () {
       if (!this.beforeClose) {
         return this.handleClose()

@@ -4,23 +4,26 @@
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >
-    <div
+    <component
       ref="reference"
       :class="[prefixCls + '-submenu-title']"
       :style="titleStyle"
-      @click.stop="handleClick"
+      :href="linkUrl"
+      :is="to ? 'a' : 'li'"
+      @click.prevent="handleItemClick"
     >
       <slot name="title" />
       <Icon
+        v-if="collapse"
         :type="arrowType"
         :custom="customArrowType"
         :size="arrowSize"
         :class="[prefixCls + '-submenu-title-icon']"
       />
-    </div>
+    </component>
     <CollapseTransition v-if="mode === 'vertical'">
       <ul
-        v-show="opened"
+        v-show="active"
         :class="[prefixCls]"
       >
         <slot />
@@ -50,17 +53,22 @@ import CollapseTransition from './collapse-transition'
 import { getStyle, findComponentUpward, findComponentsDownward } from '../utils/assist'
 import Emitter from '../mixins/emitter'
 import mixin from '../mixins/menu'
+import mixinsLink from '../mixins/link'
 
 const prefixCls = 'ivu-menu'
 
 export default {
   name: 'Submenu',
   components: { Icon, SelectDropdown, CollapseTransition },
-  mixins: [Emitter, mixin],
+  mixins: [Emitter, mixin, mixinsLink],
   props: {
     name: {
       type: [String, Number],
       required: true
+    },
+    collapse: {
+      type: Boolean,
+      default: true
     },
     disabled: {
       type: Boolean,
@@ -71,7 +79,7 @@ export default {
     return {
       prefixCls: prefixCls,
       active: false,
-      opened: false,
+      opened: !this.collapse,
       dropWidth: parseFloat(getStyle(this.$el, 'width'))
     }
   },
@@ -98,11 +106,7 @@ export default {
       return style
     },
     titleStyle () {
-      return this.hasParentSubmenu && this.mode !== 'horizontal'
-        ? {
-            paddingLeft: 43 + (this.parentSubmenuNum - 1) * 24 + 'px'
-          }
-        : {}
+      return {}
     },
     // 3.4.0, global setting customArrow 有值时，arrow 赋值空
     arrowType () {
@@ -156,7 +160,7 @@ export default {
         })
       }
 
-      this.active = status
+      this.active = this.name === status.split('.')[0]
     },
     handleMouseenter () {
       if (this.disabled) return
@@ -178,17 +182,27 @@ export default {
         this.opened = false
       }, 150)
     },
-    handleClick () {
+    handleItemClick (event) {
       if (this.disabled) return
       if (this.mode === 'horizontal') return
       const opened = this.opened
+
       if (this.accordion) {
         this.$parent.$children.forEach(item => {
           if (item.$options.name === 'Submenu') item.opened = false
         })
       }
-      this.opened = !opened
-      this.menu.updateOpenKeys(this.name)
+
+      if (this.collapse) {
+        this.opened = !opened
+        this.menu.updateOpenKeys(this.name)
+      }
+
+      const parentMenu = findComponentUpward(this, 'Menu')
+      if (parentMenu) parentMenu.handleEmitSelectEvent(this.name)
+
+      this.onUpdateActiveName(this.name)
+      this.handleCheckClick(event, false)
     }
   }
 }

@@ -130,6 +130,8 @@ export default {
     modelValue (val) {
       if (val === this.trueValue || val === this.falseValue) {
         this.updateModel()
+      } else if ([null, undefined, ''].includes(val)) {
+        this.updateModel()
       } else {
         throw 'Value should be trueValue or falseValue.'
       }

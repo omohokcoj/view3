@@ -56,11 +56,7 @@ export default {
       ]
     },
     itemStyle () {
-      return this.hasParentSubmenu && this.mode !== 'horizontal'
-        ? {
-            paddingLeft: 43 + (this.parentSubmenuNum - 1) * 24 + 'px'
-          }
-        : {}
+      return {}
     }
   },
   mounted () {

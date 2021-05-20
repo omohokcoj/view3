@@ -14,6 +14,10 @@ export default {
     instance.show(options)
   },
 
+  get component () {
+    return this.drawerInstance && this.drawerInstance.component
+  },
+
   remove () {
     if (this.drawerInstance) {
       const instance = this.getDrawerInstance()
@@ -41,5 +45,11 @@ export default {
     this.app = app
 
     app.config.globalProperties.$Drawer = this
+
+    if (app.config.globalProperties.$router) {
+      app.config.globalProperties.$router.afterEach(() => {
+        this.remove()
+      })
+    }
   }
 }

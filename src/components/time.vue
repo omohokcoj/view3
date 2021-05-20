@@ -5,11 +5,10 @@
   >{{ date }}</span>
 </template>
 <script>
-import Vue from 'vue'
 import { oneOf } from '../../utils/assist'
 import Locale from '../../mixins/locale'
 import Time from './time'
-const isServer = Vue.prototype.$isServer
+const isServer = false
 
 const prefixCls = 'ivu-time'
 

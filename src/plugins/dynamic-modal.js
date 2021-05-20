@@ -42,5 +42,11 @@ export default {
     this.app = app
 
     app.config.globalProperties.$Modal = this
+
+    if (app.config.globalProperties.$router) {
+      app.config.globalProperties.$router.afterEach(() => {
+        this.remove()
+      })
+    }
   }
 }

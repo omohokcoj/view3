@@ -34,7 +34,8 @@ export default {
       if (router) {
         const current = this.$route
         const route = router.resolve(this.to, current, this.append)
-        return route ? route.href : this.to
+
+        return route.name ? route.href : this.to
       }
       return this.to
     }
@@ -48,12 +49,12 @@ export default {
         if (router) {
           const current = this.$route
           const route = router.resolve(this.to, current, this.append)
-          to = route ? route.href : this.to
+          to = route.name ? route.href : this.to
         }
         window.open(to)
       } else {
         if (router) {
-          if ((typeof this.to === 'string') && this.to.includes('//')) {
+          if ((typeof this.to === 'string') && !router.resolve(this.to, this.$route, this.append).name) {
             window.location.href = this.to
           } else {
             this.replace ? this.$router.replace(this.to, () => {}) : this.$router.push(this.to, () => {})

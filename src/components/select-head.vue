@@ -1,7 +1,5 @@
 <template>
   <div
-    :class="headCls"
-    @click="onHeaderClick"
   >
     <span
       v-if="$slots.prefix || prefix"

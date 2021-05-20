@@ -102,7 +102,7 @@ export default {
   },
   watch: {
     rules () {
-      this.validate()
+      this.mitt.emit('rules-update')
     }
   },
   created () {
@@ -151,15 +151,17 @@ export default {
       })
     },
     setErrors (errors) {
-      errors.forEach((error) => {
+      const normalizedErrors = errors && typeof errors === 'object' && !Array.isArray(errors)
+        ? Object.entries(errors).map(([key, messages]) => ({ key, message: messages.join(', ') }))
+        : errors
+
+      normalizedErrors.forEach((error) => {
         const field = this.fields.find((f) => f.prop === (error.source || error.key || error.field))
 
-        console.log(errors)
         if (field) {
           field.setError(error.detail || error.message)
         } else {
-          this.genericErrors.push(error.detail || error.message)
-          console.log(this.genericErrors)
+          this.genericErrors.push(error.detail || error.message || error)
         }
       })
     },

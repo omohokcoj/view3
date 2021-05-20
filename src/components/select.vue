@@ -124,6 +124,7 @@
     </transition>
   </div>
 </template>
+
 <script>
 import SelectDropdown from './select-dropdown'
 import Icon from './icon'
@@ -394,7 +395,7 @@ export default {
     dropVisible () {
       let status = true
       const noOptions = !this.selectOptions || this.selectOptions.length === 0
-      if (!this.loading && this.remote && this.query === '' && noOptions) status = false
+      if (!this.loading && this.query === '' && noOptions) status = false
 
       if (this.autoComplete && noOptions) status = false
 
@@ -425,16 +426,26 @@ export default {
       if (this.autoComplete) {
         const copyChildren = (node, fn) => {
           return {
-            ...node
+            ...node,
+            children: Array.isArray(node.children) ? node.children.map(fn).map(child => copyChildren(child, fn)) : node.children
           }
         }
+
         const autoCompleteOptions = extractOptions(slotOptions)
         const selectedSlotOption = autoCompleteOptions[currentIndex]
 
         return slotOptions.map(node => {
-          if (node === selectedSlotOption || getNestedProperty(node, 'props.value') == this.modelValue) return applyProp(node, 'isFocused', true)
+          if (node === selectedSlotOption || getNestedProperty(node, 'props.value') == this.modelValue) {
+            return applyProp(node, 'isFocused', true)
+          }
+
           return copyChildren(node, (child) => {
-            if (child !== selectedSlotOption) return child
+            if (!selectedSlotOption || child.props.value !== selectedSlotOption.props.value) return child
+
+            this.optionComponents.forEach((component) => {
+              component.dataIsFocused = component.$.vnode.key === selectedSlotOption.props.key
+            })
+
             return applyProp(child, 'isFocused', true)
           })
         })
@@ -487,10 +498,16 @@ export default {
 
       this.checkUpdateStatus()
 
-      if (value === '') this.values = []
-      else if (checkValuesNotEqual(value, publicValue, values)) {
-        this.$nextTick(() => this.values = getInitialValue().map(getOptionData).filter(Boolean))
-        if (!this.multiple) this.dispatch('FormItem', 'on-form-change', this.publicValue)
+      if (value === '') {
+        this.values = []
+      } else if (checkValuesNotEqual(value, publicValue, values)) {
+        this.$nextTick(() => {
+          this.values = getInitialValue().map(getOptionData).filter(Boolean)
+        })
+
+        if (!this.multiple) {
+          this.dispatch('FormItem', 'on-form-change', this.publicValue)
+        }
       }
     },
     values (now, before) {
@@ -498,10 +515,18 @@ export default {
       const oldValue = JSON.stringify(before)
       const values = now.map((v) => v.value)
 
-      this.optionComponents.forEach((component) => {
-        component.dataSelected = values.includes(component.value)
-        component.dataIsFocused = values.includes(component.value)
-      })
+      if (!this.autoComplete) {
+        this.optionComponents.forEach((component, index) => {
+          component.dataSelected = values.includes(component.value)
+          component.dataIsFocused = values.includes(component.value)
+
+          if (values.includes(component.value)) {
+            this.focusIndex = index
+          }
+        })
+      } else {
+        this.focusIndex = 0
+      }
 
       const vModelValue = (this.publicValue && this.labelInValue)
         ? (this.multiple ? this.publicValue.map(({ value }) => value) : this.publicValue.value)
@@ -892,7 +917,9 @@ export default {
       this.isFocused = type === 'focus'
     },
     updateSlotOptions () {
-      this.slotOptions = this.$slots.default()[0].children
+      if (this.$slots.default && this.$slots.default()[0].children) {
+        this.slotOptions = this.$slots.default()[0].children
+      }
     },
     checkUpdateStatus () {
       if (this.getInitialValue().length > 0 && this.selectOptions.length === 0) {

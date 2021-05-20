@@ -70,6 +70,7 @@ export default {
     transfer: Boolean,
     disabled: Boolean
   },
+  emits: ['on-size'],
   data () {
     return {
       currentPageSize: this.pageSize

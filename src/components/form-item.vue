@@ -176,6 +176,8 @@ export default {
 
       this.setRules()
     }
+
+    this.FormInstance.mitt.on('rules-update', this.setRules)
   },
   beforeUnmount () {
     this.dispatch('VForm', 'on-form-item-remove', this)
@@ -191,7 +193,10 @@ export default {
         })
       } else if (this.required) {
         this.isRequired = this.required
+      } else if (!rules.length) {
+        this.isRequired = false
       }
+
       this.mitt.off('on-form-blur', this.onFieldBlur)
       this.mitt.off('on-form-change', this.onFieldChange)
       this.mitt.on('on-form-blur', this.onFieldBlur)

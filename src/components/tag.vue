@@ -6,7 +6,7 @@
     <div
       :class="classes"
       :style="wraperStyles"
-      @click.stop="check"
+      @click="check"
     >
       <span
         v-if="showDot"
@@ -22,7 +22,7 @@
         :class="iconClass"
         :color="lineColor"
         type="ios-close"
-        @click.native.stop="close"
+        @click.stop="close"
       />
     </div>
   </transition>
@@ -30,7 +30,7 @@
     v-else
     :class="classes"
     :style="wraperStyles"
-    @click.stop="check"
+    @click="check"
   >
     <span
       v-if="showDot"
@@ -46,7 +46,7 @@
       :class="iconClass"
       :color="lineColor"
       type="ios-close"
-      @click.native.stop="close"
+      @click.stop="close"
     />
   </div>
 </template>

@@ -25,7 +25,7 @@
     box-shadow: none;
   }
 
-  &#{&}-dis-hover &-bordered:hover {
+  &#{&}-dis-hover#{&}-bordered:hover {
     border-color: $border-color-split;
   }
 

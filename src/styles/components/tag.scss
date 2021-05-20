@@ -15,10 +15,10 @@
         line-height: 32px;
       }
     }
-    .ivu-tag-size-large &-#{$name} {
+    .ivu-tag-size-large#{&}-#{$name} {
       line-height: 30px;
     }
-    .ivu-tag-size-medium &-#{$name} {
+    .ivu-tag-size-medium#{&}-#{$name} {
       line-height: 26px;
     }
   }

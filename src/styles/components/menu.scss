@@ -66,13 +66,8 @@
     z-index: 1;
   }
 
-  a.#{$menu-prefix-cls}-item {
+  a.#{$menu-prefix-cls}-item, a.#{$menu-prefix-cls}-submenu-title {
     color: inherit;
-
-    &:hover,
-    &:active {
-      color: inherit;
-    }
   }
 
   &-item > i {
@@ -236,6 +231,31 @@
         right: 0;
         top: 0;
         width: 2px;
+      }
+    }
+  }
+
+  &-light.#{$menu-prefix-cls}-vertical {
+    .ivu-menu-submenu-title {
+      display: block;
+    }
+
+    .#{$menu-prefix-cls}-item-active {
+      .ivu-menu-submenu-title {
+        background: tint($primary-color, 90%);
+        color: $primary-color;
+        z-index: 2;
+
+        &::after {
+          background: $primary-color;
+          bottom: 0;
+          content: '';
+          display: block;
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 2px;
+        }
       }
     }
   }

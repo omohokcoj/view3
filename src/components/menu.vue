@@ -100,7 +100,7 @@ export default {
       if (this.currentActiveName === undefined) {
         this.currentActiveName = -1
       }
-      this.broadcast('Submenu', 'on-update-active-name', false)
+      this.broadcast('Submenu', 'on-update-active-name', this.currentActiveName)
       this.broadcast('MenuItem', 'on-update-active-name', this.currentActiveName)
     },
     updateOpenKeys (name) {
