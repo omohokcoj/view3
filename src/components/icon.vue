@@ -2,7 +2,6 @@
   <i
     :class="classes"
     :style="styles"
-    @click="handleClick"
   />
 </template>
 <script>
@@ -51,11 +50,6 @@ export default {
       }
 
       return style
-    }
-  },
-  methods: {
-    handleClick (event) {
-      this.$emit('click', event)
     }
   }
 }
