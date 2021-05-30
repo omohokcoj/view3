@@ -47,13 +47,13 @@ export default {
       const hasChildren = this.$parent && this.$parent.$options.name === 'Dropdown'
 
       if (hasChildren) {
-        this.$parent.$emit('on-haschild-click')
+        this.$parent.mitt.emit('on-haschild-click')
       } else {
         if ($parent && $parent.$options.name === 'Dropdown') {
-          $parent.$emit('on-hover-click')
+          $parent.mitt.emit('on-hover-click')
         }
       }
-      $parent.$emit('on-click', this.name)
+      $parent.mitt.emit('on-click', this.name)
     }
   }
 }

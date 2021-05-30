@@ -2,9 +2,6 @@
   <div
     v-click-outside="onClickoutside"
     :class="[prefixCls]"
-    @on-click="onClick"
-    @on-hover-click="onHoverClick"
-    @on-haschild-click="onHaschildClick"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >
@@ -38,6 +35,7 @@ import Drop from './select-dropdown'
 import clickOutside from '../directives/clickoutside'
 import TransferDom from '../directives/transfer-dom'
 import { oneOf, findComponentUpward } from '../utils/assist'
+import Emitter from '../mixins/emitter'
 
 const prefixCls = 'ivu-dropdown'
 
@@ -45,6 +43,7 @@ export default {
   name: 'Dropdown',
   directives: { clickOutside, TransferDom },
   components: { Drop },
+  mixins: [Emitter],
   props: {
     trigger: {
       validator (value) {
@@ -123,14 +122,13 @@ export default {
     }
   },
   mounted () {
-  },
-  methods: {
-    onClick (key) {
+    this.mitt.on('on-click', (key) => {
       if (this.stopPropagation) return
       const $parent = this.hasParent()
       if ($parent) $parent.$emit('on-click', key)
-    },
-    onHoverClick () {
+    })
+
+    this.mitt.on('on-hover-click', () => {
       const $parent = this.hasParent()
       if ($parent) {
         this.$nextTick(() => {
@@ -144,15 +142,18 @@ export default {
           this.currentVisible = false
         })
       }
-    },
-    onHaschildClick () {
+    })
+
+    this.mitt.on('on-haschild-click', () => {
       this.$nextTick(() => {
         if (this.trigger === 'custom') return false
         this.currentVisible = true
       })
       const $parent = this.hasParent()
       if ($parent) $parent.$emit('on-haschild-click')
-    },
+    })
+  },
+  methods: {
     handleClick () {
       if (this.trigger === 'custom') return false
       if (this.trigger !== 'click') {
