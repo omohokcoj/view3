@@ -20,6 +20,8 @@ export default {
       const instance = this.getModalInstance()
 
       instance.remove()
+
+      this.modalInstance = null
     }
   },
 

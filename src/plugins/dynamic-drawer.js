@@ -23,6 +23,8 @@ export default {
       const instance = this.getDrawerInstance()
 
       instance.remove()
+
+      this.drawerInstance = null
     }
   },
 
