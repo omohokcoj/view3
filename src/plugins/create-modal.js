@@ -4,6 +4,9 @@ import mountWithContext from '../utils/mount-with-context'
 function createInstance (app, component, props, render, onRemove) {
   let node
 
+  const slots = props.slots || {}
+  delete props.slots
+
   const instance = createApp({
     methods: {
       remove () {
@@ -22,9 +25,10 @@ function createInstance (app, component, props, render, onRemove) {
         onVisibleChange: (visible) => {
           if (!visible) this.remove()
         }
-      }, () => [
-        render(h)
-      ])
+      }, {
+        ...slots,
+        default: () => render(h)
+      })
 
       return node
     }
