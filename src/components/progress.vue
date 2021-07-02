@@ -40,8 +40,8 @@
   </div>
 </template>
 <script>
-import Icon from '../icon'
-import { oneOf } from '../../utils/assist'
+import Icon from './icon'
+import { oneOf } from '../utils/assist'
 
 const prefixCls = 'ivu-progress'
 
