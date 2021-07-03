@@ -82,7 +82,7 @@ export default {
       }
     }
   },
-  emits: ['on-clickoutside'],
+  emits: ['on-clickoutside', 'on-visible-change'],
   data () {
     return {
       prefixCls: prefixCls,

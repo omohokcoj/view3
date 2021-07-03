@@ -30,13 +30,13 @@
       >
         <div :class="[prefixCls + '-color']">
           <div
-            v-show="value === '' && !visible"
+            v-show="modelValue === '' && !visible"
             :class="[prefixCls + '-color-empty']"
           >
             <i :class="[iconPrefixCls, iconPrefixCls + '-ios-close']" />
           </div>
           <div
-            v-show="value || visible"
+            v-show="modelValue || visible"
             :style="displayedColorStyle"
           />
         </div>
@@ -103,7 +103,7 @@
                 <template v-if="editable">
                   <VInput
                     ref="editColorInput"
-                    :value="formatColor"
+                    :model-value="formatColor"
                     size="small"
                     @on-enter="handleEditColor"
                     @on-blur="handleEditColor"
@@ -118,9 +118,9 @@
                 @click.native="handleClear"
                 @keydown.enter="handleClear"
                 @keydown.native.esc="closer"
-              >
-                {{ t('i.datepicker.clear') }}
+              > {{ t('i.datepicker.clear') }}
               </VButton>
+              {{ ' ' }}
               <VButton
                 ref="ok"
                 :tabindex="0"
@@ -130,8 +130,7 @@
                 @keydown.native.tab="handleLastTab"
                 @keydown.enter="handleSuccess"
                 @keydown.native.esc="closer"
-              >
-                {{ t('i.datepicker.ok') }}
+              >{{ t('i.datepicker.ok') }}
               </VButton>
             </div>
           </div>
@@ -169,8 +168,10 @@ export default {
 
   mixins: [Emitter, Locale, Prefixes, mixinsForm],
 
+  emits: ['on-open-change', 'on-active-change', 'update:modelValue', 'on-pick-success', 'on-pick-clear', 'on-change'],
+
   props: {
-    value: {
+    modelValue: {
       type: String,
       default: undefined
     },
@@ -263,8 +264,8 @@ export default {
 
   data () {
     return {
-      val: changeColor(this.value),
-      currentValue: this.value,
+      val: changeColor(this.modelValue),
+      currentValue: this.modelValue,
       dragging: false,
       visible: false,
       recommendedColor: [
@@ -356,7 +357,7 @@ export default {
       ]
     },
     displayedColorStyle () {
-      return { backgroundColor: toRGBAString(this.visible ? this.saturationColors.rgba : tinycolor(this.value).toRgb()) }
+      return { backgroundColor: toRGBAString(this.visible ? this.saturationColors.rgba : tinycolor(this.modelValue).toRgb()) }
     },
     formatColor () {
       const { format, saturationColors } = this
@@ -406,19 +407,19 @@ export default {
   },
 
   watch: {
-    value (newVal) {
+    modelValue (newVal) {
       this.val = changeColor(newVal)
     },
     visible (val) {
-      this.val = changeColor(this.value)
+      this.val = changeColor(this.modelValue)
       this.$refs.drop[val ? 'update' : 'destroy']()
       this.$emit('on-open-change', Boolean(val))
     }
   },
 
   mounted () {
-    this.$on('on-escape-keydown', this.closer)
-    this.$on('on-dragging', this.setDragging)
+    this.mitt.on('on-escape-keydown', this.closer)
+    this.mitt.on('on-dragging', this.setDragging)
   },
 
   methods: {
@@ -473,7 +474,7 @@ export default {
     },
     handleButtons (event, value) {
       this.currentValue = value
-      this.$emit('input', value)
+      this.$emit('update:modelValue', value)
       this.$emit('on-change', value)
       this.dispatch('FormItem', 'on-form-change', value)
       this.closer(event)

@@ -36,6 +36,8 @@ export default {
 
   mixins: [HASMixin, Prefixes],
 
+  emits: ['change'],
+
   data () {
     const normalStep = 1 / 360 * 25
     const jumpStep = 20 * normalStep
@@ -46,13 +48,13 @@ export default {
       up: jumpStep,
       down: -jumpStep,
       powerKey: 'shiftKey',
-      percent: clamp(this.value.hsl.h * 100 / 360, 0, 100)
+      percent: clamp(this.modelValue.hsl.h * 100 / 360, 0, 100)
     }
   },
 
   watch: {
-    value () {
-      this.percent = clamp(this.value.hsl.h * 100 / 360, 0, 100)
+    modelValue () {
+      this.percent = clamp(this.modelValue.hsl.h * 100 / 360, 0, 100)
     }
   },
 
@@ -60,7 +62,7 @@ export default {
     change (percent) {
       this.percent = clamp(percent, 0, 100)
 
-      const { h, s, l, a } = this.value.hsl
+      const { h, s, l, a } = this.modelValue.hsl
       const newHue = clamp(percent / 100 * 360, 0, 360)
 
       if (h !== newHue) {
