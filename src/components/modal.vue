@@ -365,7 +365,7 @@ export default {
       this.$emit('on-cancel')
     },
     handleMask () {
-      if (this.maskClosable && this.showMask) {
+      if (this.maskClosable && this.showMask && !window.getSelection().toString()) {
         this.close()
       }
     },

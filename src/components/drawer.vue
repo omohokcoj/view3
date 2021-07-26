@@ -324,7 +324,7 @@ export default {
       this.$emit('close')
     },
     handleMask () {
-      if (this.maskClosable && this.mask) {
+      if (this.maskClosable && this.mask && !window.getSelection().toString()) {
         this.close()
       }
     },
