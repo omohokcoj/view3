@@ -73,7 +73,7 @@ export default {
     },
     beforeChange: Function
   },
-  emits: ['input', 'on-change'],
+  emits: ['update:modelValue', 'on-change'],
   data () {
     return {
       currentValue: this.modelValue
@@ -121,7 +121,7 @@ export default {
       const checked = this.currentValue === this.trueValue ? this.falseValue : this.trueValue
 
       this.currentValue = checked
-      this.$emit('input', checked)
+      this.$emit('update:modelValue', checked)
       this.$emit('on-change', checked)
       this.dispatch('FormItem', 'on-form-change', checked)
     },
