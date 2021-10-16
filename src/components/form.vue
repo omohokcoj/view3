@@ -161,7 +161,7 @@ export default {
         if (field) {
           field.setError(error.detail || error.message)
         } else {
-          this.genericErrors.push(error.detail || error.message || error)
+          this.genericErrors.push([error.key || error.field, error.detail || error.message || error].filter(Boolean).join(' '))
         }
       })
     },
