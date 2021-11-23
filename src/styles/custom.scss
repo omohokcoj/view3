@@ -16,7 +16,7 @@ $normal-color: #e6ebf1 !default;
 $link-color: #2d8cf0 !default;
 $link-hover-color: tint($link-color, 20%) !default;
 $link-active-color: shade($link-color, 5%) !default;
-$selected-color: rgba($primary-color, 90%/100%) !default;
+$selected-color: shade($primary-color, 5%) !default;
 $tooltip-color: #fff !default;
 $subsidiary-color: #808695 !default;
 $rate-star-color: #f5a623 !default;

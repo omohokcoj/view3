@@ -1,9 +1,17 @@
 @function tint($color, $percentage) {
-  @return mix(white, $color, $percentage);
+  @if $color == var(--primary-color) {
+    @return var(--primary-color-tint-#{$percentage / ($percentage * 0 + 1)})
+  } @else {
+    @return mix(white, $color, $percentage);
+  }
 }
 
 @function shade($color, $percentage) {
-  @return mix(black, $color, $percentage);
+  @if $color == var(--primary-color) {
+    @return var(--primary-color-shade-#{$percentage / ($percentage * 0 + 1)})
+  } @else {
+    @return mix(black, $color, $percentage);
+  }
 }
 
 $blue-pallete: (

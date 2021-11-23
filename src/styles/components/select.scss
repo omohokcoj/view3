@@ -324,7 +324,7 @@
 
   &-selected.#{$select-prefix-cls}-focus {
     background: #fff;
-    color: shade($selected-color, 10%);
+    color: shade($primary-color, 5%);
   }
 
   &-selected::after {
