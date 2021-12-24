@@ -151,6 +151,8 @@ export default {
       })
     },
     setErrors (errors) {
+      this.genericErrors = []
+
       const normalizedErrors = errors && typeof errors === 'object' && !Array.isArray(errors)
         ? Object.entries(errors).map(([key, messages]) => ({ key, message: messages.join(', ') }))
         : errors
