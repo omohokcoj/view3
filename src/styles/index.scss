@@ -1,6 +1,8 @@
 @import './custom';
 @import './mixins/index';
 
+@import 'normalize.css';
+
 @import './common/base';
 @import './common/layout';
 @import './common/article';
