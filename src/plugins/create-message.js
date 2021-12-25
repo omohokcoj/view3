@@ -16,8 +16,10 @@ function createInstance (properties) {
   })
 
   const elem = document.createElement('div')
+  const parentElem = document.createElement('div')
 
-  document.body.appendChild(instance.mount(elem).$el)
+  document.body.appendChild(parentElem)
+  parentElem.appendChild(instance.mount(elem).$el)
 
   component = node.component.proxy
 

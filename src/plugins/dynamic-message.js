@@ -9,7 +9,6 @@ const defaults = {
   duration: 1.5
 }
 
-let messageInstance
 let name = 1
 
 const iconTypes = {
@@ -18,54 +17,6 @@ const iconTypes = {
   warning: 'ios-alert',
   error: 'ios-close-circle',
   loading: 'ios-loading'
-}
-
-function getMessageInstance () {
-  messageInstance = messageInstance || newInstance({
-    prefixCls: prefixCls,
-    styles: {
-      top: `${defaults.top}px`
-    }
-  })
-
-  return messageInstance
-}
-
-function notice (content = '', duration = defaults.duration, type, onClose = function () {}, closable = false, render = function () {}, background = false) {
-  const iconType = iconTypes[type]
-
-  // if loading
-  const loadCls = type === 'loading' ? ' ivu-load-loop' : ''
-
-  const instance = getMessageInstance()
-
-  instance.notice({
-    name: `${prefixKey}${name}`,
-    duration: duration,
-    styles: {},
-    transitionName: 'move-up',
-    content: `
-            <div class="${prefixCls}-custom-content ${prefixCls}-${type}">
-                <i class="${iconPrefixCls} ${iconPrefixCls}-${iconType} ${loadCls}"></i>
-                <span>${content}</span>
-            </div>
-        `,
-    render: render,
-    onClose: onClose,
-    closable: closable,
-    type: 'message',
-    msgType: type,
-    background: background
-  })
-
-  // 用于手动消除
-  return (function () {
-    const target = name++
-
-    return function () {
-      instance.remove(`${prefixKey}${target}`)
-    }
-  })()
 }
 
 export default {
@@ -90,7 +41,52 @@ export default {
         content: options
       }
     }
-    return notice(options.content, options.duration, type, options.onClose, options.closable, options.render, options.background)
+    return this.notice(options.content, options.duration, type, options.onClose, options.closable, options.render, options.background)
+  },
+  getMessageInstance () {
+    this.messageInstance = this.messageInstance || newInstance({
+      prefixCls: prefixCls,
+      styles: {
+        top: `${defaults.top}px`
+      }
+    })
+
+    return this.messageInstance
+  },
+  notice (content = '', duration = defaults.duration, type, onClose = function () {}, closable = false, render = function () {}, background = false) {
+    const iconType = iconTypes[type]
+
+    // if loading
+    const loadCls = type === 'loading' ? ' ivu-load-loop' : ''
+
+    const instance = this.getMessageInstance()
+
+    instance.notice({
+      name: `${prefixKey}${name}`,
+      duration: duration,
+      styles: {},
+      transitionName: 'move-up',
+      content: `
+            <div class="${prefixCls}-custom-content ${prefixCls}-${type}">
+                <i class="${iconPrefixCls} ${iconPrefixCls}-${iconType} ${loadCls}"></i>
+                <span>${content}</span>
+            </div>
+        `,
+      render: render,
+      onClose: onClose,
+      closable: closable,
+      type: 'message',
+      msgType: type,
+      background: background
+    })
+
+    return (function () {
+      const target = name++
+
+      return function () {
+        instance.remove(`${prefixKey}${target}`)
+      }
+    })()
   },
   config (options) {
     if (options.top || options.top === 0) {
@@ -102,7 +98,7 @@ export default {
   },
   destroy () {
     const instance = getMessageInstance()
-    messageInstance = null
+    this.messageInstance = null
     instance.destroy('ivu-message')
   },
   install (app, _) {
