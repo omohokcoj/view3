@@ -2,26 +2,25 @@ import newInstance from './create-dialog'
 
 let dialogInstance
 
-function getInstance (render = undefined, lockScroll = true) {
-  dialogInstance = dialogInstance || newInstance({
-    closable: false,
-    maskClosable: false,
-    footerHide: true,
-    render: render,
-    lockScroll
-  })
-
-  return dialogInstance
-}
-
 export default {
+  getInstance (render = undefined, lockScroll = true) {
+    this.dialogInstance = this.dialogInstance || newInstance({
+      closable: false,
+      maskClosable: false,
+      footerHide: true,
+      render: render,
+      lockScroll
+    })
+
+    return this.dialogInstance
+  },
   show (options) {
     const render = ('render' in options) ? options.render : undefined
     const lockScroll = ('lockScroll' in options) ? options.lockScroll : true
-    const instance = getInstance(render, lockScroll)
+    const instance = this.getInstance(render, lockScroll)
 
-    options.onRemove = function () {
-      dialogInstance = null
+    options.onRemove = () => {
+      this.dialogInstance = null
     }
 
     instance.show(options)

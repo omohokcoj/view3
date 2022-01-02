@@ -50,7 +50,7 @@
   }
 
   // for color and unchecked
-  &:not(&-border):not(&-dot):not(&-checked) {
+  &:not(.#{$tag-prefix-cls}-border):not(.#{$tag-prefix-cls}-dot):not(.#{$tag-prefix-cls}-checked) {
     background: transparent;
     border: 0;
     color: $text-color;
@@ -243,22 +243,22 @@
   }
 
   &-primary,
-  &-primary.#{$tag-prefix-cls}-dot &-dot-inner {
+  &-primary.#{$tag-prefix-cls}-dot .#{$tabs-prefix-cls}-dot-inner {
     background: $link-color;
   }
 
   &-success,
-  &-success.#{$tag-prefix-cls}-dot &-dot-inner {
+  &-success.#{$tag-prefix-cls}-dot .#{$tabs-prefix-cls}-dot-inner {
     background: $success-color;
   }
 
   &-warning,
-  &-warning.#{$tag-prefix-cls}-dot &-dot-inner {
+  &-warning.#{$tag-prefix-cls}-dot .#{$tabs-prefix-cls}-dot-inner {
     background: $warning-color;
   }
 
   &-error,
-  &-error.#{$tag-prefix-cls}-dot &-dot-inner {
+  &-error.#{$tag-prefix-cls}-dot .#{$tabs-prefix-cls}-dot-inner {
     background: $error-color;
   }
 }

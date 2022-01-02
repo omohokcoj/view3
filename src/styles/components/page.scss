@@ -300,12 +300,12 @@
 }
 
 .#{$page-prefix-cls} {
-  &.mini &-total {
+  &.mini .#{$page-prefix-cls}-total {
     height: $btn-circle-size-small;
     line-height: $btn-circle-size-small;
   }
 
-  &.mini &-item {
+  &.mini .#{$page-prefix-cls}-item {
     border: 0;
     border-radius: $btn-border-radius-small;
     height: $btn-circle-size-small;
@@ -314,8 +314,8 @@
     min-width: $btn-circle-size-small;
   }
 
-  &.mini &-prev,
-  &.mini &-next {
+  &.mini .#{$page-prefix-cls}-prev,
+  &.mini .#{$page-prefix-cls}-next {
     border: 0;
     height: $btn-circle-size-small;
     line-height: $btn-circle-size-small - 2px;
@@ -330,18 +330,18 @@
     }
   }
 
-  &.mini &-item-jump-prev,
-  &.mini &-item-jump-next {
+  &.mini .#{$page-prefix-cls}-item-jump-prev,
+  &.mini .#{$page-prefix-cls}-item-jump-next {
     border: none;
     height: $btn-circle-size-small;
     line-height: $btn-circle-size-small;
     margin-right: 0;
   }
 
-  &.mini &-options {
+  &.mini .#{$page-prefix-cls}-options {
     margin-left: 8px;
 
-    &-elevator {
+    .#{$page-prefix-cls}-options-elevator {
       height: $btn-circle-size-small;
       line-height: $btn-circle-size-small;
 

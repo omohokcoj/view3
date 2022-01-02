@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 export default {
+  removeCurrentPopover,
   mounted (el, binding) {
     if (binding.value.disabled) return
 
@@ -51,9 +52,18 @@ export default {
         })
       }
 
-      document.body.appendChild(elem)
+      const parentElem = document.querySelector('[data-popover-container]') || document.createElement('div')
+      parentElem.setAttribute('data-popover-container', 'true')
+      parentElem.classList.add('mdm')
+      parentElem.appendChild(elem)
+      document.body.appendChild(parentElem)
 
-      currentPopover = new Popper(el, elem, { placement: binding.value.placement || 'top' })
+      currentPopover = new Popper(el, elem, { placement: binding.value.placement || 'top',
+        modifiers: {
+          preventOverflow: { boundariesElement: 'window' }
+        }
+      })
+
       currentPopover.trigger = binding.value.trigger
     })
 

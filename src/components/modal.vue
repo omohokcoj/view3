@@ -33,25 +33,27 @@
             :style="contentStyles"
             @click="handleClickModal"
           >
-            <a
-              v-if="closable"
-              :class="[prefixCls + '-close']"
-              @click="close"
-            >
-              <slot name="close">
-                <Icon type="ios-close" />
-              </slot>
-            </a>
-            <div
-              v-if="showHead"
-              :class="[prefixCls + '-header']"
-              @mousedown="handleMoveStart"
-            >
-              <slot name="header">
-                <div :class="[prefixCls + '-header-inner']">
-                  {{ title }}
-                </div>
-              </slot>
+            <div class="ivu-modal-header-content">
+              <a
+                v-if="closable"
+                :class="[prefixCls + '-close']"
+                @click="close"
+              >
+                <slot name="close">
+                  <Icon type="ios-close" />
+                </slot>
+              </a>
+              <div
+                v-if="showHead"
+                :class="[prefixCls + '-header']"
+                @mousedown="handleMoveStart"
+              >
+                <slot name="header">
+                  <div :class="[prefixCls + '-header-inner']">
+                    {{ title }}
+                  </div>
+                </slot>
+              </div>
             </div>
             <div :class="[prefixCls + '-body']">
               <slot />

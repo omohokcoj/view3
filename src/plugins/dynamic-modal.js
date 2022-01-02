@@ -7,13 +7,13 @@ const defaultOptions = {
   footerHide: true
 }
 
-export default {
+class DynamicModalClass {
   open (component, props, opts) {
     const options = { ...defaultOptions, ...opts }
     const instance = this.getModalInstance(component, props, options)
 
     instance.show(options)
-  },
+  }
 
   remove () {
     if (this.modalInstance) {
@@ -23,7 +23,7 @@ export default {
 
       this.modalInstance = null
     }
-  },
+  }
 
   getModalInstance (component, props, options) {
     this.modalInstance = this.modalInstance || createInstance(
@@ -38,7 +38,7 @@ export default {
     )
 
     return this.modalInstance
-  },
+  }
 
   install (app, _) {
     this.app = app
@@ -52,3 +52,6 @@ export default {
     }
   }
 }
+
+export default new DynamicModalClass()
+export { DynamicModalClass }

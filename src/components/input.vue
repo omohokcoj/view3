@@ -52,7 +52,7 @@
           class="ion ion-ios-eye-outline"
         />
       </span>
-      <transition name="fade">
+      <transition v-if="false" name="fade">
         <i
           v-if="!icon"
           class="ion ion-ios-loading ivu-load-loop"

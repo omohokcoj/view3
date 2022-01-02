@@ -15,7 +15,7 @@
     color: $subsidiary-color;
     font-size: 16px;
     height: $input-height-base;
-    line-height: $input-height-base;
+    line-height: $input-height-base !important;
     position: absolute;
     right: 0;
     text-align: center;
@@ -49,13 +49,13 @@
     padding-right: $input-padding-horizontal;
   }
 
-  &-wrapper-large &-icon {
+  &-wrapper-large .#{$input-prefix-cls}-icon {
     font-size: 18px;
     height: $input-height-large;
     line-height: $input-height-large;
   }
 
-  &-wrapper-small &-icon {
+  &-wrapper-small .#{$input-prefix-cls}-icon {
     font-size: 14px;
     height: $input-height-small;
     line-height: $input-height-small;
@@ -89,16 +89,16 @@
     right: 0;
   }
 
-  &-wrapper-small &-prefix,
-  &-wrapper-small &-suffix {
+  &-wrapper-small .#{$input-prefix-cls}-prefix,
+  &-wrapper-small .#{$input-prefix-cls}-suffix {
     i {
       font-size: 14px;
       line-height: $input-height-small;
     }
   }
 
-  &-wrapper-large &-prefix,
-  &-wrapper-large &-suffix {
+  &-wrapper-large .#{$input-prefix-cls}-prefix,
+  &-wrapper-large .#{$input-prefix-cls}-suffix {
     i {
       font-size: 18px;
       line-height: $input-height-large;
@@ -159,7 +159,7 @@
     }
   }
 
-  &-wrapper-small &-search {
+  &-wrapper-small .#{$input-prefix-cls}-search {
     padding: 0 12px !important;
 
     i {
@@ -167,7 +167,7 @@
     }
   }
 
-  &-wrapper-large &-search {
+  &-wrapper-large .#{$input-prefix-cls}-search {
     padding: 0 20px !important;
 
     i {
@@ -198,11 +198,11 @@
     z-index: 1;
   }
 
-  &-wrapper-disabled &-word-count {
+  &-wrapper-disabled .#{$input-prefix-cls}-word-count {
     background: $input-disabled-bg;
   }
 
-  &-type-textarea &-word-count {
+  &-type-textarea .#{$input-prefix-cls}-word-count {
     align-items: flex-end;
     top: auto;
   }

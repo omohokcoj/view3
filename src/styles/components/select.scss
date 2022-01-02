@@ -64,7 +64,7 @@
     }
   }
 
-  &-single &-selection {
+  &-single .#{$select-prefix-cls}-selection {
     height: $input-height-base;
     position: relative;
 
@@ -85,7 +85,7 @@
     }
   }
 
-  &-multiple &-selection {
+  &-multiple .#{$select-prefix-cls}-selection {
     padding: 0 24px 0 4px;
     //min-height: $input-height-base;
 
@@ -103,11 +103,11 @@
     }
   }
 
-  &-default.#{$select-prefix-cls}-multiple &-selection {
+  &-default.#{$select-prefix-cls}-multiple .#{$select-prefix-cls}-selection {
     min-height: $input-height-base;
   }
 
-  &-large.#{$select-prefix-cls}-single &-selection {
+  &-large.#{$select-prefix-cls}-single .#{$select-prefix-cls}-selection {
     height: $input-height-large;
 
     .#{$select-prefix-cls}-placeholder, .#{$select-prefix-cls}-selected-value {
@@ -117,7 +117,7 @@
     }
   }
 
-  &-large.#{$select-prefix-cls}-multiple &-selection {
+  &-large.#{$select-prefix-cls}-multiple .#{$select-prefix-cls}-selection {
     min-height: $input-height-large;
 
     .#{$select-prefix-cls}-placeholder, .#{$select-prefix-cls}-selected-value {
@@ -127,7 +127,7 @@
     }
   }
 
-  &-small.#{$select-prefix-cls}-single &-selection {
+  &-small.#{$select-prefix-cls}-single .#{$select-prefix-cls}-selection {
     border-radius: $btn-border-radius-small;
     height: $input-height-small;
 
@@ -137,7 +137,7 @@
     }
   }
 
-  &-small.#{$select-prefix-cls}-multiple &-selection {
+  &-small.#{$select-prefix-cls}-multiple .#{$select-prefix-cls}-selection {
     border-radius: $btn-border-radius-small;
     min-height: $input-height-small;
 
@@ -171,26 +171,26 @@
     }
   }
 
-  &-single &-input {
+  &-single .#{$select-prefix-cls}-input {
     width: 100%;
   }
 
-  &-large &-input,
-  &-large.#{$select-prefix-cls}-multiple &-input {
+  &-large .#{$select-prefix-cls}-input,
+  &-large.#{$select-prefix-cls}-multiple .#{$select-prefix-cls}-input {
     font-size: $font-size-large;
     height: $input-height-large - 8px;
     line-height: $input-height-large - 8px;
     top: 3px;
   }
 
-  &-small &-input,
-  &-small.#{$select-prefix-cls}-multiple &-input {
+  &-small .#{$select-prefix-cls}-input,
+  &-small.#{$select-prefix-cls}-multiple .#{$select-prefix-cls}-input {
     height: $input-height-small - 6px;
     line-height: $input-height-small - 6px;
     top: 2px;
   }
 
-  &-multiple &-input {
+  &-multiple .#{$select-prefix-cls}-input {
     height: $input-height-base - 6px;
     line-height: $input-height-base - 6px;
     padding: 0 0 0 4px;
@@ -288,12 +288,12 @@
     vertical-align: middle;
   }
 
-  &-single &-prefix {
+  &-single .#{$select-prefix-cls}-prefix {
     padding-left: 4px;
   }
 
-  &-single &-head-with-prefix,
-  &-multiple &-head-with-prefix {
+  &-single .#{$select-prefix-cls}-head-with-prefix,
+  &-multiple .#{$select-prefix-cls}-head-with-prefix {
     padding-left: 0 !important;
   }
 
@@ -302,7 +302,7 @@
     display: flex;
   }
 
-  &-multiple &-head-flex &-prefix {
+  &-multiple .#{$select-prefix-cls}-head-flex .#{$select-prefix-cls}-prefix {
     margin-right: 4px;
   }
 }
