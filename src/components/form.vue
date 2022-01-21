@@ -154,11 +154,12 @@ export default {
       this.genericErrors = []
 
       const normalizedErrors = errors && typeof errors === 'object' && !Array.isArray(errors)
-        ? Object.entries(errors).map(([key, messages]) => ({ key, message: messages.join(', ') }))
+        ? Object.entries(errors).map(([key, message]) => ({ key, message: Array.isArray(message) ? message.join(', ') : message }))
         : errors
 
       normalizedErrors.forEach((error) => {
-        const field = this.fields.find((f) => f.prop === (error.source || error.key || error.field))
+        const fieldObject = this.fields.find((f) => f.prop === (error.source || error.key || error.field))
+        const field = fieldObject ? fieldObject.toString().replace(/\[(\d+)\]/g, (e) => '.' + e[1]) : null
 
         if (field) {
           field.setError(error.detail || error.message)
