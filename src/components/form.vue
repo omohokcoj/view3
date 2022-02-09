@@ -158,11 +158,12 @@ export default {
         : errors
 
       normalizedErrors.forEach((error) => {
-        const fieldObject = this.fields.find((f) => f.prop === (error.source || error.key || error.field))
-        const field = fieldObject ? fieldObject.toString().replace(/\[(\d+)\]/g, (e) => '.' + e[1]) : null
+        const errorPath = error.source || error.key || error.field
+        const normalizedErrorPath = errorPath ? errorPath.replace(/\[(\d+)\]/g, (e) => '.' + e[1]) : null
+        const fieldObject = normalizedErrorPath ? this.fields.find((f) => f.prop === normalizedErrorPath) : null
 
-        if (field) {
-          field.setError(error.detail || error.message)
+        if (fieldObject) {
+          fieldObject.setError(error.detail || error.message)
         } else {
           this.genericErrors.push([error.key || error.field, error.detail || error.message || error].filter(Boolean).join(' '))
         }
