@@ -6,11 +6,13 @@ import Popover from '../components/popover'
 import DynamicPopover from '../plugins/dynamic-popover'
 
 let currentPopover
+let currentObserver
 
 function removeCurrentPopover () {
   if (currentPopover) {
     currentPopover.destroy()
     currentPopover.popper.remove()
+    currentObserver.unobserve(currentPopover.popper)
   }
 }
 
@@ -58,13 +60,20 @@ export default {
       parentElem.appendChild(elem)
       document.body.appendChild(parentElem)
 
-      currentPopover = new Popper(el, elem, { placement: binding.value.placement || 'top',
-        modifiers: {
-          preventOverflow: { boundariesElement: 'window' }
-        }
+      const isInverseYPlacement = document.body.getBoundingClientRect().height - el.getBoundingClientRect().y < 200
+
+      currentPopover = new Popper(el, elem, { placement: (isInverseYPlacement ? 'right-end' : binding.value.placement) || 'top'
       })
 
       currentPopover.trigger = binding.value.trigger
+
+      currentObserver = new ResizeObserver(() => {
+        currentPopover.update()
+      })
+
+      if (isInverseYPlacement) {
+        currentObserver.observe(elem)
+      }
     })
 
     if (binding.value.trigger === 'mouseenter') {
