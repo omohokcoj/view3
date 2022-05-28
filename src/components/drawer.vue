@@ -121,6 +121,12 @@ export default {
       type: Boolean,
       default: false
     },
+    handleClickOutside: {
+      type: Function,
+      default () {
+        this.close()
+      }
+    },
     placement: {
       validator (value) {
         return oneOf(value, ['left', 'right'])
@@ -299,7 +305,7 @@ export default {
     EscClose (e) {
       if (this.visible) {
         if (e.keyCode === 27) {
-          this.close()
+          this.handleClickOutside()
         }
       }
     },
@@ -325,7 +331,7 @@ export default {
     },
     handleMask () {
       if (this.maskClosable && this.mask && !window.getSelection().toString()) {
-        this.close()
+        this.handleClickOutside()
       }
     },
     handleWrapClick (event) {
