@@ -243,22 +243,22 @@
   }
 
   &-primary,
-  &-primary.#{$tag-prefix-cls}-dot .#{$tabs-prefix-cls}-dot-inner {
+  &-primary.#{$tag-prefix-cls}-dot .#{$tag-prefix-cls}-dot-inner {
     background: $link-color;
   }
 
   &-success,
-  &-success.#{$tag-prefix-cls}-dot .#{$tabs-prefix-cls}-dot-inner {
+  &-success.#{$tag-prefix-cls}-dot .#{$tag-prefix-cls}-dot-inner {
     background: $success-color;
   }
 
   &-warning,
-  &-warning.#{$tag-prefix-cls}-dot .#{$tabs-prefix-cls}-dot-inner {
+  &-warning.#{$tag-prefix-cls}-dot .#{$tag-prefix-cls}-dot-inner {
     background: $warning-color;
   }
 
   &-error,
-  &-error.#{$tag-prefix-cls}-dot .#{$tabs-prefix-cls}-dot-inner {
+  &-error.#{$tag-prefix-cls}-dot .#{$tag-prefix-cls}-dot-inner {
     background: $error-color;
   }
 }
